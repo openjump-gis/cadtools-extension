@@ -1033,13 +1033,13 @@ public class WorkbenchUtils {
 	 * @param toolbox
 	 */
 	public static void loadPython(ToolboxDialog toolbox) {
-
-		console.setPreferredSize(new Dimension(450, 120));
-		// PythonToolsPlugIn pPlugIn = new PythonToolsPlugIn();
-		console.println(IconLoader.icon("jython_small_c.png"));
-		// new ImageIcon(this.getClass().getResource("jython_small_c.png")));
-		toolbox.getCenterPanel().add(console, BorderLayout.CENTER);
-		toolbox.setTitle("Jython");
+		// Do not add console in the CAD Toolbox (available through custom menu)
+		//console.setPreferredSize(new Dimension(450, 120));
+		//// PythonToolsPlugIn pPlugIn = new PythonToolsPlugIn();
+		//console.println(IconLoader.icon("jython_small_c.png"));
+		//// new ImageIcon(this.getClass().getResource("jython_small_c.png")));
+		//toolbox.getCenterPanel().add(console, BorderLayout.CENTER);
+		//toolbox.setTitle("Jython");
 		// setup the interpreter
 		ClassLoader classLoader = context.getWorkbench().getPlugInManager().getPlugInClassLoader();
 		Properties preProperties = new Properties(System.getProperties());

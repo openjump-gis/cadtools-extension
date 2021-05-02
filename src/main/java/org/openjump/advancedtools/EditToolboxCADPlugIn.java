@@ -139,7 +139,7 @@ public class EditToolboxCADPlugIn extends ToolboxPlugIn {
 		 * TaskMonitorManager()).actionPerformed(null);
 		 */
 
-		//WorkbenchUtils.loadPython(toolbox);
+		WorkbenchUtils.loadPython(toolbox);
 		toolbox.setTitle(CAD);
 		EnableCheckFactory checkFactory = new EnableCheckFactory(toolbox.getContext());
 
