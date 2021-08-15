@@ -6,8 +6,9 @@ import java.awt.geom.NoninvertibleTransformException;
 
 import javax.swing.Icon;
 
+import com.vividsolutions.jump.I18N;
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.LineString;
@@ -36,22 +37,24 @@ import es.kosmo.desktop.tools.algorithms.BezierCurve;
 
 public class CuadraticBezierCurveTool extends ConstrainedNClickTool {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     private final FeatureDrawingUtil featureDrawingUtil;
     //protected SnapIndicatorTool snapIndicatorTool;
     private final BezierCurve bezierCurve = new BezierCurve();
 
     public CuadraticBezierCurveTool(FeatureDrawingUtil featureDrawingUtil) {
-        super(3);
+        super(JUMPWorkbench.getInstance().getContext(), 3);
         allowSnapping();
         this.featureDrawingUtil = featureDrawingUtil;
     }
 
     /** Nombre asociado a la herramienta */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.DrawCuadraticBezierCurveTool");
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.plugins.DrawCuadraticBezierCurveTool");
     /** Nombre asociado a la herramienta */
-    public final static String NAME2 = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.DrawCuadraticBezierCurveTool.description");
+    public final static String NAME2 = i18n
+        .get("org.openjump.core.ui.plugins.DrawCuadraticBezierCurveTool.description");
 
     @Override
     public Cursor getCursor() {
@@ -160,8 +163,8 @@ public class CuadraticBezierCurveTool extends ConstrainedNClickTool {
 
     public static MultiEnableCheck createEnableCheck(
             WorkbenchContext workbenchContext) {
-        EnableCheckFactory checkFactory = new EnableCheckFactory(
-                workbenchContext);
+        EnableCheckFactory checkFactory =
+            workbenchContext.createPlugInContext().getCheckFactory();
         MultiEnableCheck check = new MultiEnableCheck();
 
         check.add(checkFactory.createTaskWindowMustBeActiveCheck());

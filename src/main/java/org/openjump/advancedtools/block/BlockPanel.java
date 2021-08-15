@@ -27,8 +27,6 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.TitledBorder;
 
-import org.openjump.advancedtools.language.I18NPlug;
-
 import org.locationtech.jts.geom.Geometry;
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.WorkbenchContext;
@@ -39,21 +37,23 @@ import com.vividsolutions.jump.workbench.ui.WorkbenchToolBar;
 
 public class BlockPanel extends JPanel {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     private static final long serialVersionUID = 1L;
     public static final String blockFolder = "VertexImages";
     public static final String NAME = "Insert symbol as block";
 
     public static JComboBox<BlockCell> chooseBox = new JComboBox<>();
 
-    public static String circle = I18N
+    public static String circle = I18N.JUMP
             .get("deejump.ui.style.RenderingStylePanel.circle");
-    public static String triangle = I18N
+    public static String triangle = I18N.JUMP
             .get("deejump.ui.style.RenderingStylePanel.triangle");
-    public static String square = I18N
+    public static String square = I18N.JUMP
             .get("deejump.ui.style.RenderingStylePanel.square");
-    public static String cross = I18N
+    public static String cross = I18N.JUMP
             .get("deejump.ui.style.RenderingStylePanel.cross");
-    public static String star = I18N
+    public static String star = I18N.JUMP
             .get("deejump.ui.style.RenderingStylePanel.star");
 
     private SpinnerModel rotationModel = new SpinnerNumberModel(0, // initial
@@ -93,8 +93,8 @@ public class BlockPanel extends JPanel {
                                                 * height
                                                 */28);
         chooseBox
-                .setToolTipText(I18NPlug
-                        .getI18N("org.openjump.core.ui.plugins.block.dialog.select-block"));
+            .setToolTipText(i18n
+                .get("org.openjump.core.ui.plugins.block.dialog.select-block"));
         chooseBox.setPreferredSize(d);
 
         chooseBox.setRenderer(new DefaultListCellRenderer() {
@@ -118,20 +118,20 @@ public class BlockPanel extends JPanel {
 
         dimensionSpinner = new JSpinner(dimensionModel);
         final JLabel labelDimension = new JLabel(
-                I18NPlug.getI18N("org.openjump.core.ui.plugins.block.dialog-dimension"));
+                i18n.get("org.openjump.core.ui.plugins.block.dialog-dimension"));
         labelDimension.setToolTipText(gedDimensionTooltip());
 
         rotationSpinner = new JSpinner(rotationModel);
         final JLabel labelRotation = new JLabel(
-                I18NPlug.getI18N("org.openjump.core.ui.plugins.block.dialog-rotation"));
+            i18n.get("org.openjump.core.ui.plugins.block.dialog-rotation"));
         labelRotation
-                .setToolTipText(I18NPlug
-                        .getI18N("org.openjump.core.ui.plugins.annotation.dialog.font-rotation-message"));
+            .setToolTipText(i18n
+                .get("org.openjump.core.ui.plugins.annotation.dialog.font-rotation-message"));
 
         final TitledBorder titledBorder = new TitledBorder(
                 BorderFactory.createEtchedBorder(Color.white, new Color(148,
                         145, 140)),
-                I18NPlug.getI18N("org.openjump.core.ui.plugins.block"));
+            i18n.get("org.openjump.core.ui.plugins.block"));
         mainPanel.setBorder(titledBorder);
 
         final GridBagConstraints c = new GridBagConstraints();
@@ -188,9 +188,9 @@ public class BlockPanel extends JPanel {
 
         JPanel blockChooserPanel = new JPanel();
         JLabel chooseBlockLabel = new JLabel(
-                I18NPlug.getI18N("org.openjump.core.ui.plugins.block.dialog.select-block"));
-        blockChooserPanel.setToolTipText(I18NPlug
-                        .getI18N("org.openjump.core.ui.plugins.block.dialog.dialog.select-block-message"));
+            i18n.get("org.openjump.core.ui.plugins.block.dialog.select-block"));
+        blockChooserPanel.setToolTipText(
+            i18n.get("org.openjump.core.ui.plugins.block.dialog.dialog.select-block-message"));
         blockChooserPanel.add(chooseBlockLabel);
         blockChooserPanel.add(chooseBox);
 
@@ -251,8 +251,8 @@ public class BlockPanel extends JPanel {
 
     private String gedDimensionTooltip() {
 
-        String dimension   = I18NPlug.getI18N("org.openjump.core.ui.plugins.block.define-dimension");
-        String description = I18NPlug.getI18N("org.openjump.core.ui.plugins.block.define-dimension-description");
+        String dimension   = i18n.get("org.openjump.core.ui.plugins.block.define-dimension");
+        String description = i18n.get("org.openjump.core.ui.plugins.block.define-dimension-description");
         String style       = "width: 200px; text-justification: justify;";
 
         return String.format(

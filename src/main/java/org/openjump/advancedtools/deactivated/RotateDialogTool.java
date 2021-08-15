@@ -45,9 +45,9 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import com.vividsolutions.jump.I18N;
 import org.openjump.advancedtools.gui.RotateDialog;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.tools.ConstrainedNClickTool;
 
 import org.locationtech.jts.geom.Coordinate;
@@ -78,12 +78,14 @@ import com.vividsolutions.jump.workbench.ui.snap.SnapIndicatorTool;
  */
 public class RotateDialogTool extends ConstrainedNClickTool {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     /** Nombre asignado a la herramienta */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.RotateDialogTool.Rotate-by-given-angle"); 
+    public final static String NAME = i18n
+            .get("org.openjump.core.ui.tools.RotateDialogTool.Rotate-by-given-angle");
     /** Description of the tool */
-    public final static String DESCRIPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.RotateDialogTool.description");
+    public final static String DESCRIPTION = i18n
+            .get("org.openjump.core.ui.tools.RotateDialogTool.description");
     /** Icon of the tool */
     public final static ImageIcon ICON = IconLoader.icon("rotateByAngle.png"); 
 
@@ -112,13 +114,12 @@ public class RotateDialogTool extends ConstrainedNClickTool {
      */
 
     public RotateDialogTool(EnableCheckFactory checkFactory) {
-        super(1);
+        super(JUMPWorkbench.getInstance().getContext(), 1);
         this.checkFactory = checkFactory;
         allowSnapping();
     }
 
-    EnableCheckFactory checkFactory = new EnableCheckFactory(JUMPWorkbench
-            .getInstance().getContext());
+    EnableCheckFactory checkFactory;
 
     @Override
     public Cursor getCursor() {
@@ -191,9 +192,11 @@ public class RotateDialogTool extends ConstrainedNClickTool {
      */
     public static MultiEnableCheck createEnableCheck(
             final WorkbenchContext workbenchContext, AbstractCursorTool tool) {
+
         MultiEnableCheck solucion = new MultiEnableCheck();
-        EnableCheckFactory checkFactory = new EnableCheckFactory(
-                workbenchContext);
+
+        EnableCheckFactory checkFactory =
+            workbenchContext.createPlugInContext().getCheckFactory();
 
         // al menos una capa debe tener elementos activos
         solucion.add(checkFactory.createTaskWindowMustBeActiveCheck())

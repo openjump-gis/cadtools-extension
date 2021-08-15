@@ -25,21 +25,20 @@ import java.util.Scanner;
  */
 public class BlockCell {
 
-
   public static BlockCell CIRCLE = new BlockCell(
-          I18N.get("deejump.ui.style.RenderingStylePanel.circle"),
+          I18N.JUMP.get("deejump.ui.style.RenderingStylePanel.circle"),
           new Circle(new Coordinate(0, 0), 8).getPoly());
   public static BlockCell TRIANGLE = new BlockCell(
-          I18N.get("deejump.ui.style.RenderingStylePanel.triangle"),
+          I18N.JUMP.get("deejump.ui.style.RenderingStylePanel.triangle"),
           "POLYGON((0 0, 16 0, 8 13.85, 0 0))");
   public static BlockCell SQUARE = new BlockCell(
-          I18N.get("deejump.ui.style.RenderingStylePanel.square"),
+          I18N.JUMP.get("deejump.ui.style.RenderingStylePanel.square"),
           "POLYGON((0 0, 16 0, 16 16, 0 16,  0 0))");
   public static BlockCell CROSS = new BlockCell(
-          I18N.get("deejump.ui.style.RenderingStylePanel.cross"),
+          I18N.JUMP.get("deejump.ui.style.RenderingStylePanel.cross"),
           "POLYGON((5 0, 10 0, 10 5, 15 5, 15 10, 10 10, 10 15, 5 15, 5 10, 0 10, 0 5, 5 5, 5 0))");
   public static BlockCell STAR = new BlockCell(
-          I18N.get("deejump.ui.style.RenderingStylePanel.star"),
+          I18N.JUMP.get("deejump.ui.style.RenderingStylePanel.star"),
           "POLYGON((4 6, 1 6, 3 4, 2 1, 5 3, 8 1, 7 4, 9 6, 6 6, 5 9, 4 6))");
 
 

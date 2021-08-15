@@ -36,8 +36,8 @@
  */
 package org.openjump.advancedtools.tools.cogo.commands;
 
+import com.vividsolutions.jump.I18N;
 import org.openjump.advancedtools.gui.SimpleLineDialog;
-import org.openjump.advancedtools.language.I18NPlug;
 
 import org.locationtech.jts.geom.Coordinate;
 
@@ -49,15 +49,15 @@ import org.locationtech.jts.geom.Coordinate;
  */
 public class IncrementoLineCommand extends LineCommand {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     /** Nombre del comando */
     private final static String COMMAND_NAME = "incr"; 
     /** Sintaxis del comando */
     private final static String SINTAXIS = "@ '" 
-            + I18NPlug
-                    .getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.IncrementoLineCommand.x-value") 
+            + i18n.get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.IncrementoLineCommand.x-value")
             + "','" 
-            + I18NPlug
-                    .getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.IncrementoLineCommand.y-value") 
+            + i18n.get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.IncrementoLineCommand.y-value")
             + "'"; 
 
     private double parametro1;
@@ -99,8 +99,7 @@ public class IncrementoLineCommand extends LineCommand {
     }
 
     public static String getHelp() {
-        return I18NPlug
-                .getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.IncrementoLineCommand.description"); 
+        return i18n.get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.IncrementoLineCommand.description");
     }
 
     public static String getName() {

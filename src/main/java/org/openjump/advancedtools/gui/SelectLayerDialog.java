@@ -47,8 +47,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.saig.jump.lang.I18N;
-
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.model.Layer;
 
 /**
@@ -57,15 +56,15 @@ import com.vividsolutions.jump.workbench.model.Layer;
  */
 public class SelectLayerDialog extends JDialog implements ActionListener {
 
-    /** long serialVersionUID field */
     private static final long serialVersionUID = 1L;
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
     private final JComboBox<Layer> jcb = new JComboBox<>();
     private Layer selected = null;
     private final JButton ok = new JButton(
-            I18N.getString("org.openjump.core.ui.tools.SelectLayerDialog.Accept"));
+            i18n.get("org.openjump.core.ui.tools.SelectLayerDialog.Accept"));
     private final JButton cancel = new JButton(
-            I18N.getString("org.openjump.core.ui.tools.SelectLayerDialog.Cancel"));
+            i18n.get("org.openjump.core.ui.tools.SelectLayerDialog.Cancel"));
 
     /**
      * @param parent parent Frame
@@ -74,16 +73,15 @@ public class SelectLayerDialog extends JDialog implements ActionListener {
     public SelectLayerDialog(JFrame parent, Layer[] layers) {
         super(
                 parent,
-                I18N.getString("org.openjump.core.ui.tools.SelectLayerDialog.Choose-a-layer"),
+                i18n.get("org.openjump.core.ui.tools.SelectLayerDialog.Choose-a-layer"),
                 true);
         for (Layer layer : layers) {
             jcb.addItem(layer);
         }
         this.getContentPane().setLayout(new BorderLayout());
         JPanel p1 = new JPanel();
-        p1.add(new JLabel(
-                I18N.getString("org.openjump.core.ui.tools.SelectLayerDialog.Choose-a-layer")
-                        + ":"));
+        p1.add(new JLabel(i18n.get(
+            "org.openjump.core.ui.tools.SelectLayerDialog.Choose-a-layer") + ":"));
         p1.add(jcb);
         JPanel p2 = new JPanel();
         p2.add(ok);

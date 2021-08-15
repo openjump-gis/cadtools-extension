@@ -57,7 +57,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import org.openjump.advancedtools.language.I18NPlug;
+import com.vividsolutions.jump.I18N;
 import org.openjump.advancedtools.plugins.CirclePlugIn;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
@@ -68,6 +68,7 @@ import org.openjump.advancedtools.utils.WorkbenchUtils;
 public class CircleDialog extends JDialog implements ActionListener {
     /** long serialVersionUID field */
     private static final long serialVersionUID = 1L;
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
     public static ImageIcon ICON = org.openjump.advancedtools.icon.IconLoader
             .icon("cad.png");
     //JPanel p1 = new JPanel();
@@ -75,35 +76,35 @@ public class CircleDialog extends JDialog implements ActionListener {
     JPanel p4 = new JPanel();
 
     /** Plugin name */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.Circle-ellipse");
-    public static String radius = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.Circle.by-radius");
-    public static String diameter = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.Circle.by-diameter");
-    public static String tangent = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.Circle.by-tangent");
-    public static String threepoints = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.Circle.3-points");
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.plugins.Circle-ellipse");
+    public static String radius = i18n
+        .get("org.openjump.core.ui.plugins.Circle.by-radius");
+    public static String diameter = i18n
+        .get("org.openjump.core.ui.plugins.Circle.by-diameter");
+    public static String tangent = i18n
+        .get("org.openjump.core.ui.plugins.Circle.by-tangent");
+    public static String threepoints = i18n
+        .get("org.openjump.core.ui.plugins.Circle.3-points");
 
     public static String[] circletools = { radius, tangent, diameter,
             threepoints };
     public static JComboBox circleCombo = new JComboBox(circletools);
 
     JButton jb1 = new JButton(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.Dialog.Accept"));
+        i18n.get("org.openjump.core.ui.plugins.Dialog.Accept"));
     JButton jb2 = new JButton(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.Dialog.Cancel"));
+        i18n.get("org.openjump.core.ui.plugins.Dialog.Cancel"));
 
     JRadioButton jrbindicarRaton = new JRadioButton(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.Circle.Draw-with-the-mouse"));
+        i18n.get("org.openjump.core.ui.plugins.Circle.Draw-with-the-mouse"));
     JRadioButton jrbindicarRadio = new JRadioButton(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.Circle.Point-out-radius"));
+        i18n.get("org.openjump.core.ui.plugins.Circle.Point-out-radius"));
     JRadioButton jrbindicarPosicionRadio = new JRadioButton(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.Circle.Point-out-radius-and-position"));
+        i18n.get("org.openjump.core.ui.plugins.Circle.Point-out-radius-and-position"));
 
     JRadioButton jrbEllipse = new JRadioButton(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.Ellipse"));
+        i18n.get("org.openjump.core.ui.plugins.Ellipse"));
 
     JPanel jpRaton = new JPanel();
     JPanel jpEllipse = new JPanel();
@@ -121,11 +122,11 @@ public class CircleDialog extends JDialog implements ActionListener {
             .getUSFormatedNumberTextField(100);
 
     JLabel jlx = new JLabel(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.circle.X") + ":");
+        i18n.get("org.openjump.core.ui.plugins.circle.X") + ":");
     JLabel jly = new JLabel(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.circle.Y") + ":");
+        i18n.get("org.openjump.core.ui.plugins.circle.Y") + ":");
     JLabel jlr = new JLabel(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.circle.Radius") + ":");
+        i18n.get("org.openjump.core.ui.plugins.circle.Radius") + ":");
 
     ButtonGroup group1 = new ButtonGroup();
 
@@ -235,7 +236,7 @@ public class CircleDialog extends JDialog implements ActionListener {
                 .image("cadTools.png"));
         this.pack();
         this.setLocationRelativeTo(parent);
-        this.setName(I18NPlug.getI18N("org.openjump.core.ui.plugins.Circle"));
+        this.setName(i18n.get("org.openjump.core.ui.plugins.Circle"));
 
         jsRadio1.requestFocusInWindow();
     }

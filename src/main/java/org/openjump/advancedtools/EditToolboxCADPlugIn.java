@@ -26,10 +26,10 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JToggleButton;
 
+import com.vividsolutions.jump.I18N;
 import org.openjump.advancedtools.annotation.TextPanel;
 import org.openjump.advancedtools.block.BlockPanel;
 import org.openjump.advancedtools.config.CADToolsOptionsPanel;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.plugins.ArcPlugIn;
 import org.openjump.advancedtools.plugins.CirclePlugIn;
 import org.openjump.advancedtools.plugins.ClearLayerSelectionPlugIn;
@@ -66,7 +66,6 @@ import com.vividsolutions.jump.workbench.ui.OptionsDialog;
 import com.vividsolutions.jump.workbench.ui.WorkbenchToolBar;
 import com.vividsolutions.jump.workbench.ui.cursortool.DelegatingTool;
 import com.vividsolutions.jump.workbench.ui.cursortool.QuasimodeTool;
-import com.vividsolutions.jump.workbench.ui.plugin.FeatureInstaller;
 import com.vividsolutions.jump.workbench.ui.toolbox.ToolboxDialog;
 import com.vividsolutions.jump.workbench.ui.toolbox.ToolboxPlugIn;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
@@ -78,17 +77,20 @@ import org.openjump.advancedtools.utils.WorkbenchUtils;
 @SuppressWarnings("deprecation")
 public class EditToolboxCADPlugIn extends ToolboxPlugIn {
 
-	public static final String CAD = I18NPlug.getI18N("org.openjump.core.ui.CAD");
-	public static final String CAD_OPTIONS_PANE_NAME = I18NPlug
-			.getI18N("org.openjump.core.ui.config.CADToolsOptionsPanel");
+	private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
+	public static final String CAD = i18n.get("org.openjump.core.ui.CAD");
+	public static final String CAD_OPTIONS_PANE_NAME = i18n
+			.get("org.openjump.core.ui.config.CADToolsOptionsPanel");
 
 	public static ImageIcon ICON = org.openjump.advancedtools.icon.IconLoader.icon("cadTools.png");
+
+	PlugInContext context;
 
 	@Override
 	public void initialize(PlugInContext context) {
 		WorkbenchContext workbenchContext = context.getWorkbenchContext();
-		new FeatureInstaller(workbenchContext);
-
+		this.context = context;
 		context.getWorkbenchFrame().getToolBar().addSpacer();
 		context.getWorkbenchFrame().getToolBar().addPlugIn(ICON, this, createEnableCheck(workbenchContext),
 				context.getWorkbenchContext());
@@ -100,7 +102,8 @@ public class EditToolboxCADPlugIn extends ToolboxPlugIn {
 	}
 
 	private MultiEnableCheck createEnableCheck(final WorkbenchContext workbenchContext) {
-		EnableCheckFactory checkFactory = new EnableCheckFactory(workbenchContext);
+		EnableCheckFactory checkFactory =
+				workbenchContext.createPlugInContext().getCheckFactory();
 
 		MultiEnableCheck mec = new MultiEnableCheck();
 		mec.add(checkFactory.createWindowWithLayerViewPanelMustBeActiveCheck());
@@ -125,176 +128,181 @@ public class EditToolboxCADPlugIn extends ToolboxPlugIn {
 	@Override
 	protected void initializeToolbox(final ToolboxDialog toolbox) {
 
-		/*
-		 * AbstractPlugIn.toActionListener(new AbstractThreadedUiPlugIn() {
-		 * 
-		 * @Override public String getName() { return null; }
-		 * 
-		 * @Override public boolean execute(PlugInContext context) throws Exception {
-		 * return true; }
-		 * 
-		 * @Override public void run(TaskMonitor monitor, PlugInContext context) throws
-		 * Exception { // WorkbenchUtils.loadPython(toolbox); } },
-		 * JUMPWorkbench.getInstance().getContext(), new
-		 * TaskMonitorManager()).actionPerformed(null);
-		 */
+		try {
 
-		WorkbenchUtils.loadPython(toolbox);
-		toolbox.setTitle(CAD);
-		EnableCheckFactory checkFactory = new EnableCheckFactory(toolbox.getContext());
+			/*
+			 * AbstractPlugIn.toActionListener(new AbstractThreadedUiPlugIn() {
+			 *
+			 * @Override public String getName() { return null; }
+			 *
+			 * @Override public boolean execute(PlugInContext context) throws Exception {
+			 * return true; }
+			 *
+			 * @Override public void run(TaskMonitor monitor, PlugInContext context) throws
+			 * Exception { // WorkbenchUtils.loadPython(toolbox); } },
+			 * JUMPWorkbench.getInstance().getContext(), new
+			 * TaskMonitorManager()).actionPerformed(null);
+			 */
+
+			WorkbenchUtils.loadPython(toolbox);
+			toolbox.setTitle(CAD);
+			EnableCheckFactory checkFactory =
+					JUMPWorkbench.getInstance().getContext().createPlugInContext().getCheckFactory();
+
+			// Selecting tools/plugins
+			SelectEditingFeaturesTool select = new SelectEditingFeaturesTool();
+			toolbox.add(select);
+			// Unselect features
+			ClearLayerSelectionPlugIn clearSelectionPlugIn2 = new ClearLayerSelectionPlugIn(context);
+			toolbox.addPlugIn(clearSelectionPlugIn2, null, ClearLayerSelectionPlugIn.ICON);
+
+			// Drawing tools/plugIns
+			// Create new geometries giving defined parameters
+			// Draw simple line with commands
+			SimpleLinePlugIn sl = new SimpleLinePlugIn(context);
+			toolbox.addPlugIn(sl, null, sl.getIcon());
+
+			// Draw Bezier curve tool
+			toolbox.add(CuadraticBezierCurveTool.create(toolbox.getContext()));
+
+			// Draw arc plugin
+			ArcPlugIn arc = new ArcPlugIn(context);
+			toolbox.addPlugIn(arc, null, arc.getIcon());
+
+			// Draw Constrained parallelogramme
+			toolbox.add(DrawConstrainedParallelogramTool.create(toolbox.getContext()));
+
+			// Draw regular polygon
+			RegularPolygonPlugIn regular = new RegularPolygonPlugIn(context);
+			toolbox.addPlugIn(regular, null, regular.getIcon());
+
+			// Draw circle plugin
+			CirclePlugIn circle = new CirclePlugIn(context);
+			toolbox.addPlugIn(circle, null, circle.getIcon());
+			toolbox.addToolBar();
+			// Simple draw ellipse by dragging
+			toolbox.add(EllipseByDraggingTool.create(toolbox.getContext()));
+
+			// Draw with commands
+			DelegatingTool delLineCommandTool = (DelegatingTool) DrawGeometryCommandsTool.create(toolbox.getContext());
+			WorkbenchToolBar.ToolConfig toolConfig = toolbox.add(delLineCommandTool);
+			final CommandLineStringFrame frame = new CommandLineStringFrame(
+					(DrawGeometryCommandsTool) delLineCommandTool.getDelegate());
+			final JToggleButton cogoCommandButton = toolConfig.getButton();
+			cogoCommandButton.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					super.mouseClicked(e);
+					frame.setVisible(cogoCommandButton.isSelected());
+				}
+			});
+			cogoCommandButton.addItemListener(e ->
+					frame.setVisible(cogoCommandButton.isSelected()));
+
+			// cogoCommandButton.addChangeListener(new ChangeListener() {
+			// @Override
+			// public void stateChanged(ChangeEvent e) {
+			// frame.setVisible(cogoCommandButton.isSelected());
+			// }
+			// });
 
 
-		// Selecting tools/plugins
-		SelectEditingFeaturesTool select = new SelectEditingFeaturesTool();
-		toolbox.add(select);
-		// Unselect features
-		ClearLayerSelectionPlugIn clearSelectionPlugIn2 = new ClearLayerSelectionPlugIn();
-		toolbox.addPlugIn(clearSelectionPlugIn2, null, ClearLayerSelectionPlugIn.ICON);
+			// Generate tools/plugins
+			//
+			// Generate new geometries from selected one. Selected geometries are not
+			// deleted
+			//
+			// Draw parallel line to a selected geometry
+			ParalelLineTool paralel = new ParalelLineTool(checkFactory);
+			toolbox.add(paralel);
 
-		// Drawing tools/plugIns
-		// Create new geometries giving defined parameters
-		// Draw simple line with commands
-		SimpleLinePlugIn sl = new SimpleLinePlugIn();
-		toolbox.addPlugIn(sl, null, sl.getIcon());
+			// Draw a parallel auxiliary line to a selected geometry
+			ParalelAuxiliarylLineTool auxiliaryParalel = new ParalelAuxiliarylLineTool(checkFactory);
+			toolbox.add(auxiliaryParalel);
 
-		// Draw Bezier curve tool
-		toolbox.add(CuadraticBezierCurveTool.create(toolbox.getContext()));
+			// Draw a perpendicular line to a selected geometry
+			PerpendicularLineTool perpendicular = new PerpendicularLineTool(checkFactory);
+			toolbox.add(perpendicular);
 
-		// Draw arc plugin
-		ArcPlugIn arc = new ArcPlugIn();
-		toolbox.addPlugIn(arc, null, arc.getIcon());
+			// Clone selected geometries
+			CopyDraggingTool copy = new CopyDraggingTool(checkFactory);
+			toolbox.add(copy);
 
-		// Draw Constrained parallelogramme
-		toolbox.add(DrawConstrainedParallelogramTool.create(toolbox.getContext()));
+			// Axial symmetry of selected geometries
+			MirrorPlugin mirror = new MirrorPlugin(context);
+			toolbox.addPlugIn(mirror, null, mirror.getIcon());
 
-		// Draw regular polygon
-		RegularPolygonPlugIn regular = new RegularPolygonPlugIn();
-		toolbox.addPlugIn(regular, null, regular.getIcon());
+			// Extend a lineString
+			ExtendLinePlugIn extendLinePlugIn = new ExtendLinePlugIn(context);
+			toolbox.addPlugIn(extendLinePlugIn, null, extendLinePlugIn.getIcon());
+			toolbox.addToolBar();
+			// Shorten a lineString
+			ShortenLinePlugIn shortenLinePlugIn = new ShortenLinePlugIn(context);
+			toolbox.addPlugIn(shortenLinePlugIn, null, shortenLinePlugIn.getIcon());
 
-		// Draw circle plugin
-		CirclePlugIn circle = new CirclePlugIn();
-		toolbox.addPlugIn(circle, null, circle.getIcon());
-		toolbox.addToolBar();
-		// Simple draw ellipse by dragging
-		toolbox.add(EllipseByDraggingTool.create(toolbox.getContext()));
+			// Modify tools/plugins
+			// Modify selected geometries.
+			// Extend two convergent lineStrings and cut in the point they touch
+			toolbox.add(ExtendLinesAndCutWhereTheyTouchTool.create(toolbox.getContext()));
 
-		// Draw with commands
-		DelegatingTool delLineCommandTool = (DelegatingTool) DrawGeometryCommandsTool.create(toolbox.getContext());
-		WorkbenchToolBar.ToolConfig toolConfig = toolbox.add(delLineCommandTool);
-		final CommandLineStringFrame frame = new CommandLineStringFrame(
-				(DrawGeometryCommandsTool) delLineCommandTool.getDelegate());
-		final JToggleButton cogoCommandButton = toolConfig.getButton();
-		cogoCommandButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				super.mouseClicked(e);
-				frame.setVisible(cogoCommandButton.isSelected());
-			}
-		});
-		cogoCommandButton.addItemListener(e ->
-				frame.setVisible(cogoCommandButton.isSelected()));
+			// Put vertex on crossing point of two lineStrings
+			PutVertexInCrossingLinesPlugIn putVertex = new PutVertexInCrossingLinesPlugIn(context);
+			toolbox.addPlugIn(putVertex, null, putVertex.getIcon());
 
-		// cogoCommandButton.addChangeListener(new ChangeListener() {
-		// @Override
-		// public void stateChanged(ChangeEvent e) {
-		// frame.setVisible(cogoCommandButton.isSelected());
-		// }
-		// });
+			// Remove a section of a selected lineString
+			toolbox.add(QuasimodeTool.createWithDefaults(new RemoveSectionInLineTool(checkFactory)));
 
+			AddAreaTool addAreaTool = new AddAreaTool();
+			toolbox.add(addAreaTool);
 
-		// Generate tools/plugins
-		//
-		// Generate new geometries from selected one. Selected geometries are not
-		// deleted
-		//
-		// Draw parallel line to a selected geometry
-		ParalelLineTool paralel = new ParalelLineTool(checkFactory);
-		toolbox.add(paralel);
+			RemoveAreaTool removeAreaTool = new RemoveAreaTool();
+			toolbox.add(removeAreaTool);
 
-		// Draw a parallel auxiliary line to a selected geometry
-		ParalelAuxiliarylLineTool auxiliaryParalel = new ParalelAuxiliarylLineTool(checkFactory);
-		toolbox.add(auxiliaryParalel);
+			// toolbox.addToolBar();
+			// toolbox.add(QuasimodeTool.createWithDefaults(new
+			// DrawOneVectorTool()));
 
-		// Draw a perpendicular line to a selected geometry
-		PerpendicularLineTool perpendicular = new PerpendicularLineTool(checkFactory);
-		toolbox.add(perpendicular);
+			/*
+			 * The following working tools/plugins are deactivated as either always they
+			 * have a correspondence in OpenJUMP or they are used for testing reasons
+			 */
 
-		// Clone selected geometries
-		CopyDraggingTool copy = new CopyDraggingTool(checkFactory);
-		toolbox.add(copy);
+			// Rotate features by dragging
+			// toolbox.add(GeneralUtils.addStandardQuasimodes(new
+			// RotateTool(checkFactory)));
+			// Rotate features using a dilaog
+			// toolbox.add(GeneralUtils.addStandardQuasimodes(new
+			// RotateDialogTool(checkFactory)));
 
-		// Axial symmetry of selected geometries
-		MirrorPlugin mirror = new MirrorPlugin();
-		toolbox.addPlugIn(mirror, null, mirror.getIcon());
+			// ForceQuitPlugIn quit = new ForceQuitPlugIn();
+			// toolbox.addPlugIn(quit, null, quit.getIcon());
 
-		// Extend a lineString
-		ExtendLinePlugIn extendLinePlugIn = new ExtendLinePlugIn();
-		toolbox.addPlugIn(extendLinePlugIn, null, extendLinePlugIn.getIcon());
-		toolbox.addToolBar();
-		// Shorten a lineString
-		ShortenLinePlugIn shortenLinePlugIn = new ShortenLinePlugIn();
-		toolbox.addPlugIn(shortenLinePlugIn, null, shortenLinePlugIn.getIcon());
+			// Add lower panel
+			toolbox.getCenterPanel().add(FullPanel(toolbox), BorderLayout.NORTH);
 
-		// Modify tools/plugins
-		// Modify selected geometries.
-		// Extend two convergent lineStrings and cut in the point they touch
-		toolbox.add(ExtendLinesAndCutWhereTheyTouchTool.create(toolbox.getContext()));
+			/*
+			 * JMenuItem console = new JMenuItem("Open Python console");
+			 *
+			 * toolbox.getJMenuBar().getMenu(0).add(console); console.addActionListener(new
+			 * ActionListener() {
+			 *
+			 * @Override public void actionPerformed(ActionEvent e) {
+			 * dFrame.add(WorkbenchUtils.console); WorkbenchFrame wFrame =
+			 * JUMPWorkbench.getInstance().getFrame(); dFrame.setPreferredSize(new
+			 * Dimension(450, 120)); wFrame .addInternalFrame(dFrame);
+			 *
+			 *
+			 * } });
+			 */
 
-		// Put vertex on crossing point of two lineStrings
-		PutVertexInCrossingLinesPlugIn putVertex = new PutVertexInCrossingLinesPlugIn();
-		toolbox.addPlugIn(putVertex, null, putVertex.getIcon());
-
-		// Remove a section of a selected lineString
-		toolbox.add(QuasimodeTool.createWithDefaults(new RemoveSectionInLineTool(checkFactory)));
-
-		AddAreaTool addAreaTool = new AddAreaTool();
-		toolbox.add(addAreaTool);
-
-		RemoveAreaTool removeAreaTool = new RemoveAreaTool();
-		toolbox.add(removeAreaTool);
-
-		// toolbox.addToolBar();
-		// toolbox.add(QuasimodeTool.createWithDefaults(new
-		// DrawOneVectorTool()));
-
-		/*
-		 * The following working tools/plugins are deactivated as either always they
-		 * have a correspondence in OpenJUMP or they are used for testing reasons
-		 */
-
-		// Rotate features by dragging
-		// toolbox.add(GeneralUtils.addStandardQuasimodes(new
-		// RotateTool(checkFactory)));
-		// Rotate features using a dilaog
-		// toolbox.add(GeneralUtils.addStandardQuasimodes(new
-		// RotateDialogTool(checkFactory)));
-
-		// ForceQuitPlugIn quit = new ForceQuitPlugIn();
-		// toolbox.addPlugIn(quit, null, quit.getIcon());
-
-		// Add lower panel
-		toolbox.getCenterPanel().add(FullPanel(toolbox), BorderLayout.NORTH);
-
-		/*
-		 * JMenuItem console = new JMenuItem("Open Python console");
-		 * 
-		 * toolbox.getJMenuBar().getMenu(0).add(console); console.addActionListener(new
-		 * ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent e) {
-		 * dFrame.add(WorkbenchUtils.console); WorkbenchFrame wFrame =
-		 * JUMPWorkbench.getInstance().getFrame(); dFrame.setPreferredSize(new
-		 * Dimension(450, 120)); wFrame .addInternalFrame(dFrame);
-		 * 
-		 * 
-		 * } });
-		 */
-
-		toolbox.finishAddingComponents();
-		toolbox.setIconImage(org.openjump.advancedtools.icon.IconLoader.image("cadTools.png"));
-		toolbox.setResizable(false);
-		toolbox.setInitialLocation(new GUIUtil.Location(20, true, 20, true));
-		toolbox.validate();
+			toolbox.finishAddingComponents();
+			toolbox.setIconImage(org.openjump.advancedtools.icon.IconLoader.image("cadTools.png"));
+			toolbox.setResizable(false);
+			toolbox.setInitialLocation(new GUIUtil.Location(20, true, 20, true));
+			toolbox.validate();
+		} catch(Exception e) {
+			throw new RuntimeException(e);
+		}
 
 	}
 

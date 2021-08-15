@@ -55,8 +55,8 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.EditUtils;
 
 import org.locationtech.jts.geom.Coordinate;
@@ -87,16 +87,18 @@ import com.vividsolutions.jump.workbench.ui.cursortool.DragTool;
  */
 public class RotateTool extends DragTool {
 
-    /** Name of the tool */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.RotateTool.Rotate");
-    /** Description of the tool */
-    public final static String DESCRIPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.RotateTool.description");
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
-    final static String angleST = I18N
+    /** Name of the tool */
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.tools.RotateTool.Rotate");
+    /** Description of the tool */
+    public final static String DESCRIPTION = i18n
+        .get("org.openjump.core.ui.tools.RotateTool.description");
+
+    final static String angleST = I18N.JUMP
             .get("org.openjump.core.ui.plugins.edittoolbox.cursortools.angle");
-    final static String degrees = I18N
+    final static String degrees = I18N.JUMP
             .get("org.openjump.core.ui.plugins.edittoolbox.cursortools.degrees");
 
     /** Icon of the tool */
@@ -132,7 +134,7 @@ public class RotateTool extends DragTool {
      *
      */
     public RotateTool(EnableCheckFactory checkFactory) {
-        super();
+        super(JUMPWorkbench.getInstance().getContext());
         this.checkFactory = checkFactory;
         allowSnapping();
     }

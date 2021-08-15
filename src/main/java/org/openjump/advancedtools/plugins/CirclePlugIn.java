@@ -46,7 +46,6 @@ import com.vividsolutions.jump.workbench.Logger;
 import org.openjump.advancedtools.config.CADToolsOptionsPanel;
 import org.openjump.advancedtools.gui.CircleDialog;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.tools.CircleByDefinedRadiusTool;
 import org.openjump.advancedtools.tools.CircleByDiameterTool;
 import org.openjump.advancedtools.tools.CircleByRadiusTool;
@@ -96,13 +95,15 @@ import com.vividsolutions.jump.workbench.ui.cursortool.CursorTool;
  */
 public class CirclePlugIn extends AbstractPlugIn {
 
-    /** Plugin name */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.Circle");
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
     /** Plugin name */
-    public final static String NAME2 = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.Circle.description");
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.plugins.Circle");
+
+    /** Plugin name */
+    public final static String NAME2 = i18n
+        .get("org.openjump.core.ui.plugins.Circle.description");
 
     /** Plugin icnon */
     public static final Icon ICON = IconLoader.icon("drawCircle.png");
@@ -114,8 +115,8 @@ public class CirclePlugIn extends AbstractPlugIn {
     /**
      * 
      */
-    public CirclePlugIn() {
-
+    public CirclePlugIn(PlugInContext context) throws Exception {
+        super.initialize(context);
     }
 
     @Override
@@ -143,7 +144,7 @@ public class CirclePlugIn extends AbstractPlugIn {
                     .getInstance()
                     .getFrame()
                     .warnUser(
-                            I18N.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
+                            I18N.JUMP.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
             return false;
         } else {
             try {
@@ -303,7 +304,7 @@ public class CirclePlugIn extends AbstractPlugIn {
             layer = context
                     .addLayer(
                             StandardCategoryNames.WORKING,
-                            I18N.get("org.openjump.core.ui.plugins.edit.ReplicateSelectedItemsPlugIn.new"),
+                            I18N.JUMP.get("org.openjump.core.ui.plugins.edit.ReplicateSelectedItemsPlugIn.new"),
                             myCollA);
         } else {
             layer = wbcontext.createPlugInContext().getSelectedLayer(0);

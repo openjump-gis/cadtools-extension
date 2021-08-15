@@ -6,6 +6,8 @@ package org.openjump.advancedtools.tools;
  */
 import java.awt.event.MouseEvent;
 
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
+import com.vividsolutions.jump.workbench.WorkbenchContext;
 import org.openjump.core.ui.plugin.edittoolbox.cursortools.ConstrainedMultiClickTool;
 
 import org.locationtech.jts.geom.Coordinate;
@@ -14,7 +16,8 @@ public abstract class ConstrainedNClickTool extends ConstrainedMultiClickTool {
 
     protected int n;
 
-    public ConstrainedNClickTool(int n) {
+    public ConstrainedNClickTool(WorkbenchContext wc, int n) {
+        super(wc);
         this.n = n;
     }
 

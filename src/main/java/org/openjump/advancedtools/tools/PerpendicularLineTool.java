@@ -16,7 +16,6 @@ import javax.swing.ImageIcon;
 import com.vividsolutions.jump.workbench.Logger;
 import org.openjump.advancedtools.gui.LengthDialog;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.CADEnableCheckFactory;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
@@ -50,17 +49,19 @@ import com.vividsolutions.jump.workbench.ui.cursortool.DragTool;
 
 public class PerpendicularLineTool extends DragTool {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     Geometry geomSelected = null;
 
     private static final GeometryFactory geomFac = new GeometryFactory();
 
-    public static final String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.PerpendicularLineTool.Perpendicular");
+    public static final String NAME = i18n
+        .get("org.openjump.core.ui.tools.PerpendicularLineTool.Perpendicular");
 
-    public final static String DESCRIPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.PerpendicularLineTool.description");
+    public final static String DESCRIPTION = i18n
+        .get("org.openjump.core.ui.tools.PerpendicularLineTool.description");
 
-    String sDistance = I18N.get("ui.cursortool.CoordinateListMetrics.Distance");
+    String sDistance = I18N.JUMP.get("ui.cursortool.CoordinateListMetrics.Distance");
 
     public static final ImageIcon ICON = IconLoader
             .icon("drawPerpendicular.png");
@@ -94,10 +95,12 @@ public class PerpendicularLineTool extends DragTool {
     protected List<Feature> featsOriginal;
 
     //protected List<Feature> featsSelectedToUpdate;
-    EnableCheckFactory checkFactory = new EnableCheckFactory(JUMPWorkbench
-            .getInstance().getContext());
+    EnableCheckFactory checkFactory;
+    // = new EnableCheckFactory(JUMPWorkbench
+    //.getInstance().getContext());
 
     public PerpendicularLineTool(EnableCheckFactory checkFactory) {
+        super(JUMPWorkbench.getInstance().getContext());
         this.checkFactory = checkFactory;
         allowSnapping();
     }
@@ -356,8 +359,8 @@ public class PerpendicularLineTool extends DragTool {
     public static MultiEnableCheck createEnableCheck(
             WorkbenchContext workbenchContext, AbstractCursorTool tool) {
         MultiEnableCheck solucion = new MultiEnableCheck();
-        EnableCheckFactory checkFactory = new EnableCheckFactory(
-                workbenchContext);
+        EnableCheckFactory checkFactory =
+            workbenchContext.createPlugInContext().getCheckFactory();
 
         solucion.add(checkFactory.createTaskWindowMustBeActiveCheck())
                 .add(checkFactory

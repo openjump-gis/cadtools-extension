@@ -51,7 +51,6 @@ import javax.swing.Icon;
 
 import com.vividsolutions.jump.workbench.Logger;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.plugins.CalculateSelectionPlugIn;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
@@ -85,12 +84,14 @@ import com.vividsolutions.jump.workbench.ui.renderer.FeatureSelectionRenderer;
  */
 public class SelectEditingFeaturesTool extends SelectTool {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     /** Nombre asociado a la herramienta */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.Select.Select-editing-features");
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.tools.Select.Select-editing-features");
     /** Nombre asociado a la herramienta */
-    public final static String NAME2 = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.Select.Select-editing-features.description");
+    public final static String NAME2 = i18n
+        .get("org.openjump.core.ui.tools.Select.Select-editing-features.description");
 
     /** Icono asociado a la herramienta */
     public final static Icon ICON = IconLoader.icon("selectEditing.png");
@@ -100,16 +101,9 @@ public class SelectEditingFeaturesTool extends SelectTool {
             (IconLoader.icon("selectEditingCursor.png")).getImage(), new Point(
                     0, 0));
 
-    ///** Log */
-    //public final static Logger LOGGER = Logger
-    //        .getLogger("org.openjump.core.ui.tools.SelectEditingFeaturesTool");
 
-    /**
-     * 
-     *
-     */
     public SelectEditingFeaturesTool() {
-        super(FeatureSelectionRenderer.CONTENT_ID);
+        super(JUMPWorkbench.getInstance().getContext(), FeatureSelectionRenderer.CONTENT_ID);
 
         WorkbenchFrame frameInstance = JUMPWorkbench.getInstance().getFrame();
         if (frameInstance != null)
@@ -160,9 +154,7 @@ public class SelectEditingFeaturesTool extends SelectTool {
         }
     }
 
-    /**
-     * 
-     */
+
     @Override
     public void activate(LayerViewPanel layerViewPanel) {
         super.activate(layerViewPanel);
@@ -171,23 +163,17 @@ public class SelectEditingFeaturesTool extends SelectTool {
                     .getInstance()
                     .getFrame()
                     .warnUser(
-                            I18N.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
+                            I18N.JUMP.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
             return;
 
         }
         selection = layerViewPanel.getSelectionManager().getFeatureSelection();
     }
 
-    /**
-     *
-     */
+
     @Override
     protected void gestureFinished() throws NoninvertibleTransformException {
 
-        //LayerViewPanel layerViewPanel = JUMPWorkbench.getInstance().getFrame()
-        //        .getContext().getLayerViewPanel();
-        //Collection<Feature> selgeom = layerViewPanel.getSelectionManager()
-        //        .getFeaturesWithSelectedItems();
         try {
             selectFeatures(EnvelopeUtil.toGeometry(getBoxInModelCoordinates()));
         } catch (Exception e) {
@@ -222,8 +208,8 @@ public class SelectEditingFeaturesTool extends SelectTool {
                 .getContext().createPlugInContext());
     }
 
-    EnableCheckFactory checkFactory = new EnableCheckFactory(JUMPWorkbench
-            .getInstance().getContext());
+    EnableCheckFactory checkFactory =
+        JUMPWorkbench.getInstance().getContext().createPlugInContext().getCheckFactory();
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -284,8 +270,8 @@ public class SelectEditingFeaturesTool extends SelectTool {
     public static MultiEnableCheck createEnableCheck(
             final WorkbenchContext workbenchContext, CursorTool tool) {
         MultiEnableCheck solucion = new MultiEnableCheck();
-        EnableCheckFactory checkFactory = new EnableCheckFactory(
-                workbenchContext);
+        EnableCheckFactory checkFactory =
+            workbenchContext.createPlugInContext().getCheckFactory();
         // al menos una capa debe tener elementos activos
         solucion.add(checkFactory.createTaskWindowMustBeActiveCheck());
         // solo una capa puede tener elementos seleccionados.

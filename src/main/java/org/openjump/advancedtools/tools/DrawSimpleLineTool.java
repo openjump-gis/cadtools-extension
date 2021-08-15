@@ -44,12 +44,13 @@ import java.util.List;
 
 import javax.swing.Icon;
 
+import com.vividsolutions.jump.I18N;
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.openjump.advancedtools.gui.SimpleLineDialog;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.EditUtils;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
@@ -70,9 +71,11 @@ import com.vividsolutions.jump.workbench.ui.cursortool.NClickTool;
  */
 public class DrawSimpleLineTool extends NClickTool {
 
+	private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
 	/** Name of the tool */
-	public final static String NAME = I18NPlug.getI18N("org.openjump.core.ui.tools.DrawSimpleLine.Draw-simple-line");
-	public final static String DESCRIPTION = I18NPlug.getI18N("org.openjump.core.ui.tools.DrawSimpleLine.description");
+	public final static String NAME = i18n.get("org.openjump.core.ui.tools.DrawSimpleLine.Draw-simple-line");
+	public final static String DESCRIPTION = i18n.get("org.openjump.core.ui.tools.DrawSimpleLine.description");
 
 	/** Icon of the tool */
 	public static final Icon ICON = IconLoader.icon("drawSimpleLine.png");
@@ -99,7 +102,7 @@ public class DrawSimpleLineTool extends NClickTool {
 	 * @param c2
 	 */
 	public DrawSimpleLineTool(int n, SimpleLineDialog sld, Coordinate c1, Coordinate c2) {
-		super(n);
+		super(JUMPWorkbench.getInstance().getContext(), n);
 		coordinateA = c1;
 		coordinateB = c2;
 		this.sld = sld;

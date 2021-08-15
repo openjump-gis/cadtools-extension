@@ -36,8 +36,8 @@
  */
 package org.openjump.advancedtools.tools.cogo.commands;
 
+import com.vividsolutions.jump.I18N;
 import org.openjump.advancedtools.gui.SimpleLineDialog;
-import org.openjump.advancedtools.language.I18NPlug;
 
 import org.locationtech.jts.geom.Coordinate;
 
@@ -50,6 +50,8 @@ import org.locationtech.jts.geom.Coordinate;
  * @since Kosmo 1.1.1
  */
 public class HelpLineCommand extends LineCommand {
+
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
     /** Nombre del comando */
     private final static String COMMAND_NAME = "help"; 
@@ -75,14 +77,11 @@ public class HelpLineCommand extends LineCommand {
     public static String getHelp() {
 
         String helpText = "<TABLE BORDER=1><TR><TH>"
-                + I18NPlug
-                        .getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.HelpLineCommand.syntax")  
+                + i18n.get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.HelpLineCommand.syntax")
                 + "<TH>"
-                + I18NPlug
-                        .getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.HelpLineCommand.function");  
+                + i18n.get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.HelpLineCommand.function");
         helpText = helpText + "<TR><TD>" + SINTAXIS + "<TD>"  
-                + I18NPlug
-                        .getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.HelpLineCommand.description"); 
+                + i18n.get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.HelpLineCommand.description");
         helpText = helpText
                 + "<TR><TD>" + (new AbsolutoLineCommand("")).getSintaxis() + "<TD>"  
                 + AbsolutoLineCommand.getHelp();

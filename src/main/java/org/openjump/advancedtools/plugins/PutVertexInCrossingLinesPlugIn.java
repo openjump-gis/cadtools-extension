@@ -45,7 +45,6 @@ import javax.swing.ImageIcon;
 
 import com.vividsolutions.jump.workbench.Logger;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.CADEnableCheckFactory;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
@@ -55,7 +54,6 @@ import com.vividsolutions.jump.feature.Feature;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import com.vividsolutions.jump.workbench.model.Layer;
 import com.vividsolutions.jump.workbench.plugin.AbstractPlugIn;
-import com.vividsolutions.jump.workbench.plugin.EnableCheckFactory;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 import com.vividsolutions.jump.workbench.ui.GUIUtil;
 import com.vividsolutions.jump.workbench.ui.TaskFrame;
@@ -74,26 +72,29 @@ import es.kosmo.desktop.tools.algorithms.VertexInCrossingLinesAlgorithm;
  * @since OpenJUMP 1.10 (2017)
  */
 public class PutVertexInCrossingLinesPlugIn extends AbstractPlugIn {
-    private static final String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.PutVertexInCrossingLinesPlugIn.Put-vertex-in-crossing-lines");
-    private static final String DESCRIPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.PutVertexInCrossingLinesPlugIn.description");
+
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
+    private static final String NAME = i18n
+        .get("org.openjump.core.ui.tools.PutVertexInCrossingLinesPlugIn.Put-vertex-in-crossing-lines");
+    private static final String DESCRIPTION = i18n
+        .get("org.openjump.core.ui.tools.PutVertexInCrossingLinesPlugIn.description");
     private static final ImageIcon ICON = GUIUtil.resize(
             IconLoader.icon("vertexInCross.png"), 20);
     private VertexInCrossingLinesAlgorithm vertextAlg = new VertexInCrossingLinesAlgorithm();
 
-    //EnableCheckFactory checkFactory = new EnableCheckFactory(JUMPWorkbench
-    //        .getInstance().getContext());
 
     /** Selecting tool in case of no check conditions */
     protected SelectFeaturesTool select = null;
 
-    public PutVertexInCrossingLinesPlugIn() {
+    public PutVertexInCrossingLinesPlugIn(PlugInContext context) throws Exception {
+        super.initialize(context);
         createTools();
     }
 
     protected void createTools() {
-        select = new SelectFeaturesTool();
+        select =
+            new SelectFeaturesTool(JUMPWorkbench.getInstance().getContext());
     }
 
     @Override
@@ -105,7 +106,7 @@ public class PutVertexInCrossingLinesPlugIn extends AbstractPlugIn {
                     .getInstance()
                     .getFrame()
                     .warnUser(
-                            I18N.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
+                            I18N.JUMP.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
             return false;
         } else if (!WorkbenchUtils
                 .check(CADEnableCheckFactory
@@ -160,7 +161,7 @@ public class PutVertexInCrossingLinesPlugIn extends AbstractPlugIn {
                     .getInstance()
                     .getFrame()
                     .warnUser(
-                            I18NPlug.getI18N("org.openjump.core.ui.tools.ExtendLinesAndCutWhereTheyTouchTool.Lines-do-not-cross"));
+                            i18n.get("org.openjump.core.ui.tools.ExtendLinesAndCutWhereTheyTouchTool.Lines-do-not-cross"));
             return;
         }
 

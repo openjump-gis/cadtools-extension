@@ -39,9 +39,9 @@ package org.openjump.advancedtools.tools.cogo.commands;
 import java.util.Collection;
 import java.util.List;
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.Logger;
 import org.openjump.advancedtools.gui.SimpleLineDialog;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.plugins.SimpleLinePlugIn;
 import org.openjump.advancedtools.tools.cogo.DrawGeometryCommandsTool;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
@@ -63,6 +63,7 @@ import com.vividsolutions.jump.workbench.model.Layer;
  */
 public abstract class LineCommand {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
     /**
      * Ejecuta el comando para la herramienta simpleline
@@ -132,7 +133,7 @@ public abstract class LineCommand {
                     .getInstance()
                     .getFrame()
                     .warnUser(
-                            I18NPlug.getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.you-must-introduce-at-least-one-point-of-the-line"));
+                        i18n.get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.you-must-introduce-at-least-one-point-of-the-line"));
         }
     }
 

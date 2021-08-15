@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 import javax.swing.Icon;
 
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import org.openjump.advancedtools.config.CADToolsOptionsPanel;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.CoordinateListMetricsUtils;
 import org.openjump.core.geomutils.Circle;
 import org.openjump.core.ui.plugin.edittoolbox.cursortools.ConstrainedMultiClickTool;
@@ -36,22 +36,25 @@ import com.vividsolutions.jump.workbench.ui.cursortool.CursorTool;
 import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUtil;
 
 public class CircleByRadiusTool extends ConstrainedMultiClickTool {
+
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     private FeatureDrawingUtil featureDrawingUtil;
-    static final String drawConstrainedCircle = I18N
+    static final String drawConstrainedCircle = I18N.JUMP
             .get("org.openjump.core.ui.plugins.edittoolbox.cursortools.DrawConstrainedCircleTool.Draw-Constrained-Circle");
 
-    static final String theCircleMustHaveAtLeast2Points = I18N
+    static final String theCircleMustHaveAtLeast2Points = I18N.JUMP
             .get("org.openjump.core.ui.plugins.edittoolbox.cursortools.DrawConstrainedCircleTool.The-circle-must-have-at-least-2-points");
 
-    public CircleByRadiusTool(int n) {
+    public CircleByRadiusTool() {
+        super(JUMPWorkbench.getInstance().getContext());
     }
 
     private CircleByRadiusTool(FeatureDrawingUtil featureDrawingUtil) {
+        super(JUMPWorkbench.getInstance().getContext());
         this.featureDrawingUtil = featureDrawingUtil;
     }
 
-    public CircleByRadiusTool() {
-    }
 
     public static CursorTool create(LayerNamePanelProxy layerNamePanelProxy) {
         FeatureDrawingUtil featureDrawingUtil = new FeatureDrawingUtil(
@@ -63,7 +66,7 @@ public class CircleByRadiusTool extends ConstrainedMultiClickTool {
 
     @Override
     public String getName() {
-        return I18NPlug.getI18N("Draw.Circle.by.diameter");
+        return i18n.get("Draw.Circle.by.diameter");
     }
 
     @Override
@@ -149,16 +152,16 @@ public class CircleByRadiusTool extends ConstrainedMultiClickTool {
         return true;
     }
 
-    public static final String Radius = I18NPlug
-            .getI18N("org.openjump.core.ui.utils.CoordinateListMetrics.radius")
+    public static final String Radius = i18n
+            .get("org.openjump.core.ui.utils.CoordinateListMetrics.radius")
             + ": ";
 
     //public static final String Circum = I18NPlug
     //        .getI18N("org.openjump.core.ui.utils.CoordinateListMetrics.circumference")
     //        + ": ";
 
-    public static final String Center = I18NPlug
-            .getI18N("org.openjump.core.ui.utils.CoordinateListMetrics.center-coordinates")
+    public static final String Center = i18n
+            .get("org.openjump.core.ui.utils.CoordinateListMetrics.center-coordinates")
             + ": ";
 
     //public static DecimalFormat df2 = new DecimalFormat("##0.0#");

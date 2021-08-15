@@ -50,6 +50,7 @@ import java.util.ArrayList;
 
 import javax.swing.Icon;
 
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import org.openjump.advancedtools.config.CADToolsOptionsPanel;
 import org.openjump.advancedtools.utils.CoordinateListMetricsUtils;
 import org.openjump.core.geomutils.Circle;
@@ -69,17 +70,22 @@ import com.vividsolutions.jump.workbench.ui.cursortool.CursorTool;
 import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUtil;
 
 public class CircleByDiameterTool extends ConstrainedMultiClickTool {
+
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     private FeatureDrawingUtil featureDrawingUtil;
-    final static String drawConstrainedCircle = I18N
+
+    final static String drawConstrainedCircle = I18N.JUMP
             .get("org.openjump.core.ui.plugins.edittoolbox.cursortools.DrawConstrainedCircleTool.Draw-Constrained-Circle");
-    final static String theCircleMustHaveAtLeast2Points = I18N
+    final static String theCircleMustHaveAtLeast2Points = I18N.JUMP
             .get("org.openjump.core.ui.plugins.edittoolbox.cursortools.DrawConstrainedCircleTool.The-circle-must-have-at-least-2-points");
 
-    public CircleByDiameterTool(int n) {
+    public CircleByDiameterTool() {
+        super(JUMPWorkbench.getInstance().getContext());
     }
 
     private CircleByDiameterTool(FeatureDrawingUtil featureDrawingUtil) {
-        // super(2);
+        super(JUMPWorkbench.getInstance().getContext());
         // drawClosed = true;
         this.featureDrawingUtil = featureDrawingUtil;
     }
@@ -94,8 +100,7 @@ public class CircleByDiameterTool extends ConstrainedMultiClickTool {
 
     @Override
     public String getName() {
-        return org.openjump.advancedtools.language.I18NPlug
-                .getI18N("Draw.Circle.by.diameter");
+        return i18n.get("Draw.Circle.by.diameter");
     }
 
     @Override

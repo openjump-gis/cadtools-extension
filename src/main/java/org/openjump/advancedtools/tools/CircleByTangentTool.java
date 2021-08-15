@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 import javax.swing.Icon;
 
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import org.openjump.advancedtools.config.CADToolsOptionsPanel;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.CoordinateListMetricsUtils;
 import org.openjump.core.geomutils.Circle;
 import org.openjump.core.ui.plugin.edittoolbox.cursortools.ConstrainedMultiClickTool;
@@ -30,7 +30,6 @@ import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.operation.valid.IsValidOp;
 import com.vividsolutions.jump.I18N;
-import com.vividsolutions.jump.workbench.plugin.EnableCheckFactory;
 import com.vividsolutions.jump.workbench.ui.EditTransaction;
 import com.vividsolutions.jump.workbench.ui.LayerNamePanelProxy;
 import com.vividsolutions.jump.workbench.ui.cursortool.CursorTool;
@@ -38,23 +37,25 @@ import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUti
 
 public class CircleByTangentTool extends ConstrainedMultiClickTool {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     private FeatureDrawingUtil featureDrawingUtil;
 
-    static final String drawConstrainedCircle = I18N
+    static final String drawConstrainedCircle = I18N.JUMP
             .get("org.openjump.core.ui.plugins.edittoolbox.cursortools.DrawConstrainedCircleTool.Draw-Constrained-Circle");
 
-    static final String theCircleMustHaveAtLeast2Points = I18N
+    static final String theCircleMustHaveAtLeast2Points = I18N.JUMP
             .get("org.openjump.core.ui.plugins.edittoolbox.cursortools.DrawConstrainedCircleTool.The-circle-must-have-at-least-2-points");
 
-    public CircleByTangentTool(int n) {
+    public CircleByTangentTool() {
+        super(JUMPWorkbench.getInstance().getContext());
     }
 
     private CircleByTangentTool(FeatureDrawingUtil featureDrawingUtil) {
+        super(JUMPWorkbench.getInstance().getContext());
         this.featureDrawingUtil = featureDrawingUtil;
     }
 
-    public CircleByTangentTool(EnableCheckFactory checkFactory) {
-    }
 
     public static CursorTool create(LayerNamePanelProxy layerNamePanelProxy) {
         FeatureDrawingUtil featureDrawingUtil = new FeatureDrawingUtil(
@@ -66,7 +67,7 @@ public class CircleByTangentTool extends ConstrainedMultiClickTool {
 
     @Override
     public String getName() {
-        return I18NPlug.getI18N("Draw.Circle.by.diameter");
+        return i18n.get("Draw.Circle.by.diameter");
     }
 
     @Override

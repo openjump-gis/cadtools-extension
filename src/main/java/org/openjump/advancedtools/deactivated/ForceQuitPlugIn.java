@@ -40,9 +40,13 @@ public class ForceQuitPlugIn extends AbstractPlugIn {
 		return ICON;
 	}
 
-	public static MultiEnableCheck createEnableCheck(WorkbenchContext workbenchContext) {
-		EnableCheckFactory checkFactory = new EnableCheckFactory(workbenchContext);
+	public static MultiEnableCheck createEnableCheck(
+			WorkbenchContext workbenchContext) {
 
-		return new MultiEnableCheck().add(checkFactory.createWindowWithSelectionManagerMustBeActiveCheck());
+		EnableCheckFactory checkFactory =
+				workbenchContext.createPlugInContext().getCheckFactory();
+
+		return new MultiEnableCheck().add(checkFactory
+				.createWindowWithSelectionManagerMustBeActiveCheck());
 	}
 }

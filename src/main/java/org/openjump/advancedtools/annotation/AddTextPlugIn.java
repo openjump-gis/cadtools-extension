@@ -3,8 +3,8 @@ package org.openjump.advancedtools.annotation;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
+import com.vividsolutions.jump.I18N;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 
 import com.vividsolutions.jump.feature.FeatureCollectionWrapper;
 import com.vividsolutions.jump.feature.FeatureSchema;
@@ -17,18 +17,21 @@ import com.vividsolutions.jump.workbench.plugin.MultiEnableCheck;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 
 public class AddTextPlugIn extends AbstractPlugIn {
+
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     public static ImageIcon ICON = IconLoader
             .icon("textblock/annotation_add.png");
 
     /** Name of the tool */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.annotation.AddTextTool.name");
+    public final static String NAME = i18n
+            .get("org.openjump.core.ui.plugins.annotation.AddTextTool.name");
     /** Description of the tool */
-    public final static String DESCRIPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.annotation.AddTextTool.description");
+    public final static String DESCRIPTION = i18n
+            .get("org.openjump.core.ui.plugins.annotation.AddTextTool.description");
 
-    public final static String MESSAGE = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.annotation.AddTextTool.message");
+    public final static String MESSAGE = i18n
+            .get("org.openjump.core.ui.plugins.annotation.AddTextTool.message");
 
     @Override
     public String getName() {
@@ -46,7 +49,7 @@ public class AddTextPlugIn extends AbstractPlugIn {
     public boolean execute(PlugInContext context) throws Exception {
         reportNothingToUndoYet(context);
 
-        context.getLayerViewPanel().setCurrentCursorTool(new AddTextTool());
+        context.getLayerViewPanel().setCurrentCursorTool(new AddTextTool(context));
         return true;
     }
 
@@ -56,8 +59,8 @@ public class AddTextPlugIn extends AbstractPlugIn {
 
     public static EnableCheck createEnableCheck(
             final WorkbenchContext workbenchContext) {
-        EnableCheckFactory checkFactory = new EnableCheckFactory(
-                workbenchContext);
+        EnableCheckFactory checkFactory =
+            workbenchContext.createPlugInContext().getCheckFactory();
 
         return new MultiEnableCheck()
                 .add(checkFactory

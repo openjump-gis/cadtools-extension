@@ -6,15 +6,14 @@ import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
-import java.io.IOException;
 
 import javax.swing.ImageIcon;
 
-import org.openjump.advancedtools.language.I18NPlug;
+import com.vividsolutions.jump.I18N;
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.io.ParseException;
 import com.vividsolutions.jump.geom.CoordUtil;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 import com.vividsolutions.jump.workbench.ui.LayerNamePanelProxy;
@@ -25,9 +24,11 @@ import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUti
 
 public class DrawBlockTool extends NClickTool {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     //public static final String blockFolder = "VertexImages";
-    public static final String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.block.DrawblockTool.description");
+    public static final String NAME = i18n
+        .get("org.openjump.core.ui.plugins.block.DrawblockTool.description");
 
     private final FeatureDrawingUtil featureDrawingUtil;
     private final ImageIcon ICON = org.openjump.advancedtools.icon.IconLoader
@@ -36,7 +37,7 @@ public class DrawBlockTool extends NClickTool {
     final BlockPanel blockPanel;
 
     public DrawBlockTool(FeatureDrawingUtil featureDrawingUtil, BlockPanel blockPanel) {
-        super(1);
+        super(JUMPWorkbench.getInstance().getContext(), 1);
         this.featureDrawingUtil = featureDrawingUtil;
         setColor(Color.blue);
         setStroke(new BasicStroke(1.5F));

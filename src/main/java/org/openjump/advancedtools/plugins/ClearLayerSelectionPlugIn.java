@@ -44,8 +44,6 @@ import javax.swing.ImageIcon;
 
 import com.vividsolutions.jump.workbench.Logger;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
-import org.openjump.advancedtools.utils.WorkbenchUtils;
 
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.Feature;
@@ -69,33 +67,18 @@ import com.vividsolutions.jump.workbench.ui.plugin.ClearSelectionPlugIn;
  */
 public class ClearLayerSelectionPlugIn extends AbstractPlugIn {
 
-    ///** Flag to indicate that the shift button has been pressed */
-    //protected boolean wasShiftPressed;
-
-    ///** Query geometry */
-    //protected Geometry fence;
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
     /** Selection type */
     protected AbstractSelection selection;
 
-    ///** Layer list to filter by */
-    //protected List<Layerable> layersToFilter;
-
     /** Name of tool */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.Deselect");
+    public final static String NAME = i18n
+            .get("org.openjump.core.ui.plugins.Deselect");
 
-    ///** Description */
-    //public final static String NAME2 = I18NPlug
-    //        .getI18N("org.openjump.core.ui.plugins.Deselect.description");
 
-    //EnableCheckFactory checkFactory = new EnableCheckFactory(JUMPWorkbench
-    //        .getInstance().getContext());
-
-    /**
-     *
-     */
-    public ClearLayerSelectionPlugIn() {
+    public ClearLayerSelectionPlugIn(PlugInContext context) throws Exception {
+        super.initialize(context);
     }
 
     public Icon getIcon() {
@@ -125,7 +108,7 @@ public class ClearLayerSelectionPlugIn extends AbstractPlugIn {
                     .getInstance()
                     .getFrame()
                     .warnUser(
-                            I18N.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
+                            I18N.JUMP.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
             return false;
 
         }
@@ -155,9 +138,6 @@ public class ClearLayerSelectionPlugIn extends AbstractPlugIn {
         context.getLayerViewPanel().getSelectionManager()
                 .setPanelUpdatesEnabled(false);
         try {
-
-            //Collection<Feature> featuresToSelect = layerToFeaturesInFenceMap
-            //        .get(layer);
 
             Collection<Feature> featuresToUnselect = selection
                     .getFeaturesWithSelectedItems(layer);

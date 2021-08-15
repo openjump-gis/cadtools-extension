@@ -39,8 +39,8 @@ package org.openjump.advancedtools.tools.cogo.commands;
 import java.awt.geom.NoninvertibleTransformException;
 import java.util.Collection;
 
+import com.vividsolutions.jump.I18N;
 import org.openjump.advancedtools.gui.SimpleLineDialog;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.tools.cogo.DrawGeometryCommandsTool;
 
 import org.locationtech.jts.geom.Coordinate;
@@ -63,6 +63,8 @@ import com.vividsolutions.jump.workbench.model.LayerManager;
  */
 public class ZoomLastLineCommand extends LineCommand {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     /** Nombre del comando */
     private final static String COMMAND_NAME = "zoomlast";
     /** Sintaxis del comando */
@@ -83,8 +85,7 @@ public class ZoomLastLineCommand extends LineCommand {
     }
 
     public static String getHelp() {
-        return I18NPlug
-                .getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.ZoomLastLineCommand.description");
+        return i18n.get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.ZoomLastLineCommand.description");
     }
 
     public static String getName() {
@@ -113,7 +114,7 @@ public class ZoomLastLineCommand extends LineCommand {
                     .getInstance()
                     .getFrame()
                     .warnUser(
-                            I18NPlug.getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.EndLineCommand.check"));
+                            i18n.get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.EndLineCommand.check"));
         }
 
     }

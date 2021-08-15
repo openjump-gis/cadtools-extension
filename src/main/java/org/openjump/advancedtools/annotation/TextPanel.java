@@ -14,7 +14,7 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.TitledBorder;
 
-import org.openjump.advancedtools.language.I18NPlug;
+import com.vividsolutions.jump.I18N;
 import org.saig.core.gui.swing.sldeditor.util.FormUtils;
 
 import com.vividsolutions.jump.workbench.WorkbenchContext;
@@ -24,6 +24,8 @@ import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 import com.vividsolutions.jump.workbench.ui.WorkbenchToolBar;
 
 public class TextPanel extends JPanel {
+
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
     private static final long serialVersionUID = 1L;
     public static PlugInContext context;
@@ -64,15 +66,15 @@ public class TextPanel extends JPanel {
     public JPanel panel_text(PlugInContext context) {
         text_panel = new JPanel(new GridBagLayout());
         text_panel_jlabel1 = new JLabel(
-                I18NPlug.getI18N("org.openjump.core.ui.plugins.block.dialog-rotation"));
+                i18n.get("org.openjump.core.ui.plugins.block.dialog-rotation"));
         text_panel_jlabel1
-                .setToolTipText(I18NPlug
-                        .getI18N("org.openjump.core.ui.plugins.annotation.dialog.font-rotation-message"));
+                .setToolTipText(i18n
+                        .get("org.openjump.core.ui.plugins.annotation.dialog.font-rotation-message"));
         text_panel_jlabel1.setHorizontalTextPosition(JLabel.LEFT);
         textRotationSpinner = new JSpinner(textRotationModel);
         textDimensionSpinner = new JSpinner(textDimensionModel);
         text_panel_jlabel2 = new JLabel(
-                I18NPlug.getI18N("org.openjump.core.ui.plugins.block.dialog-dimension"));
+            i18n.get("org.openjump.core.ui.plugins.block.dialog-dimension"));
         text_panel_jlabel2.setToolTipText(gedtDescription());
         //FormUtils.addRowInGBL(text_panel, 1, 0, null, text_panel_jlabel1,
         //        textRotationSpinner, text_panel_jlabel2, textDimensionSpinner);
@@ -101,11 +103,9 @@ public class TextPanel extends JPanel {
         tooltip = "<HTML><BODY>";
         tooltip += "<DIV style=\"width: 200px; text-justification: justify;\">";
         tooltip += "<b>"
-                + I18NPlug
-                        .getI18N("org.openjump.core.ui.plugins.annotation.dialog.dimension")
+                + i18n.get("org.openjump.core.ui.plugins.annotation.dialog.dimension")
                 + "</b>" + "<br>";
-        tooltip += I18NPlug
-                .getI18N("org.openjump.core.ui.plugins.annotation.dialog.dimension-description")
+        tooltip += i18n.get("org.openjump.core.ui.plugins.annotation.dialog.dimension-description")
                 + "<br>";
         tooltip += "</DIV></BODY></HTML>";
         return tooltip;

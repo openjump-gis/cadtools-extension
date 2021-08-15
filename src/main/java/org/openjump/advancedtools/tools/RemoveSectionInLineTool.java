@@ -48,9 +48,9 @@ import java.util.Set;
 
 import javax.swing.Icon;
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.Logger;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.CADEnableCheckFactory;
 import org.openjump.advancedtools.utils.EditUtils;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
@@ -86,11 +86,13 @@ import com.vividsolutions.jump.workbench.ui.cursortool.SelectFeaturesTool;
  */
 public class RemoveSectionInLineTool extends NClickTool {
 
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.RemoveSectionInLine.remove-section-in-line"); //$NON-NLS-1$
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
-    public final static String DESCRIPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.RemoveSectionInLine.description");
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.tools.RemoveSectionInLine.remove-section-in-line"); //$NON-NLS-1$
+
+    public final static String DESCRIPTION = i18n
+        .get("org.openjump.core.ui.tools.RemoveSectionInLine.description");
 
     public final static Icon ICON = IconLoader.icon("removeSectionInLine1.png");//$NON-NLS-1$
 
@@ -109,7 +111,7 @@ public class RemoveSectionInLineTool extends NClickTool {
     GeometryFactory geomFac = new GeometryFactory();
 
     public RemoveSectionInLineTool(EnableCheckFactory checkFactory) {
-        super(2);
+        super(JUMPWorkbench.getInstance().getContext(), 2);
         this.checkFactory = checkFactory;
         allowSnapping();
         this.wContext = JUMPWorkbench.getInstance().getFrame().getContext();
@@ -174,8 +176,8 @@ public class RemoveSectionInLineTool extends NClickTool {
          */
 
         if (clickedLine == null) {
-            String msg = I18NPlug
-                    .getI18N("org.openjump.core.ui.tools.RemoveSectionInLine.must-do-click-on-selected-line"); //$NON-NLS-1$
+            String msg = i18n
+                .get("org.openjump.core.ui.tools.RemoveSectionInLine.must-do-click-on-selected-line"); //$NON-NLS-1$
             JUMPWorkbench.getInstance().getFrame().warnUser(msg);
             return;
         }
@@ -199,8 +201,8 @@ public class RemoveSectionInLineTool extends NClickTool {
         }
 
         if (geometries.isEmpty()) {
-            String msg = I18NPlug
-                    .getI18N("org.openjump.core.ui.tools.RemoveSectionInLine.in-order-to-remove-the-selected-element-use-the-remove-tool"); //$NON-NLS-1$
+            String msg = i18n
+                .get("org.openjump.core.ui.tools.RemoveSectionInLine.in-order-to-remove-the-selected-element-use-the-remove-tool"); //$NON-NLS-1$
             JUMPWorkbench.getInstance().getFrame().warnUser(msg);
             return;
         }
@@ -406,7 +408,8 @@ public class RemoveSectionInLineTool extends NClickTool {
     public static MultiEnableCheck createEnableCheck(
             final WorkbenchContext workbenchContext, CursorTool tool) {
 
-        EnableCheckFactory cf = new EnableCheckFactory(workbenchContext);
+        EnableCheckFactory cf =
+            workbenchContext.createPlugInContext().getCheckFactory();
 
         EnableCheck[] checks = { cf.createTaskWindowMustBeActiveCheck(),
 
@@ -454,8 +457,8 @@ public class RemoveSectionInLineTool extends NClickTool {
         List coordinates = getCoordinates();
         if (!buffer.covers(lastClick)) {
             coordinates.remove(lastClickIndex); // it was not valid
-            String msg = I18NPlug
-                    .getI18N("org.openjump.core.ui.tools.RemoveSectionInLine.must-do-click-on-selected-line"); //$NON-NLS-1$
+            String msg = i18n
+                .get("org.openjump.core.ui.tools.RemoveSectionInLine.must-do-click-on-selected-line"); //$NON-NLS-1$
             JUMPWorkbench.getInstance().getFrame().warnUser(msg);
         } else {
             try {
@@ -472,8 +475,8 @@ public class RemoveSectionInLineTool extends NClickTool {
     }
 
     /** Selecting tool in case of no check conditions */
-    protected SelectFeaturesTool select = new SelectFeaturesTool();// Select
-                                                                   // features
+    protected SelectFeaturesTool select =
+        new SelectFeaturesTool(JUMPWorkbench.getInstance().getContext());
 
     /**
      * @return

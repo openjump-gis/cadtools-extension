@@ -41,7 +41,6 @@ import javax.swing.JOptionPane;
 
 import com.vividsolutions.jump.workbench.Logger;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.tools.MirrorToDrawSegmentTool;
 import org.openjump.advancedtools.tools.MirrorToSelectedSegmentTool;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
@@ -71,16 +70,15 @@ import com.vividsolutions.jump.workbench.ui.cursortool.SelectFeaturesTool;
 
 public class MirrorPlugin extends AbstractPlugIn {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     /** Name of the plugin */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.MirrorPlugin");
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.plugins.MirrorPlugin");
 
     /** description of the tool */
-    public final static String DESCRIPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.MirrorPlugin.description");
-
-    //final static String errorSeeOutputWindow = I18NPlug
-    //        .getI18N("org.openjump.core.ui.tools.General.Error");
+    public final static String DESCRIPTION = i18n
+        .get("org.openjump.core.ui.plugins.MirrorPlugin.description");
 
     /** Icon of the plugin */
     public final static Icon ICON = IconLoader.icon("symmetry.png");
@@ -94,26 +92,19 @@ public class MirrorPlugin extends AbstractPlugIn {
     /** Selecting tool in case of no check conditions */
     protected SelectFeaturesTool select = null;
 
-    EnableCheckFactory checkFactory = new EnableCheckFactory(JUMPWorkbench
-            .getInstance().getFrame().getContext());
 
-    /**
-     * 
-     *
-     */
-    public MirrorPlugin() {
+
+    public MirrorPlugin(PlugInContext context) throws Exception {
+        super.initialize(context);
         createTools();
     }
 
     protected void createTools() {
         mrt = new MirrorToDrawSegmentTool();
         mst = new MirrorToSelectedSegmentTool();
-        select = new SelectFeaturesTool();
+        select = new SelectFeaturesTool(JUMPWorkbench.getInstance().getContext());
     }
 
-    /**
-     * 
-     */
     @Override
     public boolean execute(PlugInContext context) {
         reportNothingToUndoYet(context);
@@ -122,11 +113,11 @@ public class MirrorPlugin extends AbstractPlugIn {
                     .getInstance()
                     .getFrame()
                     .warnUser(
-                            I18N.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
+                            I18N.JUMP.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
             return false;
         } else {
             try {
-                if (!WorkbenchUtils.check(checkFactory
+                if (!WorkbenchUtils.check(context.getCheckFactory()
                         .createAtLeastNFeaturesMustBeSelectedCheck(1))) {
                     context.getLayerViewPanel().setCurrentCursorTool(select);
                     return false;
@@ -134,16 +125,16 @@ public class MirrorPlugin extends AbstractPlugIn {
 
                 int n;
                 Object[] options = {
-                        I18NPlug.getI18N("org.openjump.core.ui.plugins.MirrorPlugin.Draw"),
-                        I18NPlug.getI18N("org.openjump.core.ui.plugins.MirrorPlugin.Select"),
-                        I18NPlug.getI18N("org.openjump.core.ui.plugins.Dialog.Cancel") };
+                    i18n.get("org.openjump.core.ui.plugins.MirrorPlugin.Draw"),
+                    i18n.get("org.openjump.core.ui.plugins.MirrorPlugin.Select"),
+                    i18n.get("org.openjump.core.ui.plugins.Dialog.Cancel") };
                 n = JOptionPane
                         .showOptionDialog(
-                                context.getWorkbenchFrame(),
-                                I18NPlug.getI18N("org.openjump.core.ui.plugins.MirrorPlugin.Do-you-want-to-draw-the-symmetry-axis-or-select-it-from-another-geometry"),
-                                NAME, JOptionPane.YES_NO_CANCEL_OPTION,
-                                JOptionPane.QUESTION_MESSAGE, null, options,
-                                options[2]);
+                            context.getWorkbenchFrame(),
+                            i18n.get("org.openjump.core.ui.plugins.MirrorPlugin.Do-you-want-to-draw-the-symmetry-axis-or-select-it-from-another-geometry"),
+                            NAME, JOptionPane.YES_NO_CANCEL_OPTION,
+                            JOptionPane.QUESTION_MESSAGE, null, options,
+                            options[2]);
 
                 if (n == 0) {
                     context.getLayerViewPanel().setCurrentCursorTool(mrt);

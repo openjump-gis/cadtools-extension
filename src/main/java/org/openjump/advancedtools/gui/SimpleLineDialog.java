@@ -55,7 +55,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
 
-import org.openjump.advancedtools.language.I18NPlug;
+import com.vividsolutions.jump.I18N;
 import org.openjump.advancedtools.plugins.SimpleLinePlugIn;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 import org.saig.core.gui.swing.sldeditor.util.FormUtils;
@@ -72,34 +72,36 @@ import com.vividsolutions.jump.workbench.plugin.PlugInContext;
  */
 public class SimpleLineDialog extends JDialog implements ActionListener,
         WindowListener {
-    /** long serialVersionUID field */
+
     private static final long serialVersionUID = 1L;
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     JPanel principioPanel = new JPanel();
     JPanel finalPanel = new JPanel();
     JPanel okPanel = new JPanel();
     JPanel closePanel = new JPanel();
 
     JButton aceptarButton = new JButton(
-            I18NPlug.getI18N("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Draw-line"));
+        i18n.get("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Draw-line"));
     JButton cancelarButton = new JButton(
-            I18NPlug.getI18N("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Close"));
+        i18n.get("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Close"));
 
     JRadioButton punto1SobreElMapa = new JRadioButton(
-            I18NPlug.getI18N("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.On-the-map"));
+        i18n.get("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.On-the-map"));
     JRadioButton punto1Absoluta = new JRadioButton(
-            I18NPlug.getI18N("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Absolute"));
+        i18n.get("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Absolute"));
     JRadioButton punto2SobreElMapa = new JRadioButton(
-            I18NPlug.getI18N("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.On-the-map"));
+        i18n.get("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.On-the-map"));
     JRadioButton punto2Absoluta = new JRadioButton(
-            I18NPlug.getI18N("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Absolute"));
+        i18n.get("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Absolute"));
     JRadioButton punto2relativo = new JRadioButton(
-            I18NPlug.getI18N("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Relative"));
+        i18n.get("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Relative"));
     JRadioButton punto2longitud = new JRadioButton(
-            I18NPlug.getMessage(
-                    "org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Length-{0}-angle-with-the-mouse-{1}",
-                    new Object[] { "(", ")" }));
+        i18n.get(
+            "org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Length-{0}-angle-with-the-mouse-{1}",
+            "(", ")"));
     JRadioButton punto2longitudAngulo = new JRadioButton(
-            I18NPlug.getI18N("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Length-and-angle"));
+        i18n.get("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Length-and-angle"));
 
     JPanel jppunto1SobreElMapa = new JPanel();
     JPanel jppunto1Absoluta = new JPanel();
@@ -131,16 +133,16 @@ public class SimpleLineDialog extends JDialog implements ActionListener,
             .getUSFormatedNumberTextField(100);
 
     JLabel jlx = new JLabel(
-            I18NPlug.getI18N("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.X")
+        i18n.get("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.X")
                     + ":");
     JLabel jly = new JLabel(
-            I18NPlug.getI18N("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Y")
+        i18n.get("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Y")
                     + ":");
     JLabel jll = new JLabel(
-            I18NPlug.getI18N("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Length")
+        i18n.get("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Length")
                     + ":");
     JLabel jla = new JLabel(
-            I18NPlug.getI18N("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Angle")
+        i18n.get("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Angle")
                     + ":");
 
     ButtonGroup group1 = new ButtonGroup();
@@ -148,9 +150,10 @@ public class SimpleLineDialog extends JDialog implements ActionListener,
 
     public SimpleLineDialog(SimpleLinePlugIn plugin, PlugInContext context) {
         super(
-                JUMPWorkbench.getInstance().getFrame(),
-                I18NPlug.getI18N("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Simple-line"),
-                true);
+            JUMPWorkbench.getInstance().getFrame(),
+            i18n.get("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Simple-line"),
+            true
+        );
 
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.addWindowListener(this);
@@ -222,12 +225,12 @@ public class SimpleLineDialog extends JDialog implements ActionListener,
 
         TitledBorder title1;
         title1 = BorderFactory
-                .createTitledBorder(I18NPlug
-                        .getI18N("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Start"));
+            .createTitledBorder(i18n.get(
+                "org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.Start"));
         TitledBorder title2;
         title2 = BorderFactory
-                .createTitledBorder(I18NPlug
-                        .getI18N("org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.End"));
+            .createTitledBorder(i18n.get(
+                "org.openjump.core.ui.tools.DrawSimpleLine.SimpleLineDialog.End"));
         principioPanel.setBorder(title1);
         finalPanel.setBorder(title2);
         principioPanel.setLayout(new GridBagLayout());

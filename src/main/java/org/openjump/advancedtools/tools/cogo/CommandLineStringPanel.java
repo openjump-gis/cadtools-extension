@@ -50,7 +50,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import org.openjump.advancedtools.language.I18NPlug;
+import com.vividsolutions.jump.I18N;
 import org.openjump.advancedtools.tools.cogo.commands.HelpLineCommand;
 import org.openjump.advancedtools.tools.cogo.commands.LineCommand;
 import org.openjump.advancedtools.tools.cogo.commands.LineCommandException;
@@ -71,6 +71,7 @@ public class CommandLineStringPanel extends JPanel {
 
     /** long serialVersionUID field */
     private static final long serialVersionUID = 1L;
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
     private final DrawGeometryCommandsTool drawLineStringCommandsTool;
 
@@ -81,7 +82,7 @@ public class CommandLineStringPanel extends JPanel {
     private JButton ejecutarButton;
     private String textoInformacion;
     public static JCheckBox polygonCheckBox = new JCheckBox(
-            I18NPlug.getI18N("org.openjump.core.ui.config.CADToolsOptionsPanel.ClosedGeometryOptions.draw-as-filled-polygon"));
+        i18n.get("org.openjump.core.ui.config.CADToolsOptionsPanel.ClosedGeometryOptions.draw-as-filled-polygon"));
 
     public CommandLineStringPanel(
             DrawGeometryCommandsTool drawLineStringCommandsTool) {
@@ -98,8 +99,8 @@ public class CommandLineStringPanel extends JPanel {
     private void initialize() {
         JPanel lineaInferiorPanel = new JPanel(new GridBagLayout());
 
-        this.setBorder(BorderFactory.createTitledBorder(I18NPlug
-                .getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.draw-with-commands-panel")));
+        this.setBorder(BorderFactory.createTitledBorder(i18n
+                .get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.draw-with-commands-panel")));
         ActionListener ejecucionAl = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -112,13 +113,12 @@ public class CommandLineStringPanel extends JPanel {
         comandosScrollPane = new JScrollPane(informacionArea);
         comandosScrollPane.setPreferredSize(new Dimension(300, 100));
         lineaComandoTextField = new JTextField();
-        lineaComandoTextField
-                .setToolTipText(I18NPlug
-                        .getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.digit-help"));
+        lineaComandoTextField.setToolTipText(
+            i18n.get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.digit-help"));
         lineaComandoTextField.setColumns(20);
         lineaComandoTextField.addActionListener(ejecucionAl);
         ejecutarButton = new JButton(
-                I18NPlug.getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.execute"));
+            i18n.get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.execute"));
         ejecutarButton.addActionListener(ejecucionAl);
 
         FormUtils.addRowInGBL(lineaInferiorPanel, 1, 0, lineaComandoTextField,
@@ -144,18 +144,17 @@ public class CommandLineStringPanel extends JPanel {
         // Parseamos el comando
         LineCommand comandoParseado = LineCommandFactory.getCommand(comando);
         if (comandoParseado == null) {
-            addLineToCommandInfo(I18NPlug
-                    .getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.command-introduced-not-recognized"));
+            addLineToCommandInfo(
+                i18n.get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.command-introduced-not-recognized"));
         } else if (comandoParseado instanceof HelpLineCommand) {
             addLineToCommandInfo(HelpLineCommand.getHelp(), true);
         } else {
             try {
                 comandoParseado.execute(drawLineStringCommandsTool);
             } catch (LineCommandException e) {
-                addLineToCommandInfo(I18NPlug
-                        .getMessage(
-                                "org.openjump.core.ui.tools.DrawLineStringCommandsTool.correct-syntax-of-command-is-br-{0}",
-                                new Object[] { comandoParseado.getSintaxis() }));
+                addLineToCommandInfo(i18n.get(
+                    "org.openjump.core.ui.tools.DrawLineStringCommandsTool.correct-syntax-of-command-is-br-{0}",
+                    comandoParseado.getSintaxis()));
             }
         }
         // devolvemos el foco a la linea de comandos

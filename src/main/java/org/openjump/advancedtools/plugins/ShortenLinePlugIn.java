@@ -40,7 +40,6 @@ import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.tools.ShortenLineTool;
 import org.openjump.advancedtools.tools.ShortenToClickedGeometryTool;
 import org.openjump.advancedtools.tools.ShortenToDrawnLineTool;
@@ -71,28 +70,30 @@ import com.vividsolutions.jump.workbench.ui.cursortool.SelectFeaturesTool;
  */
 public class ShortenLinePlugIn extends AbstractPlugIn {
 
-    /** Plugin name */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.ShortenLinePlugIn.Shorten-line");
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
-    public final static String DESCRIPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.ShortenLinePlugIn.description");
+    /** Plugin name */
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.plugins.ShortenLinePlugIn.Shorten-line");
+
+    public final static String DESCRIPTION = i18n
+        .get("org.openjump.core.ui.plugins.ShortenLinePlugIn.description");
     /** Options */
-    public final static String OPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.ShortenLinePlugIn.Shorten-options");
+    public final static String OPTION = i18n
+        .get("org.openjump.core.ui.plugins.ShortenLinePlugIn.Shorten-options");
 
     /** Plugin icon */
     public static final Icon ICON = IconLoader.icon("shortenLine.png");
 
     /** Plugin options */
-    public static final String NEARBY_OPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.General.Nearby");
-    public static final String DRAWN_OPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.General.Drawn");
-    public static final String SELECTED_OPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.General.Selected");
-    public static final String CANCEL_OPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.General.Cancel");
+    public static final String NEARBY_OPTION = i18n
+        .get("org.openjump.core.ui.tools.General.Nearby");
+    public static final String DRAWN_OPTION = i18n
+        .get("org.openjump.core.ui.tools.General.Drawn");
+    public static final String SELECTED_OPTION = i18n
+        .get("org.openjump.core.ui.tools.General.Selected");
+    public static final String CANCEL_OPTION = i18n
+        .get("org.openjump.core.ui.tools.General.Cancel");
 
     /** Shorten Tools */
     protected ShortenLineTool elt = null;
@@ -102,8 +103,6 @@ public class ShortenLinePlugIn extends AbstractPlugIn {
     /** Selecting tool in case of no check conditions */
     protected SelectFeaturesTool select = null;
 
-    //EnableCheckFactory checkFactory = new EnableCheckFactory(JUMPWorkbench
-    //        .getInstance().getFrame().getContext());
 
     @Override
     public String getName() {
@@ -121,7 +120,8 @@ public class ShortenLinePlugIn extends AbstractPlugIn {
         return ICON;
     }
 
-    public ShortenLinePlugIn() {
+    public ShortenLinePlugIn(PlugInContext context) throws Exception {
+        super.initialize(context);
         createTools();
     }
 
@@ -129,7 +129,7 @@ public class ShortenLinePlugIn extends AbstractPlugIn {
         elt = new ShortenLineTool();
         etdlt = new ShortenToDrawnLineTool();
         etcgt = new ShortenToClickedGeometryTool();
-        select = new SelectFeaturesTool();
+        select = new SelectFeaturesTool(JUMPWorkbench.getInstance().getContext());
     }
 
     @Override
@@ -140,7 +140,7 @@ public class ShortenLinePlugIn extends AbstractPlugIn {
                     .getInstance()
                     .getFrame()
                     .warnUser(
-                            I18N.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
+                            I18N.JUMP.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
             return false;
         } else if (!WorkbenchUtils
                 .check(CADEnableCheckFactory

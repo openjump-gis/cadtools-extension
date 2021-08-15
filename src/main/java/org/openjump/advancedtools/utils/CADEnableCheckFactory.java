@@ -4,8 +4,7 @@ import java.util.Collection;
 
 import javax.swing.JComponent;
 
-import org.openjump.advancedtools.language.I18NPlug;
-
+import com.vividsolutions.jump.I18N;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryCollection;
 import org.locationtech.jts.geom.LineString;
@@ -26,6 +25,8 @@ import com.vividsolutions.jump.workbench.plugin.EnableCheck;
 import com.vividsolutions.jump.workbench.ui.SelectionManagerProxy;
 
 public class CADEnableCheckFactory {
+
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
     protected WorkbenchContext workbenchContext;
 
@@ -58,10 +59,9 @@ public class CADEnableCheckFactory {
                         .getContext().getLayerManager().getLayer(layerName);
 
                 if (layer == null) {
-                    return I18NPlug
-                            .getMessage(
-                                    "org.openjump.core.ui.CADEnableCheckFactory.layer-{0}-does-not-exist", //$NON-NLS-1$
-                                layerName);
+                    return i18n.get(
+                        "org.openjump.core.ui.CADEnableCheckFactory.layer-{0}-does-not-exist", //$NON-NLS-1$
+                        layerName);
                 }
 
                 int numSelectedFeatures = WorkbenchUtils.getSelectedFeatures()
@@ -70,10 +70,9 @@ public class CADEnableCheckFactory {
                         .getSelectedFeatures(layer).size();
 
                 if (numSelectedFeatures != numSelectedFeaturesInLayer) {
-                    return I18NPlug
-                            .getMessage(
-                                    "org.openjump.core.ui.CADEnableCheckFactory.all-selected-features-must-be-at-the-layer-{0}", //$NON-NLS-1$
-                                layerName);
+                    return i18n.get(
+                        "org.openjump.core.ui.CADEnableCheckFactory.all-selected-features-must-be-at-the-layer-{0}", //$NON-NLS-1$
+                        layerName);
                 }
 
                 return null;
@@ -89,10 +88,9 @@ public class CADEnableCheckFactory {
                         .getContext().getLayerManager().getLayer(layerName);
 
                 if (layer == null) {
-                    return I18NPlug
-                            .getMessage(
-                                    "org.openjump.core.ui.CADEnableCheckFactory.layer-{0}-does-not-exist", //$NON-NLS-1$
-                                layerName);
+                    return i18n.get(
+                        "org.openjump.core.ui.CADEnableCheckFactory.layer-{0}-does-not-exist", //$NON-NLS-1$
+                        layerName);
                 }
                 FeatureCollectionWrapper fcw = layer
                         .getFeatureCollectionWrapper();
@@ -105,8 +103,7 @@ public class CADEnableCheckFactory {
                 }
                 if (!check) {
 
-                    return I18NPlug
-                            .getI18N("org.openjump.core.ui.CADEnableCheckFactory.layer-is-not-CAD");
+                    return i18n.get("org.openjump.core.ui.CADEnableCheckFactory.layer-is-not-CAD");
                 }
                 return null;
             }
@@ -156,13 +153,12 @@ public class CADEnableCheckFactory {
                         .getFeaturesWithSelectedItems();
                 if (n != features.size()) {
                     if (n == 1) {
-                        return I18NPlug
-                                .getI18N("org.openjump.core.ui.CADEnableCheckFactory.exactly-a-feature-must-be-selected"); //$NON-NLS-1$
+                        return i18n.get(
+                            "org.openjump.core.ui.CADEnableCheckFactory.exactly-a-feature-must-be-selected"); //$NON-NLS-1$
                     } else {
-                        return I18NPlug
-                                .getMessage(
-                                        "org.openjump.core.ui.CADEnableCheckFactory.exactly-{0}-features-must-be-selected", //$NON-NLS-1$
-                                    n);
+                        return i18n.get(
+                            "org.openjump.core.ui.CADEnableCheckFactory.exactly-{0}-features-must-be-selected", //$NON-NLS-1$
+                            n);
                     }
                 } else {
                     for (Feature element : features) {
@@ -225,10 +221,8 @@ public class CADEnableCheckFactory {
                         }
 
                         if (!check) {
-                            return
-
-                            I18NPlug.getMessage(
-                                    "org.openjump.core.ui.CADEnableCheckFactory.Incorrect-geometry-type-correct-{0}",
+                            return i18n.get(
+                                "org.openjump.core.ui.CADEnableCheckFactory.Incorrect-geometry-type-correct-{0}",
                                 sb);
 
                         }
@@ -273,8 +267,7 @@ public class CADEnableCheckFactory {
 
                             }
                             if (!check) {
-                                return I18NPlug
-                                        .getI18N("org.openjump.core.ui.CADEnableCheckFactory.Incorrect-geometry-type");//$NON-NLS-1$
+                                return i18n.get("org.openjump.core.ui.CADEnableCheckFactory.Incorrect-geometry-type");//$NON-NLS-1$
                             }
                         }
                     }
@@ -383,10 +376,8 @@ public class CADEnableCheckFactory {
                     }
 
                     if (!check) {
-                        return
-
-                        I18NPlug.getMessage(
-                                "org.openjump.core.ui.CADEnableCheckFactory.Incorrect-geometry-type-correct-{0}",
+                        return i18n.get(
+                            "org.openjump.core.ui.CADEnableCheckFactory.Incorrect-geometry-type-correct-{0}",
                             sb);
 
                     }
@@ -431,8 +422,7 @@ public class CADEnableCheckFactory {
 
                         }
                         if (!check) {
-                            return I18NPlug
-                                    .getI18N("org.openjump.core.ui.CADEnableCheckFactory.Incorrect-geometry-type");//$NON-NLS-1$
+                            return i18n.get("org.openjump.core.ui.CADEnableCheckFactory.Incorrect-geometry-type");//$NON-NLS-1$
                         }
                     }
                 }

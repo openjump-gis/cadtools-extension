@@ -37,9 +37,10 @@ import java.awt.geom.Point2D;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import com.vividsolutions.jump.I18N;
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import org.openjump.advancedtools.config.CADToolsOptionsPanel;
 import org.openjump.advancedtools.gui.RegularPolygonDialog;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.EditUtils;
 
 import org.locationtech.jts.geom.Coordinate;
@@ -61,14 +62,16 @@ import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUti
 
 public class RegularPolygonByDefinedRadiusTool extends NClickTool {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     // ---- from DragTool -----------------
     /** Modify using #setDestination */
     protected Coordinate modelDestination = null;
     // ------------------------------------
     private final FeatureDrawingUtil featureDrawingUtil;
     private Shape selectedFeaturesShape;
-    private final String name = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.polygon");
+    private final String name = i18n
+        .get("org.openjump.core.ui.plugins.polygon");
     /** Radio del circulo */
     //protected double ratio;
     protected double x;
@@ -76,7 +79,7 @@ public class RegularPolygonByDefinedRadiusTool extends NClickTool {
 
     private RegularPolygonByDefinedRadiusTool(
             FeatureDrawingUtil featureDrawingUtil) {
-        super(1);
+        super(JUMPWorkbench.getInstance().getContext(), 1);
         this.featureDrawingUtil = featureDrawingUtil;
         setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT,
                 BasicStroke.JOIN_BEVEL, 0, new float[] { 3, 3 }, 0));

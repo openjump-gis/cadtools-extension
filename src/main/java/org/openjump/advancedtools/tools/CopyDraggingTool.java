@@ -13,9 +13,9 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.Logger;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.EditUtils;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
@@ -44,15 +44,17 @@ import com.vividsolutions.jump.workbench.ui.cursortool.DragTool;
 
 public class CopyDraggingTool extends DragTool {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     //private static final Logger LOGGER = Logger
     //        .getLogger(CopyDraggingTool.class);
 
     /** Name of the tool */
-    private static final String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.Clone");
+    private static final String NAME = i18n
+        .get("org.openjump.core.ui.tools.Clone");
     /** description of the tool */
-    public final static String DESCRIPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.Clone.description");
+    public final static String DESCRIPTION = i18n
+        .get("org.openjump.core.ui.tools.Clone.description");
     /** Icon of the tool */
     private static final ImageIcon ICON = GUIUtil.resize(
             IconLoader.icon("cloneFeatures.png"), 20);
@@ -62,11 +64,11 @@ public class CopyDraggingTool extends DragTool {
     protected Shape selectedFeatureShape;
     //protected SnapIndicatorTool snapIndicatorTool;
     protected List<Coordinate> verticesToSnap = null;
-    EnableCheckFactory checkFactory = new EnableCheckFactory(JUMPWorkbench
-            .getInstance().getContext());
+    EnableCheckFactory checkFactory =
+        JUMPWorkbench.getInstance().getContext().createPlugInContext().getCheckFactory();
 
     public CopyDraggingTool(EnableCheckFactory checkFactory) {
-
+        super(JUMPWorkbench.getInstance().getContext());
         allowSnapping();
     }
 

@@ -40,7 +40,6 @@ import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.tools.ExtendRectLineTool;
 import org.openjump.advancedtools.tools.ExtendToClickedGeometryTool;
 import org.openjump.advancedtools.tools.ExtendToDrawnLineTool;
@@ -70,27 +69,29 @@ import com.vividsolutions.jump.workbench.ui.cursortool.SelectFeaturesTool;
  */
 public class ExtendLinePlugIn extends AbstractPlugIn {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     /** Plugin name */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.ExtendLinePlugIn");
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.plugins.ExtendLinePlugIn");
     /** Plugin description */
-    public final static String DESCRIPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.ExtendLinePlugIn.description");
+    public final static String DESCRIPTION = i18n
+        .get("org.openjump.core.ui.plugins.ExtendLinePlugIn.description");
     /** Options */
-    public final static String OPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.ExtendLinePlugIn.Extend-options");
+    public final static String OPTION = i18n
+        .get("org.openjump.core.ui.plugins.ExtendLinePlugIn.Extend-options");
     /** Plugin icon */
     public static final Icon ICON = IconLoader.icon("extentLine.png");
 
     /** Plugin options */
-    public static final String NEARBY_OPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.Nearby");
-    public static final String DRAWN_OPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.Drawn");
-    public static final String SELECTED_OPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.Selected");
-    public static final String CANCEL_OPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.Cancel");
+    public static final String NEARBY_OPTION = i18n
+        .get("org.openjump.core.ui.Nearby");
+    public static final String DRAWN_OPTION = i18n
+        .get("org.openjump.core.ui.Drawn");
+    public static final String SELECTED_OPTION = i18n
+        .get("org.openjump.core.ui.Selected");
+    public static final String CANCEL_OPTION = i18n
+        .get("org.openjump.core.ui.Cancel");
 
     /** Extend Tools */
     protected ExtendRectLineTool elt = null;
@@ -100,8 +101,6 @@ public class ExtendLinePlugIn extends AbstractPlugIn {
     /** Selecting tool in case of no check conditions */
     protected SelectFeaturesTool select = null;
 
-    //EnableCheckFactory checkFactory = new EnableCheckFactory(JUMPWorkbench
-    //        .getInstance().getFrame().getContext());
 
     @Override
     public String getName() {
@@ -119,7 +118,8 @@ public class ExtendLinePlugIn extends AbstractPlugIn {
         return ICON;
     }
 
-    public ExtendLinePlugIn() {
+    public ExtendLinePlugIn(PlugInContext context) throws Exception {
+        super.initialize(context);
         createTools();
     }
 
@@ -130,7 +130,7 @@ public class ExtendLinePlugIn extends AbstractPlugIn {
                                             // linestring
         etcgt = new ExtendToClickedGeometryTool();// Extend selected linestring
                                                   // to a selected geometry
-        select = new SelectFeaturesTool();// Select features
+        select = new SelectFeaturesTool(JUMPWorkbench.getInstance().getContext());// Select features
     }
 
     @Override
@@ -142,7 +142,7 @@ public class ExtendLinePlugIn extends AbstractPlugIn {
                     .getInstance()
                     .getFrame()
                     .warnUser(
-                            I18N.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
+                            I18N.JUMP.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
             return false;
         } else if (!WorkbenchUtils
                 .check(CADEnableCheckFactory

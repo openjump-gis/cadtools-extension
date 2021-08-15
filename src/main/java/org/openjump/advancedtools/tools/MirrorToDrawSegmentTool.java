@@ -45,8 +45,8 @@ import java.util.List;
 
 import javax.swing.Icon;
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.Logger;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.EditUtils;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
@@ -76,9 +76,11 @@ import com.vividsolutions.jump.workbench.ui.cursortool.DragTool;
  */
 public class MirrorToDrawSegmentTool extends DragTool {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     /** Name of the tool */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.Mirror");
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.tools.Mirror");
 
     /** Cursor of the tool */
     public static final Cursor CURSOR = new Cursor(Cursor.CROSSHAIR_CURSOR);
@@ -97,14 +99,15 @@ public class MirrorToDrawSegmentTool extends DragTool {
 
     //protected Collection<Feature> GeometryCopies;
 
-    EnableCheckFactory checkFactory = new EnableCheckFactory(JUMPWorkbench
-            .getInstance().getContext());
+    EnableCheckFactory checkFactory =
+        JUMPWorkbench.getInstance().getContext().createPlugInContext().getCheckFactory();
 
     /**
 	 * 
 	 *
 	 */
     public MirrorToDrawSegmentTool() {
+        super(JUMPWorkbench.getInstance().getContext());
         allowSnapping();
     }
 
@@ -306,8 +309,8 @@ public class MirrorToDrawSegmentTool extends DragTool {
     public static MultiEnableCheck createEnableCheck(
             final WorkbenchContext workbenchContext, AbstractCursorTool tool) {
         MultiEnableCheck solucion = new MultiEnableCheck();
-        EnableCheckFactory checkFactory = new EnableCheckFactory(
-                workbenchContext);
+        EnableCheckFactory checkFactory =
+            workbenchContext.createPlugInContext().getCheckFactory();
 
         // al menos una capa debe tener elementos activos
         solucion.add(checkFactory.createTaskWindowMustBeActiveCheck())

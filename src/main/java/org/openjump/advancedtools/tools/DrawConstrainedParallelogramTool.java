@@ -74,9 +74,10 @@ import java.util.ArrayList;
 
 import javax.swing.Icon;
 
+import com.vividsolutions.jump.I18N;
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import org.openjump.advancedtools.config.CADToolsOptionsPanel;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.CoordinateListMetricsUtils;
 import org.openjump.core.geomutils.GeoUtils;
 
@@ -100,22 +101,24 @@ import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUti
  */
 public class DrawConstrainedParallelogramTool extends ConstrainedNClickTool {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     private final FeatureDrawingUtil featureDrawingUtil;
 
     private DrawConstrainedParallelogramTool(
             FeatureDrawingUtil paramFeatureDrawingUtil) {
-        super(3);
+        super(JUMPWorkbench.getInstance().getContext(), 3);
         allowSnapping();
         this.drawClosed = true;
         this.featureDrawingUtil = paramFeatureDrawingUtil;
     }
 
     /** Name of the tool */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.Parallelogram");
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.plugins.Parallelogram");
     /** Description of the tool */
-    public final static String DESCRIPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.Parallelogram.description");
+    public final static String DESCRIPTION = i18n
+        .get("org.openjump.core.ui.plugins.Parallelogram.description");
 
     public static CursorTool create(LayerNamePanelProxy paramLayerNamePanelProxy) {
         FeatureDrawingUtil localFeatureDrawingUtil = new FeatureDrawingUtil(

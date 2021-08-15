@@ -55,8 +55,8 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+import com.vividsolutions.jump.I18N;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
 /**
@@ -64,8 +64,10 @@ import org.openjump.advancedtools.utils.WorkbenchUtils;
  * @since Kosmo 1.0.0
  */
 public class RegularPolygonDialog extends JDialog implements ActionListener {
-    /** long serialVersionUID field */
+
     private static final long serialVersionUID = 1L;
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     //JPanel p1 = new JPanel();
     //JPanel p2 = new JPanel();
     JPanel pCenterFilled = new JPanel();
@@ -73,28 +75,28 @@ public class RegularPolygonDialog extends JDialog implements ActionListener {
     public static ImageIcon ICON = org.openjump.advancedtools.icon.IconLoader
             .icon("cad.png");
     /** Plugin name */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.Regularpolygon");
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.plugins.Regularpolygon");
 
     JButton jb1 = new JButton(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.Dialog.Accept"));
+        i18n.get("org.openjump.core.ui.plugins.Dialog.Accept"));
     JButton jb2 = new JButton(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.Dialog.Cancel"));
+        i18n.get("org.openjump.core.ui.plugins.Dialog.Cancel"));
 
     JPanel jOptionPanel = new JPanel();
     public static JFormattedTextField jsRadius = WorkbenchUtils
             .getUSFormatedNumberTextField(100);
     JLabel jlRotation;
     JLabel jlSides = new JLabel(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.Regularpolygon.Number-of-sides")
+        i18n.get("org.openjump.core.ui.plugins.Regularpolygon.Number-of-sides")
                     + ":");
     JLabel jlRadius = new JLabel(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.Circle.Radius") + ":");
+        i18n.get("org.openjump.core.ui.plugins.Circle.Radius") + ":");
     JRadioButton jrbindicarRaton = new JRadioButton(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.Circle.Draw-with-the-mouse"));
+        i18n.get("org.openjump.core.ui.plugins.Circle.Draw-with-the-mouse"));
 
     JRadioButton jrbindicarRadio = new JRadioButton(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.Circle.Point-out-radius"));
+        i18n.get("org.openjump.core.ui.plugins.Circle.Point-out-radius"));
 
     ButtonGroup group1 = new ButtonGroup();
     public static SpinnerModel sidesModel = new SpinnerNumberModel(3, // initial

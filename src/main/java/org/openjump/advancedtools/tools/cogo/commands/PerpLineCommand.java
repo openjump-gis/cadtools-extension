@@ -38,8 +38,8 @@ package org.openjump.advancedtools.tools.cogo.commands;
 
 import java.util.Collection;
 
+import com.vividsolutions.jump.I18N;
 import org.openjump.advancedtools.gui.SimpleLineDialog;
-import org.saig.jump.lang.I18N;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
@@ -57,17 +57,18 @@ import com.vividsolutions.jump.workbench.WorkbenchContext;
  */
 public class PerpLineCommand extends LineCommand {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     /** Command name */
     private final static String COMMAND_NAME = "perp"; 
 
     /** Command sintaxis */
     private final static String SINTAXIS = "perp('" 
-            + I18N.getString(PerpLineCommand.class, "length") 
+            + i18n.get("PerpLineCommand.length")
             + "'[, '" 
-            + I18N.getString(PerpLineCommand.class, "sense") 
+            + i18n.get("PerpLineCommand.orientation")
             + "']) <br> " 
-            + I18N.getString(PerpLineCommand.class,
-                    "sense-true-by-default-clockwise-false-counterclockwise"); 
+            + i18n.get("PerpLineCommand.orientation-default");
 
     private final String comando;
 

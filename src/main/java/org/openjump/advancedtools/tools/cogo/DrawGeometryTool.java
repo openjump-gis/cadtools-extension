@@ -39,6 +39,7 @@ import java.util.ArrayList;
 
 import javax.swing.Icon;
 
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import org.openjump.advancedtools.icon.IconLoader;
 
 import org.locationtech.jts.geom.Coordinate;
@@ -69,7 +70,7 @@ public class DrawGeometryTool extends MultiClickTool {
             "commands_cursor.png").getImage());
 
     /** Tool name */
-    public final static String NAME = I18N
+    public final static String NAME = I18N.JUMP
             .get("workbench.ui.cursortool.editing.DrawLineStringTool.name");
 
     /** Tool icon */
@@ -95,7 +96,7 @@ public class DrawGeometryTool extends MultiClickTool {
 
     protected DrawGeometryTool(FeatureDrawingUtil featureDrawingUtil,
             boolean check) {
-        super();
+        super(JUMPWorkbench.getInstance().getContext());
         this.featureDrawingUtil = featureDrawingUtil;
         setMetricsDisplay(new CoordinateListMetrics());
     }
@@ -152,7 +153,7 @@ public class DrawGeometryTool extends MultiClickTool {
                     .getWorkbench()
                     .getFrame()
                     .warnUser(
-                            I18N.get("workbench.ui.cursortool.MultiClickTool.an-editable-layer-must-exist"));
+                            I18N.JUMP.get("workbench.ui.cursortool.MultiClickTool.an-editable-layer-must-exist"));
             return;
         }
         getCoordinates().remove(c);
@@ -199,7 +200,7 @@ public class DrawGeometryTool extends MultiClickTool {
             getPanel()
                     .getContext()
                     .warnUser(
-                            I18N.get("ui.cursortool.editing.DrawLineString.the-linestring-must-have-at-least-2-points"));
+                            I18N.JUMP.get("ui.cursortool.editing.DrawLineString.the-linestring-must-have-at-least-2-points"));
 
             return false;
         }
@@ -223,7 +224,7 @@ public class DrawGeometryTool extends MultiClickTool {
             getPanel()
                     .getContext()
                     .warnUser(
-                            I18N.get("ui.cursortool.PolygonTool.the-polygon-must-have-at-least-3-points"));
+                            I18N.JUMP.get("ui.cursortool.PolygonTool.the-polygon-must-have-at-least-3-points"));
 
             return false;
         }

@@ -4,7 +4,6 @@ import javax.swing.*;
 
 import com.vividsolutions.jump.workbench.Logger;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
@@ -18,12 +17,15 @@ import com.vividsolutions.jump.workbench.ui.TaskFrame;
 import com.vividsolutions.jump.workbench.ui.cursortool.CursorTool;
 
 public class DrawBlockPlugIn extends AbstractPlugIn {
+
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     public static ImageIcon ICON = IconLoader.icon("textblock/block_ins.png");
 
-    public static final String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.block.DrawblockTool");
-    public static final String NAME2 = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.block.DrawblockTool.description");
+    public static final String NAME = i18n
+        .get("org.openjump.core.ui.plugins.block.DrawblockTool");
+    public static final String NAME2 = i18n
+        .get("org.openjump.core.ui.plugins.block.DrawblockTool.description");
 
     BlockPanel blockPanel;
 
@@ -41,7 +43,7 @@ public class DrawBlockPlugIn extends AbstractPlugIn {
                     .getInstance()
                     .getFrame()
                     .warnUser(
-                            I18N.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
+                            I18N.JUMP.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
             return false;
         } else {
             try {
@@ -74,8 +76,9 @@ public class DrawBlockPlugIn extends AbstractPlugIn {
 
     public static MultiEnableCheck createEnableCheck(
             WorkbenchContext workbenchContext) {
-        EnableCheckFactory checkFactory = new EnableCheckFactory(
-                workbenchContext);
+
+        EnableCheckFactory checkFactory =
+            workbenchContext.createPlugInContext().getCheckFactory();
 
         return new MultiEnableCheck().add(checkFactory
                 .createWindowWithSelectionManagerMustBeActiveCheck());

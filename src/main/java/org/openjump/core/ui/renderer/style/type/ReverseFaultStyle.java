@@ -147,7 +147,7 @@ public class ReverseFaultStyle extends ExtendedDecorationStyle {
     public static class Medium extends ReverseFaultStyle {
         public Medium() {
             super(
-                    I18N.get("ui.renderer.style.ArrowLineStringSegmentStyle.Segment-Mid-Arrow-Solid"),
+                    I18N.JUMP.get("ui.renderer.style.ArrowLineStringSegmentStyle.Segment-Mid-Arrow-Solid"),
                     "ArrowMidSolid.gif", MEDIUM_ANGLE, LARGE_LENGTH, false);
         }
     }
@@ -155,8 +155,8 @@ public class ReverseFaultStyle extends ExtendedDecorationStyle {
     public static class NarrowSolid extends ReverseFaultStyle {
         public NarrowSolid() {
             super(
-                    I18N.get("ui.renderer.style.ArrowLineStringSegmentStyle.Segment-Mid-Arrow-Solid-Narrow"),
-                    "ArrowMidSolidNarrow.gif", SMALL_ANGLE, LARGE_LENGTH, true);
+                I18N.JUMP.get("ui.renderer.style.ArrowLineStringSegmentStyle.Segment-Mid-Arrow-Solid-Narrow"),
+                "ArrowMidSolidNarrow.gif", SMALL_ANGLE, LARGE_LENGTH, true);
         }
     }
 

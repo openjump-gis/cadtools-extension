@@ -43,7 +43,6 @@ import java.awt.geom.Point2D;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.Icon;
@@ -51,7 +50,6 @@ import javax.swing.Icon;
 import com.vividsolutions.jump.workbench.Logger;
 import org.openjump.advancedtools.gui.LengthDialog;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.CADEnableCheckFactory;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
@@ -90,20 +88,22 @@ import es.kosmo.desktop.tools.algorithms.ParallelLinesAlgorithm;
  */
 public class ParalelLineTool extends DragTool {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     private static final GeometryFactory geomFac = new GeometryFactory();
 
     /** Name of the tool */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.ParalellLineTool");
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.tools.ParalellLineTool");
     /** description of the tool */
-    public final static String DESCRIPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.ParalellLineTool.description");
+    public final static String DESCRIPTION = i18n
+        .get("org.openjump.core.ui.tools.ParalellLineTool.description");
     /** Icon of the tool */
     public static final Icon ICON = IconLoader.icon("drawParallel.png");
     /** Cursor of the the tool */
     public static final Cursor CURSOR = new Cursor(Cursor.CROSSHAIR_CURSOR);
 
-    String sDistance = I18N
+    String sDistance = I18N.JUMP
             .get("org.openjump.core.ui.plugin.edittoolbox.tab.ConstraintsOptionsPanel.Length");
     /** Coordinate selected by user */
     protected Coordinate coordinateA;
@@ -122,10 +122,12 @@ public class ParalelLineTool extends DragTool {
 
     protected ParallelLinesAlgorithm parallelAlg = new ParallelLinesAlgorithm();
 
-    EnableCheckFactory checkFactory = new EnableCheckFactory(JUMPWorkbench
-            .getInstance().getContext());
+    EnableCheckFactory checkFactory;
+    //= new EnableCheckFactory(JUMPWorkbench
+    //        .getInstance().getContext());
 
     public ParalelLineTool(EnableCheckFactory checkFactory) {
+        super(JUMPWorkbench.getInstance().getContext());
         this.checkFactory = checkFactory;
         allowSnapping();
 

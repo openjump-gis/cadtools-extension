@@ -39,9 +39,9 @@ package org.openjump.advancedtools.tools.cogo.commands;
 import java.util.Collections;
 import java.util.List;
 
+import com.vividsolutions.jump.I18N;
 import org.openjump.advancedtools.gui.SimpleLineDialog;
 import org.openjump.advancedtools.tools.cogo.DrawGeometryCommandsTool;
-import org.saig.jump.lang.I18N;
 
 import org.locationtech.jts.geom.Coordinate;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
@@ -55,6 +55,8 @@ import com.vividsolutions.jump.workbench.JUMPWorkbench;
  * @since OpenJUMP 1.10
  */
 public class InvertLineCommand extends LineCommand {
+
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
     /** Nombre del comando */
     private final static String COMMAND_NAME = "inv"; 
@@ -74,8 +76,7 @@ public class InvertLineCommand extends LineCommand {
     }
 
     public static String getHelp() {
-        return I18N.getString(InvertLineCommand.class,
-                "zooms to last drawn point"); 
+        return i18n.get("zooms to last drawn point");
     }
 
     public static String getName() {
@@ -103,8 +104,7 @@ public class InvertLineCommand extends LineCommand {
                     .getInstance()
                     .getFrame()
                     .warnUser(
-                            I18N.getString(this.getClass(),
-                                    "you-must-introduce-at-least-one-point-of-the-line"));
+                            i18n.get("you-must-introduce-at-least-one-point-of-the-line"));
         }
 
     }

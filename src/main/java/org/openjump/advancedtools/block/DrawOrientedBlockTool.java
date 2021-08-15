@@ -13,16 +13,14 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.Timer;
 
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import com.vividsolutions.jump.workbench.Logger;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.LineSegment;
 import org.locationtech.jts.io.ParseException;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.tools.ConstrainedNClickTool;
-import org.openjump.advancedtools.utils.WorkbenchUtils;
 
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.geom.CoordUtil;
@@ -35,19 +33,21 @@ import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUti
 
 public class DrawOrientedBlockTool extends ConstrainedNClickTool {
 
+	private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
 	private final FeatureDrawingUtil featureDrawingUtil;
 	//public static final String blockFolder = "VertexImages";
-	public static final String NAME = I18NPlug
-			.getI18N("org.openjump.core.ui.plugins.block.DrawOrientedBlockTool.description");
+	public static final String NAME = i18n
+			.get("org.openjump.core.ui.plugins.block.DrawOrientedBlockTool.description");
 
-	String Azimuth = I18N.get("ui.cursortool.CoordinateListMetrics.Azimuth");
+	String Azimuth = I18N.JUMP.get("ui.cursortool.CoordinateListMetrics.Azimuth");
 
 	private final ImageIcon ICON = org.openjump.advancedtools.icon.IconLoader.icon("textblock/block_drag.png");
 
 	final BlockPanel blockPanel;
 
 	public DrawOrientedBlockTool(FeatureDrawingUtil featureDrawingUtil, BlockPanel blockPanel) {
-		super(2);
+		super(JUMPWorkbench.getInstance().getContext(), 2);
 		this.featureDrawingUtil = featureDrawingUtil;
 		setColor(Color.blue);
 		setStroke(new BasicStroke(1.5F));

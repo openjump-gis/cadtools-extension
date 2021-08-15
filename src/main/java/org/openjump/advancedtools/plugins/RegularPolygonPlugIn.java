@@ -20,7 +20,6 @@ import javax.swing.Icon;
 
 import org.openjump.advancedtools.gui.RegularPolygonDialog;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.tools.RegularPolygonByDefinedRadiusTool;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
@@ -38,13 +37,15 @@ import com.vividsolutions.jump.workbench.ui.cursortool.CursorTool;
  */
 public class RegularPolygonPlugIn extends AbstractPlugIn {
 
-    /** Plugin name */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.Regularpolygon");
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
     /** Plugin name */
-    public final static String NAME2 = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.Regularpolygon.description");
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.plugins.Regularpolygon");
+
+    /** Plugin name */
+    public final static String NAME2 = i18n
+        .get("org.openjump.core.ui.plugins.Regularpolygon.description");
 
     /** Plugin icnon */
     public static final Icon ICON = IconLoader.icon("drawPolygon.png");
@@ -54,8 +55,8 @@ public class RegularPolygonPlugIn extends AbstractPlugIn {
     /**
      * 
      */
-    public RegularPolygonPlugIn() {
-
+    public RegularPolygonPlugIn(PlugInContext context) throws Exception {
+        super.initialize(context);
     }
 
     @Override
@@ -83,7 +84,7 @@ public class RegularPolygonPlugIn extends AbstractPlugIn {
                     .getInstance()
                     .getFrame()
                     .warnUser(
-                            I18N.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
+                            I18N.JUMP.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
             return false;
         } else {
             action(context);

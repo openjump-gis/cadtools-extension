@@ -11,6 +11,8 @@ import java.util.List;
 
 import javax.swing.Icon;
 
+import com.vividsolutions.jump.I18N;
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.CoordinateList;
 import org.locationtech.jts.geom.Envelope;
@@ -20,7 +22,6 @@ import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.util.GeometricShapeFactory;
 import org.openjump.advancedtools.config.CADToolsOptionsPanel;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.CoordinateListMetricsUtils;
 
 import com.vividsolutions.jump.workbench.plugin.EnableCheckFactory;
@@ -32,6 +33,8 @@ import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUti
 
 public class EllipseByDraggingTool extends DragTool {
 
+	private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
 	private FeatureDrawingUtil featureDrawingUtil;
 
 	//static final String drawConstrainedCircle = I18N.get(
@@ -40,21 +43,24 @@ public class EllipseByDraggingTool extends DragTool {
 	//		"org.openjump.core.ui.plugins.edittoolbox.cursortools.DrawConstrainedCircleTool.The-circle-must-have-at-least-2-points");
 
 	/** Plugin name */
-	public final static String NAME = I18NPlug.getI18N("org.openjump.core.ui.plugins.Ellipse");
+	public final static String NAME = i18n.get("org.openjump.core.ui.plugins.Ellipse");
 
 	//public static final String Area = I18N.get("ui.cursortool.CoordinateListMetrics.Area");
 	//public static final String Diameter = I18N.get("ui.cursortool.CoordinateListMetrics.Diameter");
 
 	protected Coordinate tentativeCoordinate;
 
-	public EllipseByDraggingTool(int n) {
+	public EllipseByDraggingTool() {
+		super(JUMPWorkbench.getInstance().getContext());
 	}
 
 	private EllipseByDraggingTool(FeatureDrawingUtil featureDrawingUtil) {
+		super(JUMPWorkbench.getInstance().getContext());
 		this.featureDrawingUtil = featureDrawingUtil;
 	}
 
 	public EllipseByDraggingTool(EnableCheckFactory checkFactory) {
+		super(JUMPWorkbench.getInstance().getContext());
 	}
 
 	public static CursorTool create(LayerNamePanelProxy layerNamePanelProxy) {

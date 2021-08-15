@@ -47,9 +47,9 @@ import java.util.Set;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.Logger;
 import org.openjump.advancedtools.config.CADToolsOptionsPanel;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.EditUtils;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
@@ -83,16 +83,18 @@ import com.vividsolutions.jump.workbench.ui.images.IconLoader;
  */
 public class ExtendRectLineTool extends NClickTool {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     public ExtendRectLineTool() {
-        super(1);
+        super(JUMPWorkbench.getInstance().getContext(), 1);
         // setColor(Color.magenta);
         allowSnapping();
         this.self_intersection_active = true;
     }
 
     /** Name of the tool */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.ExtendRectLineTool.Extend-line");
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.tools.ExtendRectLineTool.Extend-line");
 
     /** Icon of the tool */
     public static final ImageIcon ICON = org.openjump.advancedtools.icon.IconLoader
@@ -127,14 +129,11 @@ public class ExtendRectLineTool extends NClickTool {
 
     protected List<Feature> featsToRemove;
 
-    EnableCheckFactory checkFactory = new EnableCheckFactory(JUMPWorkbench
-            .getInstance().getContext());
+    EnableCheckFactory checkFactory =
+        JUMPWorkbench.getInstance().getContext().createPlugInContext().getCheckFactory();
 
-    /**
-     *
-     */
     public ExtendRectLineTool(int n) {
-        super(n);
+        super(JUMPWorkbench.getInstance().getContext(), n);
         self_intersection_active = true;
     }
 
@@ -394,7 +393,7 @@ public class ExtendRectLineTool extends NClickTool {
                     .getLayerViewPanel()
                     .getContext()
                     .warnUser(
-                            I18NPlug.getI18N("org.openjump.core.ui.tools.ExtendRectLineTool.It-is-not-close-enough-to-a-line"));
+                            i18n.get("org.openjump.core.ui.tools.ExtendRectLineTool.It-is-not-close-enough-to-a-line"));
             return null;
         }
 

@@ -36,8 +36,8 @@
  */
 package org.openjump.advancedtools.tools.cogo.commands;
 
+import com.vividsolutions.jump.I18N;
 import org.openjump.advancedtools.gui.SimpleLineDialog;
-import org.openjump.advancedtools.language.I18NPlug;
 
 import org.locationtech.jts.geom.Coordinate;
 
@@ -51,15 +51,15 @@ import org.locationtech.jts.geom.Coordinate;
  */
 public class AngLineCommand extends LineCommand {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     /** Nombre del comando */
     private final static String COMMAND_NAME = "@"; 
     /** Sintaxis del comando */
     private final static String SINTAXIS = "@ '" 
-            + I18NPlug
-                    .getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.AngLineCommand.length") 
+            + i18n.get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.AngLineCommand.length")
             + "'>'" 
-            + I18NPlug
-                    .getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.AngLineCommand.angle") 
+            + i18n.get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.AngLineCommand.angle")
             + "'"; 
 
     private double parametro1;
@@ -104,8 +104,7 @@ public class AngLineCommand extends LineCommand {
     }
 
     public static String getHelp() {
-        return I18NPlug
-                .getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.AngLineCommand.description"); 
+        return i18n.get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.AngLineCommand.description");
     }
 
     public static String getName() {

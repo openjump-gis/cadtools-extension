@@ -11,8 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
-import org.openjump.advancedtools.utils.WorkbenchUtils;
 import org.saig.core.gui.swing.sldeditor.util.FormUtils;
 
 import org.locationtech.jts.geom.Coordinate;
@@ -33,18 +31,20 @@ import com.vividsolutions.jump.workbench.ui.TaskFrame;
 
 public class SaveBlockPlugIn extends AbstractPlugIn {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     public static ImageIcon ICON = IconLoader.icon("textblock/block_save.png");
 
-    private static final String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.block.SaveBlockPlugIn");
-    private static final String Warning1 = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.block.SaveBlockPlugIn.description-title");
-    private static final String Warning2 = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.block.SaveBlockPlugIn.warning-positive");
-    private static final String Warning3 = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.block.SaveBlockPlugIn.warning-negative");
-    private static final String Description = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.block.SaveBlockPlugIn.description");
+    private static final String NAME = i18n
+        .get("org.openjump.core.ui.plugins.block.SaveBlockPlugIn");
+    private static final String Warning1 = i18n
+        .get("org.openjump.core.ui.plugins.block.SaveBlockPlugIn.description-title");
+    private static final String Warning2 = i18n
+        .get("org.openjump.core.ui.plugins.block.SaveBlockPlugIn.warning-positive");
+    private static final String Warning3 = i18n
+        .get("org.openjump.core.ui.plugins.block.SaveBlockPlugIn.warning-negative");
+    private static final String Description = i18n
+        .get("org.openjump.core.ui.plugins.block.SaveBlockPlugIn.description");
 
     private final BlockPanel blockPanel;
     private final JTextField jTextField_wktOut;
@@ -82,8 +82,9 @@ public class SaveBlockPlugIn extends AbstractPlugIn {
 
     public static MultiEnableCheck createEnableCheck(
             WorkbenchContext workbenchContext) {
-        EnableCheckFactory checkFactory = new EnableCheckFactory(
-                workbenchContext);
+
+        EnableCheckFactory checkFactory =
+            workbenchContext.createPlugInContext().getCheckFactory();
 
         return new MultiEnableCheck().add(
                 checkFactory
@@ -100,7 +101,7 @@ public class SaveBlockPlugIn extends AbstractPlugIn {
                     .getInstance()
                     .getFrame()
                     .warnUser(
-                            I18N.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
+                            I18N.JUMP.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
             return false;
         } else {
             try {
@@ -223,8 +224,8 @@ public class SaveBlockPlugIn extends AbstractPlugIn {
     private JPanel createMainPanel() {
         JPanel jpanel = new JPanel(new GridBagLayout());
         JLabel jLabel = new JLabel();
-        String OUTPUT_FILE = I18NPlug
-                .getI18N("org.openjump.core.ui.plugins.block.SaveBlockPlugIn.dialog");
+        String OUTPUT_FILE = i18n
+            .get("org.openjump.core.ui.plugins.block.SaveBlockPlugIn.dialog");
         jLabel.setText(OUTPUT_FILE);
         jTextField_wktOut.setEditable(true);
         jTextField_wktOut.setPreferredSize(new Dimension(250, 20));

@@ -39,13 +39,15 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.Logger;
-import org.saig.jump.lang.I18N;
 
 /**
  * Gets an icon from this class' package.
  */
 public class IconLoader {
+
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
     /** Icono por defecto, si no encuentra el indicado */
     public final static ImageIcon DEFAULT_UNKNOW_ICON = new ImageIcon(
@@ -78,9 +80,9 @@ public class IconLoader {
         URL urlIcon = IconLoader.class.getResource(filename);
         if (urlIcon == null) {
             if (useDefaultForNull) {
-                Logger.warn(I18N.getMessage(
+                Logger.warn(i18n.get(
                         "com.vividsolutions.jump.workbench.ui.images.IconLoader.The-icon-{0}-has-not-been-found-default-icon-will-be-used",
-                        new Object[] { filename }));
+                    filename));
                 return DEFAULT_UNKNOW_ICON;
             } else {
                 return null;
@@ -99,10 +101,9 @@ public class IconLoader {
     public static ImageIcon icon(URL url) {
         if (url == null) {
 
-            Logger.warn(I18N
-                    .getMessage(
-                            "com.vividsolutions.jump.workbench.ui.images.IconLoader.The-icon-{0}-has-not-been-found-default-icon-will-be-used",
-                            new Object[] { url }));
+            Logger.warn(i18n.get(
+                "com.vividsolutions.jump.workbench.ui.images.IconLoader.The-icon-{0}-has-not-been-found-default-icon-will-be-used",
+                url));
             return DEFAULT_UNKNOW_ICON;
         }
         return new ImageIcon(url);

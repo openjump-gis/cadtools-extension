@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.Icon;
 
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import org.openjump.advancedtools.icon.IconLoader;
 import org.openjump.advancedtools.utils.EditUtils;
 
@@ -37,7 +38,7 @@ import com.vividsolutions.jump.workbench.ui.plugin.PersistentBlackboardPlugIn;
 
 
 public class RemoveAreaTool extends PolygonTool {
-	/** Plugin name */
+
 	public final static String NAME = "Remove Area";
 
 	public final static String DESCRIPTION = "Select only one feature of polygonal type";
@@ -58,6 +59,7 @@ public class RemoveAreaTool extends PolygonTool {
 
 
 	public RemoveAreaTool() {
+		super(JUMPWorkbench.getInstance().getContext());
 		allowSnapping();
 		setCloseRing(true);
 	}
@@ -85,7 +87,8 @@ public class RemoveAreaTool extends PolygonTool {
 
 	public static MultiEnableCheck createEnableCheck(WorkbenchContext workbenchContext, CursorTool tool) {
 		MultiEnableCheck solucion = new MultiEnableCheck();
-		EnableCheckFactory checkFactory = new EnableCheckFactory(workbenchContext);
+		EnableCheckFactory checkFactory =
+				workbenchContext.createPlugInContext().getCheckFactory();
 		solucion.add(checkFactory.createTaskWindowMustBeActiveCheck());
 		solucion.add(checkFactory.createOnlyOneLayerMayHaveSelectedFeaturesCheck());
 		int MAX_FEATURES_SELECTED = 1;
@@ -129,7 +132,7 @@ public class RemoveAreaTool extends PolygonTool {
 		reportNothingToUndoYet();
 		if (!checkPolygon()) {
 			getPanel().getContext().warnUser(
-					I18N.get("ui.EditTransaction.the-geometry-is-invalid-cancelled"));
+					I18N.JUMP.get("ui.EditTransaction.the-geometry-is-invalid-cancelled"));
 
 			return;
 		} 
@@ -167,7 +170,7 @@ public class RemoveAreaTool extends PolygonTool {
 			.getContext()
 			.warnUser(
 
-					I18N.get("com.vividsolutions.jump.workbench.plugin.At-least-one-layer-must-be-selected"));
+					I18N.JUMP.get("com.vividsolutions.jump.workbench.plugin.At-least-one-layer-must-be-selected"));
 
 			return;
 		} 
@@ -176,7 +179,7 @@ public class RemoveAreaTool extends PolygonTool {
 			.getContext()
 			.warnUser(
 
-					I18N.get("com.vividsolutions.jump.workbench.plugin.Exactly-one-item-must-be-selected"));
+					I18N.JUMP.get("com.vividsolutions.jump.workbench.plugin.Exactly-one-item-must-be-selected"));
 
 			return;
 		}
@@ -256,7 +259,7 @@ public class RemoveAreaTool extends PolygonTool {
 			getPanel()
 			.getContext()
 			.warnUser(
-					I18N.get("ui.cursortool.editing.FeatureDrawingUtil.draw-feature-tool-topology-error"));
+					I18N.JUMP.get("ui.cursortool.editing.FeatureDrawingUtil.draw-feature-tool-topology-error"));
 			// I18N.getString("org.saig.jump.tools.editing.RemoveAreaTool.topology-error-repeat-the-operation"));
 
 			return;
@@ -267,7 +270,7 @@ public class RemoveAreaTool extends PolygonTool {
 		featsSelectedToUpdate.add(selectedFeature);
 
 		execute(new UndoableCommand(getName() + " - " +
-				I18N.getMessage("org.saig.jump.tools.editing.RemoveAreaTool.{0}-features-modified",
+				I18N.JUMP.get("org.saig.jump.tools.editing.RemoveAreaTool.{0}-features-modified",
 						featsToUpdate.size())) {
 			@Override
 			public void execute() {
@@ -312,7 +315,7 @@ public class RemoveAreaTool extends PolygonTool {
 			getPanel()
 			.getContext()
 			.warnUser(
-					I18N.get("ui.cursortool.PolygonTool.the-polygon-must-have-at-least-3-points"));
+					I18N.JUMP.get("ui.cursortool.PolygonTool.the-polygon-must-have-at-least-3-points"));
 
 			return false;
 		}

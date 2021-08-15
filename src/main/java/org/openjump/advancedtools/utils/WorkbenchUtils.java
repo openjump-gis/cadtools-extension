@@ -36,10 +36,6 @@
  */
 package org.openjump.advancedtools.utils;
 
-import static com.vividsolutions.jump.I18N.get;
-import static com.vividsolutions.jump.I18N.getMessage;
-
-import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -64,12 +60,9 @@ import org.locationtech.jts.geom.Envelope;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.util.Assert;
-import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.util.python.JUMP_GIS_Framework;
 import org.openjump.util.python.ModifyGeometry;
 import org.openjump.util.python.PythonInteractiveInterpreter;
-//import org.python.core.PySystemState;
 
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.Feature;
@@ -124,12 +117,7 @@ import org.python.core.PySystemState;
  */
 public class WorkbenchUtils {
 
-	//private static final Logger LOGGER = Logger.getLogger(WorkbenchUtils.class);
-
-	///**
-	// * default charset for shapes
-	// */
-	//public static final String DEFAULT_STRING_CHARSET = "ISO-8859-1";
+	private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
 	/**
 	 * Adds a layer to OpenJUMP from a FeatureCollection
@@ -334,7 +322,7 @@ public class WorkbenchUtils {
 		WorkbenchContext context = frameInstance.getContext();
 		if (context.getLayerableNamePanel().chooseEditableLayer() == null) {
 			Layer layer = context.getLayerViewPanel().getLayerManager().addLayer(StandardCategoryNames.WORKING,
-					I18N.get("ui.cursortool.editing.FeatureDrawingUtil.new"),
+					I18N.JUMP.get("ui.cursortool.editing.FeatureDrawingUtil.new"),
 					AddNewLayerPlugIn.createBlankFeatureCollection());
 			layer.setEditable(true);
 		}
@@ -810,17 +798,22 @@ public class WorkbenchUtils {
 	 */
 	public static QuasimodeTool addStandardQuasimodes(CursorTool tool) {
 		QuasimodeTool quasimodeTool = tool instanceof QuasimodeTool ? (QuasimodeTool) tool : new QuasimodeTool(tool);
-		quasimodeTool.add(new ModifierKeySpec(false, false, true), new ZoomTool());
-		quasimodeTool.add(new ModifierKeySpec(false, true, true), new PanTool());
-		SelectFeaturesTool selectFeaturesTool = new SelectFeaturesTool() {
+		quasimodeTool.add(new ModifierKeySpec(false, false, true),
+				new ZoomTool(JUMPWorkbench.getInstance().getContext()));
+		quasimodeTool.add(new ModifierKeySpec(false, true, true),
+				new PanTool(JUMPWorkbench.getInstance().getContext()));
+		SelectFeaturesTool selectFeaturesTool = new SelectFeaturesTool(JUMPWorkbench.getInstance().getContext()) {
 			@Override
 			protected boolean selectedLayersOnly() {
 				return false;
 			}
 		};
-		quasimodeTool.add(new ModifierKeySpec(true, false, false), selectFeaturesTool);
-		quasimodeTool.add(new ModifierKeySpec(true, true, false), selectFeaturesTool);
-		quasimodeTool.add(new ModifierKeySpec(true, false, true), new FeatureInfoTool());
+		quasimodeTool.add(new ModifierKeySpec(true, false, false),
+				selectFeaturesTool);
+		quasimodeTool.add(new ModifierKeySpec(true, true, false),
+				selectFeaturesTool);
+		quasimodeTool.add(new ModifierKeySpec(true, false, true),
+				new FeatureInfoTool(JUMPWorkbench.getInstance().getContext()));
 		return quasimodeTool;
 	}
 
@@ -874,7 +867,8 @@ public class WorkbenchUtils {
 	 * @param tool
 	 */
 	public static void activateTool(CursorTool tool) {
-		PlugInContext pContext = JUMPWorkbench.getInstance().getFrame().getContext().createPlugInContext();
+		PlugInContext pContext =
+				JUMPWorkbench.getInstance().getFrame().getContext().createPlugInContext();
 		pContext.getLayerViewPanel().setCurrentCursorTool(tool);
 	}
 
@@ -892,7 +886,7 @@ public class WorkbenchUtils {
 		Layer layer = JUMPWorkbench.getInstance().getFrame().getContext().getLayerManager().getLayer(layerName);
 
 		if (layer == null) {
-			String msg = I18NPlug.getMessage(
+			String msg = i18n.get(
 					"com.vividsolutions.jump.workbench.plugin.EnableCheckFactory.layer-{0}-does-not-exist", //$NON-NLS-1$
 					layerName);
 			JUMPWorkbench.getInstance().getFrame().warnUser(msg);
@@ -901,7 +895,7 @@ public class WorkbenchUtils {
 		int numSelectedFeatures = WorkbenchUtils.getSelectedFeatures().size();
 		int numSelectedFeaturesInLayer = WorkbenchUtils.getSelectedFeatures(layer).size();
 		if (numSelectedFeatures != numSelectedFeaturesInLayer) {
-			String msg = I18NPlug.getMessage(
+			String msg = i18n.get(
 					"com.vividsolutions.jump.workbench.plugin.EnableCheckFactory.All-the-selected-features-must-be-at-the-layer-{0}", //$NON-NLS-1$
 					layerName);
 			JUMPWorkbench.getInstance().getFrame().warnUser(msg);
@@ -918,9 +912,9 @@ public class WorkbenchUtils {
 			public String check(JComponent component) {
 				String msg;
 				if (n == 1) {
-					msg = get("com.vividsolutions.jump.workbench.plugin.Exactly-one-item-must-be-selected");
+					msg = I18N.JUMP.get("com.vividsolutions.jump.workbench.plugin.Exactly-one-item-must-be-selected");
 				} else {
-					msg = getMessage("com.vividsolutions.jump.workbench.plugin.Exactly-n-items-must-be-selected",
+					msg = I18N.JUMP.get("com.vividsolutions.jump.workbench.plugin.Exactly-n-items-must-be-selected",
 							n);
 				}
 				return (n != ((SelectionManagerProxy) JUMPWorkbench.getInstance().getFrame().getContext().getWorkbench()
@@ -933,7 +927,7 @@ public class WorkbenchUtils {
 	public static boolean checkActiveTaskWindow() {
 		if (!(JUMPWorkbench.getInstance().getFrame().getActiveInternalFrame() instanceof TaskFrame)) {
 			JUMPWorkbench.getInstance().getFrame()
-					.warnUser(I18N.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
+					.warnUser(I18N.JUMP.get("com.vividsolutions.jump.workbench.plugin.A-Task-Window-must-be-active"));
 			return false;
 		} else {
 			return true;

@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 import javax.swing.Icon;
 
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import org.openjump.advancedtools.config.CADToolsOptionsPanel;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.CoordinateListMetricsUtils;
 import org.openjump.core.geomutils.Circle;
 import org.openjump.core.ui.plugin.edittoolbox.cursortools.ConstrainedMultiClickTool;
@@ -36,13 +36,15 @@ import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUti
 
 public class CircleBythreePointsTool extends ConstrainedMultiClickTool {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     private final FeatureDrawingUtil featureDrawingUtil;
 
-    static final String theCircleMustHaveAtLeast2Points = I18N
+    static final String theCircleMustHaveAtLeast2Points = I18N.JUMP
             .get("org.openjump.core.ui.plugins.edittoolbox.cursortools.DrawConstrainedCircleTool.The-circle-must-have-at-least-2-points");
 
     private CircleBythreePointsTool(FeatureDrawingUtil featureDrawingUtil) {
-
+        super(JUMPWorkbench.getInstance().getContext());
         this.featureDrawingUtil = featureDrawingUtil;
     }
 
@@ -56,7 +58,7 @@ public class CircleBythreePointsTool extends ConstrainedMultiClickTool {
 
     @Override
     public String getName() {
-        return I18NPlug.getI18N("Draw.Circle.by.3points");
+        return i18n.get("Draw.Circle.by.3points");
     }
 
     @Override

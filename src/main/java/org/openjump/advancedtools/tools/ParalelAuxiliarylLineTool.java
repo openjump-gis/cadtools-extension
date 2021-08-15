@@ -50,7 +50,6 @@ import javax.swing.Icon;
 import com.vividsolutions.jump.workbench.Logger;
 import org.openjump.advancedtools.gui.LengthDialog;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.CADEnableCheckFactory;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
@@ -88,17 +87,20 @@ import es.kosmo.desktop.tools.algorithms.AuxiliaryParallelLinesAlgorithm;
  * @since OpenJUMP 1.10 (2017)
  */
 public class ParalelAuxiliarylLineTool extends DragTool {
+
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     private static GeometryFactory geomFac = new GeometryFactory();
 
     /** Name of the tool */
-    public static final String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.AuxiliaryParalellLineTool");
+    public static final String NAME = i18n
+        .get("org.openjump.core.ui.tools.AuxiliaryParalellLineTool");
 
     /** description of the tool */
-    public final static String DESCRIPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.AuxiliaryParalellLineTool.description");
+    public final static String DESCRIPTION = i18n
+        .get("org.openjump.core.ui.tools.AuxiliaryParalellLineTool.description");
 
-    String sDistance = I18N
+    String sDistance = I18N.JUMP
             .get("org.openjump.core.ui.plugin.edittoolbox.tab.ConstraintsOptionsPanel.Length");
 
     /** Icon of the tool */
@@ -123,10 +125,11 @@ public class ParalelAuxiliarylLineTool extends DragTool {
     protected List<Feature> featsOriginal;
     protected AuxiliaryParallelLinesAlgorithm parallelAlg = new AuxiliaryParallelLinesAlgorithm();
     //protected SnapIndicatorTool snapIndicatorTool;
-    EnableCheckFactory checkFactory = new EnableCheckFactory(JUMPWorkbench
-            .getInstance().getContext());
+    EnableCheckFactory checkFactory;
+    //    JUMPWorkbench.getInstance().getContext().createPlugInContext().getCheckFactory();
 
     public ParalelAuxiliarylLineTool(EnableCheckFactory checkFactory) {
+        super(JUMPWorkbench.getInstance().getContext());
         this.checkFactory = checkFactory;
         allowSnapping();
     }
@@ -328,8 +331,8 @@ public class ParalelAuxiliarylLineTool extends DragTool {
     public static MultiEnableCheck createEnableCheck(
             WorkbenchContext workbenchContext, AbstractCursorTool tool) {
         MultiEnableCheck check = new MultiEnableCheck();
-        EnableCheckFactory checkFactory = new EnableCheckFactory(
-                workbenchContext);
+        EnableCheckFactory checkFactory =
+            workbenchContext.createPlugInContext().getCheckFactory();
 
         check.add(checkFactory.createTaskWindowMustBeActiveCheck());
         check.add(checkFactory.createWindowWithLayerManagerMustBeActiveCheck());

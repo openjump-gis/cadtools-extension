@@ -2,7 +2,6 @@ package org.openjump.advancedtools.tools;
 
 import java.awt.Cursor;
 import java.awt.Point;
-import java.awt.geom.NoninvertibleTransformException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -10,6 +9,7 @@ import java.util.List;
 
 import javax.swing.Icon;
 
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import org.openjump.advancedtools.icon.IconLoader;
 import org.openjump.advancedtools.utils.EditUtils;
 
@@ -38,9 +38,7 @@ import com.vividsolutions.jump.workbench.ui.plugin.PersistentBlackboardPlugIn;
 
 
 
-public class AddAreaTool
-extends PolygonTool
-{
+public class AddAreaTool extends PolygonTool {
 
 	/** Plugin name */
 	public final static String NAME = "Add Area";
@@ -54,6 +52,7 @@ extends PolygonTool
 
 
 	public AddAreaTool() {
+		super(JUMPWorkbench.getInstance().getContext());
 		setCloseRing(true);
 		allowSnapping();
 	}
@@ -81,9 +80,10 @@ extends PolygonTool
 	}
 
 
-	public static MultiEnableCheck createEnableCheck(WorkbenchContext workbenchContext, CursorTool tool) {
+	public static MultiEnableCheck createEnableCheck(
+			WorkbenchContext workbenchContext, CursorTool tool) {
 		MultiEnableCheck solucion = new MultiEnableCheck();
-		EnableCheckFactory checkFactory = new EnableCheckFactory(workbenchContext);
+		EnableCheckFactory checkFactory = workbenchContext.createPlugInContext().getCheckFactory();
 		solucion.add(checkFactory.createTaskWindowMustBeActiveCheck());
 		solucion.add(checkFactory.createOnlyOneLayerMayHaveSelectedFeaturesCheck());
 		int MAX_FEATURES_SELECTED = 1;
@@ -130,7 +130,7 @@ extends PolygonTool
 
 		if (!checkPolygon()) {
 			getPanel().getContext().warnUser(
-					I18N.get("ui.EditTransaction.the-geometry-is-invalid-cancelled"));
+					I18N.JUMP.get("ui.EditTransaction.the-geometry-is-invalid-cancelled"));
 
 			return;
 		} 
@@ -162,7 +162,7 @@ extends PolygonTool
 			.getContext()
 			.warnUser(
 
-					I18N.get("com.vividsolutions.jump.workbench.plugin.At-least-one-layer-must-be-selected"));
+					I18N.JUMP.get("com.vividsolutions.jump.workbench.plugin.At-least-one-layer-must-be-selected"));
 
 			return;
 		} 
@@ -171,7 +171,7 @@ extends PolygonTool
 			.getContext()
 			.warnUser(
 
-					I18N.get("com.vividsolutions.jump.workbench.plugin.Exactly-one-item-must-be-selected"));
+					I18N.JUMP.get("com.vividsolutions.jump.workbench.plugin.Exactly-one-item-must-be-selected"));
 
 			return;
 		}
@@ -259,7 +259,7 @@ extends PolygonTool
 			getPanel()
 			.getContext()
 			.warnUser(
-					I18N.get("ui.cursortool.editing.FeatureDrawingUtil.draw-feature-tool-topology-error"));
+					I18N.JUMP.get("ui.cursortool.editing.FeatureDrawingUtil.draw-feature-tool-topology-error"));
 			//I18N.getString("org.saig.jump.tools.editing.AddAreaTool.topology-error-repeat-the-operation"));
 
 			return;
@@ -270,7 +270,7 @@ extends PolygonTool
 		featsSelectedToUpdate.add(selectedFeature);
 
 		execute(new UndoableCommand(getName() + " - " +
-				I18N.getMessage("org.saig.jump.tools.editing.AddAreaTool.{0}-features-modified",
+				I18N.JUMP.get("org.saig.jump.tools.editing.AddAreaTool.{0}-features-modified",
 						featsToUpdate.size())) {
 			@Override
 			public void execute() {
@@ -309,7 +309,7 @@ extends PolygonTool
 			getPanel()
 			.getContext()
 			.warnUser(
-					I18N.get("ui.cursortool.PolygonTool.the-polygon-must-have-at-least-3-points"));
+					I18N.JUMP.get("ui.cursortool.PolygonTool.the-polygon-must-have-at-least-3-points"));
 
 			return false;
 		}

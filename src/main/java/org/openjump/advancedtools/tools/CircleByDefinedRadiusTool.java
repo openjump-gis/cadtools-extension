@@ -46,6 +46,7 @@ import java.awt.geom.Point2D;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import org.openjump.advancedtools.config.CADToolsOptionsPanel;
 import org.openjump.advancedtools.gui.CircleDialog;
 import org.openjump.advancedtools.plugins.CirclePlugIn;
@@ -80,7 +81,7 @@ public class CircleByDefinedRadiusTool extends NClickTool {
     // ------------------------------------
     private final FeatureDrawingUtil featureDrawingUtil;
     private Shape selectedFeaturesShape;
-    private final String name = I18N
+    private final String name = I18N.JUMP
             .get("org.openjump.core.ui.plugins.edittoolbox.cursortools.DrawCircleWithGivenRadiusTool.Draw-circle-with-given-radius-and-center");
     ///** Radio del circulo */
     //protected double ratio;
@@ -88,7 +89,7 @@ public class CircleByDefinedRadiusTool extends NClickTool {
     protected double y;
 
     private CircleByDefinedRadiusTool(FeatureDrawingUtil featureDrawingUtil) {
-        super(1);
+        super(JUMPWorkbench.getInstance().getContext(), 1);
         this.featureDrawingUtil = featureDrawingUtil;
         setStroke(new BasicStroke(1, BasicStroke.CAP_BUTT,
                 BasicStroke.JOIN_BEVEL, 0, new float[] { 3, 3 }, 0));

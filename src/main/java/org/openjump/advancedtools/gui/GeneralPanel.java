@@ -5,15 +5,17 @@ import java.awt.GridLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
-import org.openjump.advancedtools.language.I18NPlug;
-
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 
 public class GeneralPanel {
+
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     public static JCheckBox centerCheck = new JCheckBox(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.Dialog.draw-center-as-point"));
+        i18n.get("org.openjump.core.ui.plugins.Dialog.draw-center-as-point"));
     public static JCheckBox polygonCheck = new JCheckBox(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.Dialog.draw-as-filled-polygon"));
+        i18n.get("org.openjump.core.ui.plugins.Dialog.draw-as-filled-polygon"));
 
     public static JPanel mainPanel = new JPanel(new GridLayout(0, 1));
 

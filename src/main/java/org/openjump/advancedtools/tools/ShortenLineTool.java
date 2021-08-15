@@ -11,9 +11,9 @@ import java.util.Set;
 
 import javax.swing.Icon;
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.Logger;
 import org.openjump.advancedtools.config.CADToolsOptionsPanel;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.EditUtils;
 
 import org.locationtech.jts.geom.Coordinate;
@@ -45,12 +45,14 @@ import com.vividsolutions.jump.workbench.ui.images.IconLoader;
 
 public class ShortenLineTool extends NClickTool {
 
-    public static final String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.ShortenLineTool.Shorten-line");
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
+    public static final String NAME = i18n
+        .get("org.openjump.core.ui.tools.ShortenLineTool.Shorten-line");
     public static final Icon ICON = org.openjump.advancedtools.icon.IconLoader
-            .icon("shortenLine.png");
+        .icon("shortenLine.png");
     public static final Cursor CURSOR = createCursor(IconLoader.icon(
-            "DeleteCursor.gif").getImage());
+        "DeleteCursor.gif").getImage());
     protected double BUFFER_RATIO = 1000.0D;
     protected boolean broke_geom = true;
     protected boolean self_intersection_active;
@@ -59,14 +61,14 @@ public class ShortenLineTool extends NClickTool {
     protected List<Feature> featsSelectedToUpdate;
 
     public ShortenLineTool() {
-        super(1);
+        super(JUMPWorkbench.getInstance().getContext(), 1);
         setColor(Color.magenta);
         allowSnapping();
         this.self_intersection_active = true;
     }
 
     public ShortenLineTool(int n) {
-        super(n);
+        super(JUMPWorkbench.getInstance().getContext(), n);
         setColor(Color.magenta);
         this.self_intersection_active = true;
     }
@@ -253,7 +255,7 @@ public class ShortenLineTool extends NClickTool {
                     .getLayerViewPanel()
                     .getContext()
                     .warnUser(
-                            I18NPlug.getI18N("org.openjump.core.ui.tools.ShortenLineTool.Only-line"));
+                        i18n.get("org.openjump.core.ui.tools.ShortenLineTool.Only-line"));
             return null;
         }
         if ((selectedGeom instanceof MultiLineString)) {
@@ -337,7 +339,7 @@ public class ShortenLineTool extends NClickTool {
                             .getLayerViewPanel()
                             .getContext()
                             .warnUser(
-                                    I18NPlug.getI18N("org.openjump.core.ui.tools.ShortenLineTool.Operation-result-is-not-valid"));
+                                i18n.get("org.openjump.core.ui.tools.ShortenLineTool.Operation-result-is-not-valid"));
                     return null;
                 }
                 if (multilinedGeometry) {
@@ -461,7 +463,7 @@ public class ShortenLineTool extends NClickTool {
                             .getLayerViewPanel()
                             .getContext()
                             .warnUser(
-                                    I18NPlug.getI18N("org.openjump.core.ui.tools.ShortenLineTool.Operation-result-is-not-valid"));
+                                i18n.get("org.openjump.core.ui.tools.ShortenLineTool.Operation-result-is-not-valid"));
                     return;
                 }
                 if (multilinedGeometry) {
@@ -682,8 +684,8 @@ public class ShortenLineTool extends NClickTool {
     public static MultiEnableCheck createEnableCheck(
             WorkbenchContext workbenchContext, AbstractCursorTool tool) {
         MultiEnableCheck solucion = new MultiEnableCheck();
-        EnableCheckFactory checkFactory = new EnableCheckFactory(
-                workbenchContext);
+        EnableCheckFactory checkFactory =
+            workbenchContext.createPlugInContext().getCheckFactory();
 
         solucion.add(checkFactory.createTaskWindowMustBeActiveCheck())
                 .add(checkFactory

@@ -80,8 +80,8 @@ public class ExtendedDecorationPlugIn extends ToolboxPlugIn {
             final WorkbenchContext workbenchContext) {
 
         MultiEnableCheck multiEnableCheck = new MultiEnableCheck();
-        EnableCheckFactory checkFactory = new EnableCheckFactory(
-                workbenchContext);
+        EnableCheckFactory checkFactory =
+            workbenchContext.createPlugInContext().getCheckFactory();
         multiEnableCheck.add(checkFactory.createTaskWindowMustBeActiveCheck());
 
         return multiEnableCheck;

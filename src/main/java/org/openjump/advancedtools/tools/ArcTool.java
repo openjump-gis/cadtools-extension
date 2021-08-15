@@ -49,7 +49,6 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.EditUtils;
 import org.openjump.core.geomutils.Arc;
 import org.openjump.core.ui.plugin.edittoolbox.cursortools.ConstrainedMultiClickArcTool;
@@ -76,25 +75,28 @@ import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUti
 
 public class ArcTool extends ConstrainedMultiClickArcTool {
 
-    public static final String arcLength = I18NPlug
-            .getI18N("org.openjump.core.ui.utils.CoordinateListMetrics.arc-length")
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
+    public static final String arcLength = i18n
+        .get("org.openjump.core.ui.utils.CoordinateListMetrics.arc-length")
             + ": ";
-    public static final String Angle = I18NPlug
-            .getI18N("org.openjump.core.ui.utils.CoordinateListMetrics.arc-angle-center")
+    public static final String Angle = i18n
+        .get("org.openjump.core.ui.utils.CoordinateListMetrics.arc-angle-center")
             + ": ";
-    public static final String Center = I18NPlug
-            .getI18N("org.openjump.core.ui.utils.CoordinateListMetrics.center-coordinates")
+    public static final String Center = i18n
+        .get("org.openjump.core.ui.utils.CoordinateListMetrics.center-coordinates")
             + ": ";
-    public static final String Radius = I18NPlug
-            .getI18N("org.openjump.core.ui.utils.CoordinateListMetrics.radius")
+    public static final String Radius = i18n
+        .get("org.openjump.core.ui.utils.CoordinateListMetrics.radius")
             + ": ";
     private final FeatureDrawingUtil featureDrawingUtil;
-    final static String drawConstrainedArc = I18N
+    final static String drawConstrainedArc = I18N.JUMP
             .get("org.openjump.core.ui.plugins.edittoolbox.cursortools.DrawConstrainedArcTool.Draw-Constrained-Arc");
-    final static String theArcMustHaveAtLeast3Points = I18N
+    final static String theArcMustHaveAtLeast3Points = I18N.JUMP
             .get("org.openjump.core.ui.plugins.edittoolbox.cursortools.DrawConstrainedArcTool.The-arc-must-have-at-least-3-points");
 
     private ArcTool(FeatureDrawingUtil featureDrawingUtil) {
+        super(JUMPWorkbench.getInstance().getContext());
         drawClosed = false;
         this.featureDrawingUtil = featureDrawingUtil;
     }

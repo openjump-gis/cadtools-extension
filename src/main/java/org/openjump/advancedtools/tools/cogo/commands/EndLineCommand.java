@@ -38,8 +38,8 @@ package org.openjump.advancedtools.tools.cogo.commands;
 
 import java.util.List;
 
+import com.vividsolutions.jump.I18N;
 import org.openjump.advancedtools.gui.SimpleLineDialog;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.tools.cogo.DrawGeometryCommandsTool;
 
 import org.locationtech.jts.geom.Coordinate;
@@ -54,6 +54,8 @@ import com.vividsolutions.jump.workbench.JUMPWorkbench;
  * @since Kosmo 1.1.1
  */
 public class EndLineCommand extends LineCommand {
+
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
     /** Nombre del comando */
     private final static String COMMAND_NAME = "end"; 
@@ -73,8 +75,7 @@ public class EndLineCommand extends LineCommand {
     }
 
     public static String getHelp() {
-        return I18NPlug
-                .getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.EndLineCommand.description"); 
+        return i18n.get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.EndLineCommand.description");
     }
 
     public static String getName() {
@@ -97,7 +98,7 @@ public class EndLineCommand extends LineCommand {
                     .getInstance()
                     .getFrame()
                     .warnUser(
-                            I18NPlug.getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.EndLineCommand.check")); 
+                            i18n.get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.EndLineCommand.check"));
         }
     }
 

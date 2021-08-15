@@ -17,8 +17,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 
+import com.vividsolutions.jump.I18N;
+import com.vividsolutions.jump.workbench.JUMPWorkbenchContext;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Envelope;
@@ -40,20 +41,22 @@ import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUti
 import com.vividsolutions.jump.workbench.ui.renderer.style.LabelStyle;
 import com.vividsolutions.jump.workbench.ui.snap.SnapToFeaturesPolicy;
 
-public class ChengeTextTool extends NClickTool {
+public class ChangeTextTool extends NClickTool {
+
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
     /** Name of the tool */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.annotation.ChangeTextTool.name");
+    public final static String NAME = i18n
+            .get("org.openjump.core.ui.plugins.annotation.ChangeTextTool.name");
     /** Description of the tool */
-    public final static String DESCRIPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.annotation.ChangeTextTool.description");
+    public final static String DESCRIPTION = i18n
+            .get("org.openjump.core.ui.plugins.annotation.ChangeTextTool.description");
 
     private final JTextField textArea;
     private Mode mode;
 
-    public ChengeTextTool() {
-        super(1);
+    public ChangeTextTool() {
+        super(JUMPWorkbench.getInstance().getContext(), 1);
         this.panel = getPanel();
         getSnapManager().addPolicies(
                 Collections.singleton(new SnapToFeaturesPolicy()));
@@ -61,15 +64,15 @@ public class ChengeTextTool extends NClickTool {
         this.textArea.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
-                if (ChengeTextTool.this.panelContainsTextArea()) {
-                    boolean doit = ChengeTextTool.this.textArea.getText()
+                if (ChangeTextTool.this.panelContainsTextArea()) {
+                    boolean doit = ChangeTextTool.this.textArea.getText()
                             .trim().length() > 0;
                     if (doit)
-                        ChengeTextTool.this.getPanel().getLayerManager()
+                        ChangeTextTool.this.getPanel().getLayerManager()
                                 .getUndoableEditReceiver().startReceiving();
-                    ChengeTextTool.this.removeTextAreaFromPanel();
+                    ChangeTextTool.this.removeTextAreaFromPanel();
                     if (doit)
-                        ChengeTextTool.this.getPanel().getLayerManager()
+                        ChangeTextTool.this.getPanel().getLayerManager()
                                 .getUndoableEditReceiver().stopReceiving();
                 }
             }
@@ -116,13 +119,11 @@ public class ChengeTextTool extends NClickTool {
         return tooltip;
     }
 
-    EnableCheckFactory checkFactory = new EnableCheckFactory(JUMPWorkbench
-            .getInstance().getContext());
-
     @Override
     protected void gestureFinished() throws Exception {
         reportNothingToUndoYet();
-        if (!check(checkFactory.createAtLeastNLayersMustExistCheck(1))) {
+        if (!check(getWorkbenchContext().createPlugInContext().getCheckFactory()
+            .createAtLeastNLayersMustExistCheck(1))) {
             return;
         }
 
@@ -138,11 +139,11 @@ public class ChengeTextTool extends NClickTool {
                 @Override
                 public void run() {
                     try {
-                        ChengeTextTool.this
-                                .addTextAreaToPanel(ChengeTextTool.this.mode
+                        ChangeTextTool.this
+                                .addTextAreaToPanel(ChangeTextTool.this.mode
                                         .location());
                     } catch (NoninvertibleTransformException e) {
-                        ChengeTextTool.this.getPanel().getContext()
+                        ChangeTextTool.this.getPanel().getContext()
                                 .handleThrowable(e);
                     }
                 }
@@ -262,8 +263,8 @@ public class ChengeTextTool extends NClickTool {
             } finally {
                 layerManager.setFiringEvents(firingEvents);
             }
-            layerManager.addLayer(I18NPlug
-                    .getI18N("org.openjump.core.ui.plugins.annotation.annotation-layer"),
+            layerManager.addLayer(i18n
+                    .get("org.openjump.core.ui.plugins.annotation.annotation-layer"),
                     noteLayer);
         }
         return noteLayer;
@@ -297,10 +298,10 @@ public class ChengeTextTool extends NClickTool {
         FeatureDrawingUtil featureDrawingUtil = new FeatureDrawingUtil(
                 layerNamePanelProxy);
 
-        return featureDrawingUtil.prepare(new ChengeTextTool(), true);
+        return featureDrawingUtil.prepare(new ChangeTextTool(), true);
     }
 
-    private class EditMode extends ChengeTextTool.Mode {
+    private class EditMode extends ChangeTextTool.Mode {
         public EditMode(Feature noteFeature) {
             super(noteFeature);
         }
@@ -308,21 +309,21 @@ public class ChengeTextTool extends NClickTool {
         @Override
         public void commit(final String text) {
             final String oldText = getNoteFeature().getString("TEXT");
-            ChengeTextTool.this.execute(new UndoableCommand(getName()) {
+            ChangeTextTool.this.execute(new UndoableCommand(getName()) {
                 @Override
                 public void execute() {
 
-                    ChengeTextTool.EditMode.this.update(
-                            ChengeTextTool.EditMode.this.getNoteFeature(),
-                            text, ChengeTextTool.this.layer());
+                    ChangeTextTool.EditMode.this.update(
+                            ChangeTextTool.EditMode.this.getNoteFeature(),
+                            text, ChangeTextTool.this.layer());
 
                 }
 
                 @Override
                 public void unexecute() {
-                    ChengeTextTool.EditMode.this.update(
-                            ChengeTextTool.EditMode.this.getNoteFeature(),
-                            oldText, ChengeTextTool.this.layer());
+                    ChangeTextTool.EditMode.this.update(
+                            ChangeTextTool.EditMode.this.getNoteFeature(),
+                            oldText, ChangeTextTool.this.layer());
                 }
             });
         }
@@ -353,8 +354,8 @@ public class ChengeTextTool extends NClickTool {
         private final Feature noteFeature;
 
         public String getName() {
-            return I18NPlug
-                    .getI18N("org.openjump.core.ui.plugins.annotation.annotation-layer");
+            return i18n
+                .get("org.openjump.core.ui.plugins.annotation.annotation-layer");
         }
 
         public Mode(Feature noteFeature) {
@@ -376,8 +377,8 @@ public class ChengeTextTool extends NClickTool {
 
     public static EnableCheck createEnableCheck(
             WorkbenchContext workbenchContext, boolean b) {
-        EnableCheckFactory checkFactory = new EnableCheckFactory(
-                workbenchContext);
+        EnableCheckFactory checkFactory =
+            workbenchContext.createPlugInContext().getCheckFactory();
 
         return new MultiEnableCheck().add(
                 checkFactory.createWindowWithLayerViewPanelMustBeActiveCheck())

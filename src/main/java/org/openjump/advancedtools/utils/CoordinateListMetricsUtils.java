@@ -2,52 +2,53 @@ package org.openjump.advancedtools.utils;
 
 import java.text.DecimalFormat;
 
-import org.openjump.advancedtools.language.I18NPlug;
-
 import org.locationtech.jts.geom.Coordinate;
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import com.vividsolutions.jump.workbench.ui.HTMLFrame;
 
 public class CoordinateListMetricsUtils {
-    public static final String Radius = I18NPlug
-            .getI18N("org.openjump.core.ui.utils.CoordinateListMetrics.radius")
-            + ": ";
-    public static final String Circum = I18NPlug
-            .getI18N("org.openjump.core.ui.utils.CoordinateListMetrics.circumference")
-            + ": ";
-    public static final String Source = I18NPlug
-            .getI18N("org.openjump.core.ui.utils.CoordinateListMetrics.source")
-            + ": ";
-    public static final String Target = I18NPlug
-            .getI18N("org.openjump.core.ui.utils.CoordinateListMetrics.target")
-            + ": ";
-    public static final String Coordinates = I18NPlug
-            .getI18N("org.openjump.core.ui.utils.CoordinateListMetrics.coordinates");
 
-    public static final String Circle = I18NPlug
-            .getI18N("org.openjump.core.ui.utils.CoordinateListMetrics.Circle");
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
-    public static final String Measure = I18NPlug
-            .getI18N("org.openjump.core.ui.utils.CoordinateListMetrics.Measure");
+    public static final String Radius = i18n
+        .get("org.openjump.core.ui.utils.CoordinateListMetrics.radius")
+            + ": ";
+    public static final String Circum = i18n
+        .get("org.openjump.core.ui.utils.CoordinateListMetrics.circumference")
+            + ": ";
+    public static final String Source = i18n
+        .get("org.openjump.core.ui.utils.CoordinateListMetrics.source")
+            + ": ";
+    public static final String Target = i18n
+        .get("org.openjump.core.ui.utils.CoordinateListMetrics.target")
+            + ": ";
+    public static final String Coordinates = i18n
+        .get("org.openjump.core.ui.utils.CoordinateListMetrics.coordinates");
 
-    public static final String Centre = I18NPlug
-            .getI18N("org.openjump.core.ui.utils.CoordinateListMetrics.center-coordinates")
+    public static final String Circle = i18n
+        .get("org.openjump.core.ui.utils.CoordinateListMetrics.Circle");
+
+    public static final String Measure = i18n
+        .get("org.openjump.core.ui.utils.CoordinateListMetrics.Measure");
+
+    public static final String Centre = i18n
+        .get("org.openjump.core.ui.utils.CoordinateListMetrics.center-coordinates")
             + ": ";
     /*
      * From
      * com.vividsolutions.jump.workbench.ui.cursortool.CoordinateListMetrics
      */
-    public static final String Area = I18N
+    public static final String Area = I18N.JUMP
             .get("ui.cursortool.CoordinateListMetrics.Area");
-    public static final String Azimuth = I18N
+    public static final String Azimuth = I18N.JUMP
             .get("ui.cursortool.CoordinateListMetrics.Azimuth");
-    public static final String Angle = I18N
+    public static final String Angle = I18N.JUMP
             .get("ui.cursortool.CoordinateListMetrics.Angle");
-    public static final String Distance = I18N
+    public static final String Distance = I18N.JUMP
             .get("ui.cursortool.CoordinateListMetrics.Distance");
 
-    public static final String Perimeter = I18N
+    public static final String Perimeter = I18N.JUMP
             .get("ui.cursortool.CoordinateListMetrics.Perimeter");
 
     public static DecimalFormat df2 = new DecimalFormat("##0.0##");

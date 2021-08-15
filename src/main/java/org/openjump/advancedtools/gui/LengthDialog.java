@@ -17,21 +17,26 @@ import javax.swing.JPanel;
 import com.vividsolutions.jump.I18N;
 
 public class LengthDialog extends JDialog implements ActionListener {
+
     private static final long serialVersionUID = 1L;
+
     private double longitude;
-    private final JButton acceptButton = new JButton(I18N.get("ui.OKCancelPanel.ok"));
+    private final JButton acceptButton = new JButton(
+        I18N.JUMP.get("ui.OKCancelPanel.ok"));
     private final JLabel label = new JLabel(
-            I18N.get("org.openjump.core.ui.plugin.edittoolbox.tab.ConstraintsOptionsPanel.Length"));
-    private JButton cancelButton = new JButton(I18N.get("ui.OKCancelPanel.Cancel"));
+        I18N.JUMP.get("org.openjump.core.ui.plugin.edittoolbox.tab.ConstraintsOptionsPanel.Length"));
+    private JButton cancelButton = new JButton(
+        I18N.JUMP.get("ui.OKCancelPanel.Cancel"));
 
     private final JFormattedTextField numberTextField;
     public boolean cancelado = true;
 
     public LengthDialog(JFrame parent, double length) {
         super(
-                parent,
-                I18N.get("org.openjump.core.ui.plugin.edittoolbox.tab.ConstraintsOptionsPanel.Length"),
-                true);
+            parent,
+            I18N.JUMP.get("org.openjump.core.ui.plugin.edittoolbox.tab.ConstraintsOptionsPanel.Length"),
+            true
+        );
         this.setIconImage(org.openjump.advancedtools.icon.IconLoader
                 .image("cadTools.png"));
         this.longitude = length;

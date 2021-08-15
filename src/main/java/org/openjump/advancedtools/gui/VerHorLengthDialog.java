@@ -14,13 +14,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.openjump.advancedtools.language.I18NPlug;
+import com.vividsolutions.jump.I18N;
 
 public class VerHorLengthDialog extends JDialog implements ActionListener {
+
     private static final long serialVersionUID = 1L;
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     private double longitude;
     private JButton acceptButton = new JButton(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.Dialog.Accept"));
+        i18n.get("org.openjump.core.ui.plugins.Dialog.Accept"));
 
     private JLabel label_1 = new JLabel("Horizontal Length");
     private JLabel label_2 = new JLabel("Vertical Length");

@@ -41,9 +41,9 @@ import java.awt.Graphics2D;
 
 import javax.swing.*;
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.Logger;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 
 import org.locationtech.jts.geom.Coordinate;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
@@ -62,17 +62,19 @@ import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUti
  */
 public class DrawGeometryCommandsTool extends DrawGeometryTool {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     /** Cursor of the tool */
     public static final Cursor CURSOR = createCursor(IconLoader.icon(
             "commands_cursor.png").getImage());
 
     /** Nombre asociado a la herramienta */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.draw-with-commands");
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.draw-with-commands");
 
     /** Nombre asociado a la herramienta */
-    public final static String DESCRIPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.DrawLineStringCommandsTool.description");
+    public final static String DESCRIPTION = i18n
+        .get("org.openjump.core.ui.tools.DrawLineStringCommandsTool.description");
 
     ///** Log */
     //private final static Logger LOGGER = Logger

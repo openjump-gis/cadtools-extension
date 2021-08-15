@@ -36,6 +36,8 @@
  */
 package org.openjump.advancedtools.gui;
 
+import com.vividsolutions.jump.I18N;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,7 +51,6 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.openjump.advancedtools.language.I18NPlug;
 
 /**
  * 
@@ -58,22 +59,22 @@ import org.openjump.advancedtools.language.I18NPlug;
 public class RotateDialog extends JDialog implements ChangeListener,
         ActionListener {
 
-    /** long serialVersionUID field */
     private static final long serialVersionUID = 1L;
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
 
     JRotationPanel rotationPanel = new JRotationPanel(0);
     JSpinner jspinner = new JSpinner();
     JButton cancelar = new JButton(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.Dialog.Cancel"));
+        i18n.get("org.openjump.core.ui.plugins.Dialog.Cancel"));
     JButton apply = new JButton(
-            I18NPlug.getI18N("org.openjump.core.ui.plugins.Dialog.Apply")
+        i18n.get("org.openjump.core.ui.plugins.Dialog.Apply")
                     + " ->");
     float angle = 0;
     public boolean cancelado = true;
 
     public RotateDialog(JFrame frame) {
-        super(frame, I18NPlug
-                .getI18N("org.openjump.core.ui.plugins.Dialog.Angle"), true);
+        super(frame, i18n
+            .get("org.openjump.core.ui.plugins.Dialog.Angle"), true);
         this.setIconImage(org.openjump.advancedtools.icon.IconLoader
                 .image("cadTools.png"));
 

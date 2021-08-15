@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
-import org.openjump.advancedtools.language.I18NPlug;
+import com.vividsolutions.jump.I18N;
 
 import com.vividsolutions.jump.feature.AttributeType;
 import com.vividsolutions.jump.feature.Feature;
@@ -25,10 +25,12 @@ import com.vividsolutions.jump.workbench.ui.renderer.style.LabelStyle;
 
 public class TextFinder extends SystemLayerFinder {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     // public static final int WIDTH = 20;
     // public static final int HEIGHT = 20;
-    public static final String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.annotation");
+    public static final String NAME = i18n
+        .get("org.openjump.core.ui.plugins.annotation");
     public static final String LAYER = "LAYER";
     public static final String TEXT = "TEXT";
     public static final String TEXT_HEIGHT = "TEXT_HEIGHT";

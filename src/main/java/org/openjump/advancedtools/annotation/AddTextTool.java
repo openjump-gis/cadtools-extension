@@ -19,8 +19,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 
+import com.vividsolutions.jump.I18N;
+import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -45,12 +46,15 @@ import com.vividsolutions.jump.workbench.ui.snap.SnapToFeaturesPolicy;
 
 public class AddTextTool extends NClickTool {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     /** Name of the tool */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.annotation.AddTextTool.name");
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.plugins.annotation.AddTextTool.name");
+
     /** Description of the tool */
-    public final static String DESCRIPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.plugins.annotation.AddTextTool.description");
+    public final static String DESCRIPTION = i18n
+        .get("org.openjump.core.ui.plugins.annotation.AddTextTool.description");
 
     @Override
     public String getName() {
@@ -101,8 +105,8 @@ public class AddTextTool extends NClickTool {
         }
     };
 
-    public AddTextTool() {
-        super(1);
+    public AddTextTool(PlugInContext context) {
+        super(context.getWorkbenchContext(), 1);
         this.panel = getPanel();
         getSnapManager().addPolicies(
                 Collections.singleton(new SnapToFeaturesPolicy()));
@@ -163,14 +167,12 @@ public class AddTextTool extends NClickTool {
         return icon;
     }
 
-    EnableCheckFactory checkFactory = new EnableCheckFactory(JUMPWorkbench
-            .getInstance().getContext());
-
     @Override
     protected void gestureFinished() throws Exception {
         reportNothingToUndoYet();
 
-        if (!check(checkFactory.createAtLeastNLayersMustExistCheck(1))) {
+        if (!check(getWorkbenchContext().createPlugInContext().getCheckFactory()
+            .createAtLeastNLayersMustExistCheck(1))) {
             return;
         }
 
@@ -289,7 +291,7 @@ public class AddTextTool extends NClickTool {
             }
             layerManager
                     .addLayer(
-                            I18NPlug.getI18N("org.openjump.core.ui.plugins.annotation.annotation-layer"),
+                            i18n.get("org.openjump.core.ui.plugins.annotation.annotation-layer"),
                             noteLayer);
         }
         return noteLayer;
@@ -323,7 +325,10 @@ public class AddTextTool extends NClickTool {
         FeatureDrawingUtil featureDrawingUtil = new FeatureDrawingUtil(
                 layerNamePanelProxy);
 
-        return featureDrawingUtil.prepare(new AddTextTool(), true);
+        return featureDrawingUtil.prepare(
+            new AddTextTool(JUMPWorkbench.getInstance()
+                .getContext().createPlugInContext()), true
+        );
     }
 
     private class CreateMode extends Mode {
@@ -379,8 +384,7 @@ public class AddTextTool extends NClickTool {
         private final Feature noteFeature;
 
         public String getName() {
-            return I18NPlug
-                    .getI18N("org.openjump.core.ui.plugins.annotation.annotation-layer");
+            return i18n.get("org.openjump.core.ui.plugins.annotation.annotation-layer");
         }
 
         public Mode(Feature noteFeature) {
@@ -402,8 +406,8 @@ public class AddTextTool extends NClickTool {
 
     public static EnableCheck createEnableCheck(
             WorkbenchContext workbenchContext, boolean b) {
-        EnableCheckFactory checkFactory = new EnableCheckFactory(
-                workbenchContext);
+        EnableCheckFactory checkFactory =
+            workbenchContext.createPlugInContext().getCheckFactory();
 
         return new MultiEnableCheck().add(
                 checkFactory.createWindowWithLayerViewPanelMustBeActiveCheck())

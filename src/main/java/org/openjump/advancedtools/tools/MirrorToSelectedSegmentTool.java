@@ -49,9 +49,9 @@ import java.util.Set;
 
 import javax.swing.Icon;
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.Logger;
 import com.vividsolutions.jump.workbench.model.Layerable;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.EditUtils;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
@@ -87,9 +87,11 @@ import com.vividsolutions.jump.workbench.ui.cursortool.SpecifyFeaturesTool;
 
 public class MirrorToSelectedSegmentTool extends SpecifyFeaturesTool {
 
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     /** Name of the tool */
-    public final static String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.Mirror");
+    public final static String NAME = i18n
+        .get("org.openjump.core.ui.tools.Mirror");
 
     /** Cursor asociado a la herramienta */
     public static final Cursor CURSOR = createCursor(com.vividsolutions.jump.workbench.ui.images.IconLoader
@@ -106,15 +108,15 @@ public class MirrorToSelectedSegmentTool extends SpecifyFeaturesTool {
     /** */
     public static final int PIXEL_RANGE = 5;
 
-    EnableCheckFactory checkFactory = new EnableCheckFactory(JUMPWorkbench
-            .getInstance().getContext());
+    EnableCheckFactory checkFactory =
+        JUMPWorkbench.getInstance().getContext().createPlugInContext().getCheckFactory();
 
     /**
 	 * 
 	 *
 	 */
     public MirrorToSelectedSegmentTool() {
-        // Nothing to do
+        super(JUMPWorkbench.getInstance().getContext());
     }
 
     private void calculateMirrorFeatures(Collection<Feature> featureCopies,
@@ -181,7 +183,7 @@ public class MirrorToSelectedSegmentTool extends SpecifyFeaturesTool {
                     .getLayerViewPanel()
                     .getContext()
                     .warnUser(
-                            I18NPlug.getI18N("org.openjump.core.ui.tools.MirrorSegmentTool.No-segment-was-selected"));
+                        i18n.get("org.openjump.core.ui.tools.MirrorSegmentTool.No-segment-was-selected"));
             return;
         }
 
@@ -396,8 +398,8 @@ public class MirrorToSelectedSegmentTool extends SpecifyFeaturesTool {
     public static MultiEnableCheck createEnableCheck(
             final WorkbenchContext workbenchContext, AbstractCursorTool tool) {
         MultiEnableCheck solucion = new MultiEnableCheck();
-        EnableCheckFactory checkFactory = new EnableCheckFactory(
-                workbenchContext);
+        EnableCheckFactory checkFactory =
+            workbenchContext.createPlugInContext().getCheckFactory();
 
         // al menos una capa debe tener elementos activos
         solucion.add(checkFactory.createTaskWindowMustBeActiveCheck())

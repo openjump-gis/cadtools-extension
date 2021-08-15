@@ -43,9 +43,9 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.Logger;
 import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.language.I18NPlug;
 import org.openjump.advancedtools.utils.CADEnableCheckFactory;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
@@ -75,10 +75,12 @@ import es.kosmo.desktop.tools.algorithms.ExpandLinesUntilTouchAlgorithm;
 
 public class ExtendLinesAndCutWhereTheyTouchTool extends ConstrainedNClickTool {
 
-    private static final String NAME = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.ExtendLinesAndCutWhereTheyTouchTool.Expand-lines-until-crossing");
-    private static final String DESCRIPTION = I18NPlug
-            .getI18N("org.openjump.core.ui.tools.ExtendLinesAndCutWhereTheyTouchTool.description");
+    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
+    private static final String NAME = i18n
+        .get("org.openjump.core.ui.tools.ExtendLinesAndCutWhereTheyTouchTool.Expand-lines-until-crossing");
+    private static final String DESCRIPTION = i18n
+        .get("org.openjump.core.ui.tools.ExtendLinesAndCutWhereTheyTouchTool.description");
     private static final ImageIcon ICON = GUIUtil.resize(
             IconLoader.icon("extendAndCut.png"), 20);
     // public static final Cursor CURSOR = new Cursor(Cursor.CROSSHAIR_CURSOR);
@@ -86,13 +88,13 @@ public class ExtendLinesAndCutWhereTheyTouchTool extends ConstrainedNClickTool {
     private final ExpandLinesUntilTouchAlgorithm algorithm =
         new ExpandLinesUntilTouchAlgorithm();
 
-    EnableCheckFactory checkFactory = new EnableCheckFactory(JUMPWorkbench
-            .getInstance().getContext());
+    EnableCheckFactory checkFactory =
+        JUMPWorkbench.getInstance().getContext().createPlugInContext().getCheckFactory();
     FeatureDrawingUtil featureDrawingUtil;
 
     public ExtendLinesAndCutWhereTheyTouchTool(
             FeatureDrawingUtil featureDrawingUtil) {
-        super(1);
+        super(JUMPWorkbench.getInstance().getContext(), 1);
         this.featureDrawingUtil = featureDrawingUtil;
         allowSnapping();
     }
@@ -166,10 +168,10 @@ public class ExtendLinesAndCutWhereTheyTouchTool extends ConstrainedNClickTool {
                     .getInstance()
                     .getFrame()
                     .warnUser(
-                            NAME
-                                    + " - "
-                                    + I18NPlug
-                                            .getI18N("org.openjump.core.ui.tools.ExtendLinesAndCutWhereTheyTouchTool.There-must-be-an-active-view"));
+                        NAME
+                            + " - "
+                            + i18n.get(
+                                "org.openjump.core.ui.tools.ExtendLinesAndCutWhereTheyTouchTool.There-must-be-an-active-view"));
             return;
         }
 
@@ -187,7 +189,7 @@ public class ExtendLinesAndCutWhereTheyTouchTool extends ConstrainedNClickTool {
                     .getInstance()
                     .getFrame()
                     .warnUser(
-                            I18NPlug.getI18N("org.openjump.core.ui.tools.ExtendLinesAndCutWhereTheyTouchTool.Lines-do-not-cross"));
+                        i18n.get("org.openjump.core.ui.tools.ExtendLinesAndCutWhereTheyTouchTool.Lines-do-not-cross"));
             return;
         }
         LineString lineString1 = lines.get(0);
