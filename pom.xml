@@ -16,6 +16,14 @@
         <jts.version>1.18.1</jts.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>ojrepo</id>
+            <name>OpenJUMP Snapshot Repository</name>
+            <url>https://ojrepo.soldin.de/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
 
         <dependency>
