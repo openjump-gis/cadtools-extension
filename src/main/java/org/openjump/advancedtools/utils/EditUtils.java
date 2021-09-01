@@ -440,7 +440,7 @@ public class EditUtils {
             // query envelope
             // it must be selected
             if (feature.getGeometry() != null
-                    && LayerViewPanel.intersects(feature.getGeometry(), geom)) {
+                    && feature.getGeometry().intersects(geom)) {
                 intersectingFeatures.add(feature);
             }
         }
