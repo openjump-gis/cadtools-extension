@@ -39,19 +39,20 @@ package org.openjump.advancedtools.tools.cogo.commands;
 import java.util.Collection;
 import java.util.List;
 
-import com.vividsolutions.jump.I18N;
-import com.vividsolutions.jump.workbench.Logger;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.geom.Point;
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.gui.SimpleLineDialog;
 import org.openjump.advancedtools.plugins.SimpleLinePlugIn;
 import org.openjump.advancedtools.tools.cogo.DrawGeometryCommandsTool;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.LineString;
-import org.locationtech.jts.geom.Point;
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.Feature;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
+import com.vividsolutions.jump.workbench.Logger;
 import com.vividsolutions.jump.workbench.WorkbenchContext;
 import com.vividsolutions.jump.workbench.model.Layer;
 
@@ -63,7 +64,7 @@ import com.vividsolutions.jump.workbench.model.Layer;
  */
 public abstract class LineCommand {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     /**
      * Ejecuta el comando para la herramienta simpleline

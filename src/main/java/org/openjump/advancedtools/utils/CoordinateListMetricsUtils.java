@@ -3,13 +3,15 @@ package org.openjump.advancedtools.utils;
 import java.text.DecimalFormat;
 
 import org.locationtech.jts.geom.Coordinate;
+import org.openjump.advancedtools.CadExtension;
+
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import com.vividsolutions.jump.workbench.ui.HTMLFrame;
 
 public class CoordinateListMetricsUtils {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     public static final String Radius = i18n
         .get("org.openjump.core.ui.utils.CoordinateListMetrics.radius")

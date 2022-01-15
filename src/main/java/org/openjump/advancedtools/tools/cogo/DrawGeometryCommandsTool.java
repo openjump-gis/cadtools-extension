@@ -39,14 +39,15 @@ package org.openjump.advancedtools.tools.cogo;
 import java.awt.Cursor;
 import java.awt.Graphics2D;
 
-import javax.swing.*;
-
-import com.vividsolutions.jump.I18N;
-import com.vividsolutions.jump.workbench.Logger;
-import org.openjump.advancedtools.icon.IconLoader;
+import javax.swing.Icon;
 
 import org.locationtech.jts.geom.Coordinate;
+import org.openjump.advancedtools.CadExtension;
+import org.openjump.advancedtools.icon.IconLoader;
+
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
+import com.vividsolutions.jump.workbench.Logger;
 import com.vividsolutions.jump.workbench.ui.LayerNamePanelProxy;
 import com.vividsolutions.jump.workbench.ui.cursortool.CursorTool;
 import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUtil;
@@ -62,7 +63,7 @@ import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUti
  */
 public class DrawGeometryCommandsTool extends DrawGeometryTool {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     /** Cursor of the tool */
     public static final Cursor CURSOR = createCursor(IconLoader.icon(

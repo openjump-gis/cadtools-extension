@@ -49,17 +49,18 @@ import java.util.List;
 
 import javax.swing.Icon;
 
-import com.vividsolutions.jump.workbench.Logger;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Envelope;
+import org.locationtech.jts.geom.Geometry;
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.icon.IconLoader;
 import org.openjump.advancedtools.plugins.CalculateSelectionPlugIn;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Envelope;
-import org.locationtech.jts.geom.Geometry;
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.geom.EnvelopeUtil;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
+import com.vividsolutions.jump.workbench.Logger;
 import com.vividsolutions.jump.workbench.WorkbenchContext;
 import com.vividsolutions.jump.workbench.model.Layer;
 import com.vividsolutions.jump.workbench.model.Layerable;
@@ -84,7 +85,7 @@ import com.vividsolutions.jump.workbench.ui.renderer.FeatureSelectionRenderer;
  */
 public class SelectEditingFeaturesTool extends SelectTool {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     /** Nombre asociado a la herramienta */
     public final static String NAME = i18n

@@ -25,6 +25,7 @@ import java.util.Scanner;
  */
 public class BlockCell {
 
+  // TODO: language strings are located in OJ core. Why?
   public static BlockCell CIRCLE = new BlockCell(
           I18N.JUMP.get("deejump.ui.style.RenderingStylePanel.circle"),
           new Circle(new Coordinate(0, 0), 8).getPoly());

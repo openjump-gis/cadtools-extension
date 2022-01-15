@@ -14,12 +14,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.openjump.advancedtools.CadExtension;
+
 import com.vividsolutions.jump.I18N;
 
 public class VerHorLengthDialog extends JDialog implements ActionListener {
 
     private static final long serialVersionUID = 1L;
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     private double longitude;
     private JButton acceptButton = new JButton(

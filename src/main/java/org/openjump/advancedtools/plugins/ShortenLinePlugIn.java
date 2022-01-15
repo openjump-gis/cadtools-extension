@@ -39,6 +39,7 @@ package org.openjump.advancedtools.plugins;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.icon.IconLoader;
 import org.openjump.advancedtools.tools.ShortenLineTool;
 import org.openjump.advancedtools.tools.ShortenToClickedGeometryTool;
@@ -70,7 +71,7 @@ import com.vividsolutions.jump.workbench.ui.cursortool.SelectFeaturesTool;
  */
 public class ShortenLinePlugIn extends AbstractPlugIn {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     /** Plugin name */
     public final static String NAME = i18n

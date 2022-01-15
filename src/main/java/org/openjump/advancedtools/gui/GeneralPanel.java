@@ -5,12 +5,14 @@ import java.awt.GridLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
+import org.openjump.advancedtools.CadExtension;
+
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 
 public class GeneralPanel {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     public static JCheckBox centerCheck = new JCheckBox(
         i18n.get("org.openjump.core.ui.plugins.Dialog.draw-center-as-point"));

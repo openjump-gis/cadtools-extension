@@ -43,16 +43,16 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import com.vividsolutions.jump.workbench.Logger;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.gui.ArcDialog;
 import org.openjump.advancedtools.icon.IconLoader;
 import org.openjump.advancedtools.tools.ArcTool;
 import org.openjump.advancedtools.utils.EditUtils;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.GeometryFactory;
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.AttributeType;
 import com.vividsolutions.jump.feature.Feature;
@@ -61,6 +61,7 @@ import com.vividsolutions.jump.feature.FeatureDataset;
 import com.vividsolutions.jump.feature.FeatureSchema;
 import com.vividsolutions.jump.feature.FeatureUtil;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
+import com.vividsolutions.jump.workbench.Logger;
 import com.vividsolutions.jump.workbench.WorkbenchContext;
 import com.vividsolutions.jump.workbench.model.Layer;
 import com.vividsolutions.jump.workbench.model.LayerManager;
@@ -85,7 +86,7 @@ import com.vividsolutions.jump.workbench.ui.cursortool.CursorTool;
  */
 public class ArcPlugIn extends AbstractPlugIn {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     /** Plugin name */
     public final static String NAME = i18n

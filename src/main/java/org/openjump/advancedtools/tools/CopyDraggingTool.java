@@ -13,19 +13,20 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import com.vividsolutions.jump.I18N;
-import com.vividsolutions.jump.workbench.Logger;
-import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.utils.EditUtils;
-import org.openjump.advancedtools.utils.WorkbenchUtils;
-
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.CoordinateFilter;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryCollection;
 import org.locationtech.jts.geom.GeometryFactory;
+import org.openjump.advancedtools.CadExtension;
+import org.openjump.advancedtools.icon.IconLoader;
+import org.openjump.advancedtools.utils.EditUtils;
+import org.openjump.advancedtools.utils.WorkbenchUtils;
+
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.Feature;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
+import com.vividsolutions.jump.workbench.Logger;
 import com.vividsolutions.jump.workbench.model.Layer;
 import com.vividsolutions.jump.workbench.plugin.EnableCheckFactory;
 import com.vividsolutions.jump.workbench.ui.GUIUtil;
@@ -44,7 +45,7 @@ import com.vividsolutions.jump.workbench.ui.cursortool.DragTool;
 
 public class CopyDraggingTool extends DragTool {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     //private static final Logger LOGGER = Logger
     //        .getLogger(CopyDraggingTool.class);

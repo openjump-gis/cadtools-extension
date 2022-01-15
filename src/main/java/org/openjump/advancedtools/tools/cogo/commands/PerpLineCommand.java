@@ -38,13 +38,14 @@ package org.openjump.advancedtools.tools.cogo.commands;
 
 import java.util.Collection;
 
-import com.vividsolutions.jump.I18N;
-import org.openjump.advancedtools.gui.SimpleLineDialog;
-
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.LineSegment;
 import org.locationtech.jts.geom.LineString;
+import org.openjump.advancedtools.CadExtension;
+import org.openjump.advancedtools.gui.SimpleLineDialog;
+
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.Feature;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import com.vividsolutions.jump.workbench.WorkbenchContext;
@@ -57,7 +58,7 @@ import com.vividsolutions.jump.workbench.WorkbenchContext;
  */
 public class PerpLineCommand extends LineCommand {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     /** Command name */
     private final static String COMMAND_NAME = "perp"; 

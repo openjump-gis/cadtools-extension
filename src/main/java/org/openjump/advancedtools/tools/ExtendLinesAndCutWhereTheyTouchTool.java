@@ -43,17 +43,18 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import com.vividsolutions.jump.I18N;
-import com.vividsolutions.jump.workbench.Logger;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Envelope;
+import org.locationtech.jts.geom.LineString;
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.icon.IconLoader;
 import org.openjump.advancedtools.utils.CADEnableCheckFactory;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Envelope;
-import org.locationtech.jts.geom.LineString;
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.Feature;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
+import com.vividsolutions.jump.workbench.Logger;
 import com.vividsolutions.jump.workbench.model.Layer;
 import com.vividsolutions.jump.workbench.plugin.EnableCheckFactory;
 import com.vividsolutions.jump.workbench.ui.GUIUtil;
@@ -75,7 +76,7 @@ import es.kosmo.desktop.tools.algorithms.ExpandLinesUntilTouchAlgorithm;
 
 public class ExtendLinesAndCutWhereTheyTouchTool extends ConstrainedNClickTool {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     private static final String NAME = i18n
         .get("org.openjump.core.ui.tools.ExtendLinesAndCutWhereTheyTouchTool.Expand-lines-until-crossing");

@@ -14,9 +14,10 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.TitledBorder;
 
-import com.vividsolutions.jump.I18N;
+import org.openjump.advancedtools.CadExtension;
 import org.saig.core.gui.swing.sldeditor.util.FormUtils;
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.WorkbenchContext;
 import com.vividsolutions.jump.workbench.plugin.EnableCheck;
 import com.vividsolutions.jump.workbench.plugin.PlugIn;
@@ -25,7 +26,7 @@ import com.vividsolutions.jump.workbench.ui.WorkbenchToolBar;
 
 public class TextPanel extends JPanel {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     private static final long serialVersionUID = 1L;
     public static PlugInContext context;

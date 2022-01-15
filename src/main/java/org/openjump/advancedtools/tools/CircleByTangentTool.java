@@ -16,12 +16,6 @@ import java.util.ArrayList;
 
 import javax.swing.Icon;
 
-import com.vividsolutions.jump.workbench.JUMPWorkbench;
-import org.openjump.advancedtools.config.CADToolsOptionsPanel;
-import org.openjump.advancedtools.utils.CoordinateListMetricsUtils;
-import org.openjump.core.geomutils.Circle;
-import org.openjump.core.ui.plugin.edittoolbox.cursortools.ConstrainedMultiClickTool;
-
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LineSegment;
@@ -29,7 +23,14 @@ import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.operation.valid.IsValidOp;
+import org.openjump.advancedtools.CadExtension;
+import org.openjump.advancedtools.config.CADToolsOptionsPanel;
+import org.openjump.advancedtools.utils.CoordinateListMetricsUtils;
+import org.openjump.core.geomutils.Circle;
+import org.openjump.core.ui.plugin.edittoolbox.cursortools.ConstrainedMultiClickTool;
+
 import com.vividsolutions.jump.I18N;
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import com.vividsolutions.jump.workbench.ui.EditTransaction;
 import com.vividsolutions.jump.workbench.ui.LayerNamePanelProxy;
 import com.vividsolutions.jump.workbench.ui.cursortool.CursorTool;
@@ -37,7 +38,7 @@ import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUti
 
 public class CircleByTangentTool extends ConstrainedMultiClickTool {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     private FeatureDrawingUtil featureDrawingUtil;
 

@@ -55,11 +55,12 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
 
-import com.vividsolutions.jump.I18N;
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.plugins.SimpleLinePlugIn;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 import org.saig.core.gui.swing.sldeditor.util.FormUtils;
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 
@@ -74,7 +75,7 @@ public class SimpleLineDialog extends JDialog implements ActionListener,
         WindowListener {
 
     private static final long serialVersionUID = 1L;
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     JPanel principioPanel = new JPanel();
     JPanel finalPanel = new JPanel();

@@ -46,6 +46,8 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import com.vividsolutions.jump.I18N;
+
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.gui.RotateDialog;
 import org.openjump.advancedtools.icon.IconLoader;
 import org.openjump.advancedtools.tools.ConstrainedNClickTool;
@@ -78,7 +80,7 @@ import com.vividsolutions.jump.workbench.ui.snap.SnapIndicatorTool;
  */
 public class RotateDialogTool extends ConstrainedNClickTool {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     /** Nombre asignado a la herramienta */
     public final static String NAME = i18n

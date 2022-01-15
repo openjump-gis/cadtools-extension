@@ -21,6 +21,8 @@ import javax.swing.event.CaretListener;
 
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
+
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.icon.IconLoader;
 
 import org.locationtech.jts.geom.Coordinate;
@@ -46,14 +48,12 @@ import com.vividsolutions.jump.workbench.ui.snap.SnapToFeaturesPolicy;
 
 public class AddTextTool extends NClickTool {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
-
     /** Name of the tool */
-    public final static String NAME = i18n
+    public final static String NAME = CadExtension.I18N
         .get("org.openjump.core.ui.plugins.annotation.AddTextTool.name");
 
     /** Description of the tool */
-    public final static String DESCRIPTION = i18n
+    public final static String DESCRIPTION = CadExtension.I18N
         .get("org.openjump.core.ui.plugins.annotation.AddTextTool.description");
 
     @Override
@@ -291,7 +291,7 @@ public class AddTextTool extends NClickTool {
             }
             layerManager
                     .addLayer(
-                            i18n.get("org.openjump.core.ui.plugins.annotation.annotation-layer"),
+                        CadExtension.I18N.get("org.openjump.core.ui.plugins.annotation.annotation-layer"),
                             noteLayer);
         }
         return noteLayer;
@@ -384,7 +384,7 @@ public class AddTextTool extends NClickTool {
         private final Feature noteFeature;
 
         public String getName() {
-            return i18n.get("org.openjump.core.ui.plugins.annotation.annotation-layer");
+            return CadExtension.I18N.get("org.openjump.core.ui.plugins.annotation.annotation-layer");
         }
 
         public Mode(Feature noteFeature) {

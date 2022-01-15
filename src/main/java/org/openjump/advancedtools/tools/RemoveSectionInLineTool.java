@@ -48,13 +48,6 @@ import java.util.Set;
 
 import javax.swing.Icon;
 
-import com.vividsolutions.jump.I18N;
-import com.vividsolutions.jump.workbench.Logger;
-import org.openjump.advancedtools.icon.IconLoader;
-import org.openjump.advancedtools.utils.CADEnableCheckFactory;
-import org.openjump.advancedtools.utils.EditUtils;
-import org.openjump.advancedtools.utils.WorkbenchUtils;
-
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -63,8 +56,16 @@ import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.MultiLineString;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.operation.distance.DistanceOp;
+import org.openjump.advancedtools.CadExtension;
+import org.openjump.advancedtools.icon.IconLoader;
+import org.openjump.advancedtools.utils.CADEnableCheckFactory;
+import org.openjump.advancedtools.utils.EditUtils;
+import org.openjump.advancedtools.utils.WorkbenchUtils;
+
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.Feature;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
+import com.vividsolutions.jump.workbench.Logger;
 import com.vividsolutions.jump.workbench.WorkbenchContext;
 import com.vividsolutions.jump.workbench.model.Layer;
 import com.vividsolutions.jump.workbench.plugin.EnableCheck;
@@ -86,7 +87,7 @@ import com.vividsolutions.jump.workbench.ui.cursortool.SelectFeaturesTool;
  */
 public class RemoveSectionInLineTool extends NClickTool {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     public final static String NAME = i18n
         .get("org.openjump.core.ui.tools.RemoveSectionInLine.remove-section-in-line"); //$NON-NLS-1$

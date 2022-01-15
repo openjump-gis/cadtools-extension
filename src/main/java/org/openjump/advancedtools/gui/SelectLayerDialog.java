@@ -47,6 +47,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.openjump.advancedtools.CadExtension;
+
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.model.Layer;
 
@@ -57,7 +59,7 @@ import com.vividsolutions.jump.workbench.model.Layer;
 public class SelectLayerDialog extends JDialog implements ActionListener {
 
     private static final long serialVersionUID = 1L;
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     private final JComboBox<Layer> jcb = new JComboBox<>();
     private Layer selected = null;

@@ -18,6 +18,7 @@ package org.openjump.advancedtools.plugins;
 
 import javax.swing.Icon;
 
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.gui.RegularPolygonDialog;
 import org.openjump.advancedtools.icon.IconLoader;
 import org.openjump.advancedtools.tools.RegularPolygonByDefinedRadiusTool;
@@ -37,7 +38,7 @@ import com.vividsolutions.jump.workbench.ui.cursortool.CursorTool;
  */
 public class RegularPolygonPlugIn extends AbstractPlugIn {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     /** Plugin name */
     public final static String NAME = i18n

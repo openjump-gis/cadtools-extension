@@ -20,6 +20,7 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.LineSegment;
 import org.locationtech.jts.io.ParseException;
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.tools.ConstrainedNClickTool;
 
 import com.vividsolutions.jump.I18N;
@@ -33,11 +34,9 @@ import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUti
 
 public class DrawOrientedBlockTool extends ConstrainedNClickTool {
 
-	private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
-
 	private final FeatureDrawingUtil featureDrawingUtil;
 	//public static final String blockFolder = "VertexImages";
-	public static final String NAME = i18n
+	public static final String NAME = CadExtension.I18N
 			.get("org.openjump.core.ui.plugins.block.DrawOrientedBlockTool.description");
 
 	String Azimuth = I18N.JUMP.get("ui.cursortool.CoordinateListMetrics.Azimuth");

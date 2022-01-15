@@ -3,6 +3,8 @@ package org.openjump.advancedtools.block;
 import javax.swing.*;
 
 import com.vividsolutions.jump.workbench.Logger;
+
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.icon.IconLoader;
 
 import com.vividsolutions.jump.I18N;
@@ -18,13 +20,11 @@ import com.vividsolutions.jump.workbench.ui.cursortool.CursorTool;
 
 public class DrawBlockPlugIn extends AbstractPlugIn {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
-
     public static ImageIcon ICON = IconLoader.icon("textblock/block_ins.png");
 
-    public static final String NAME = i18n
+    public static final String NAME = CadExtension.I18N
         .get("org.openjump.core.ui.plugins.block.DrawblockTool");
-    public static final String NAME2 = i18n
+    public static final String NAME2 = CadExtension.I18N
         .get("org.openjump.core.ui.plugins.block.DrawblockTool.description");
 
     BlockPanel blockPanel;

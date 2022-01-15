@@ -42,7 +42,14 @@ import java.util.Collection;
 
 import javax.swing.Icon;
 
-import com.vividsolutions.jump.workbench.Logger;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.geom.LinearRing;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.geom.Polygon;
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.config.CADToolsOptionsPanel;
 import org.openjump.advancedtools.gui.CircleDialog;
 import org.openjump.advancedtools.icon.IconLoader;
@@ -55,13 +62,6 @@ import org.openjump.advancedtools.tools.EllipseByDraggingTool;
 import org.openjump.advancedtools.utils.EditUtils;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.LineString;
-import org.locationtech.jts.geom.LinearRing;
-import org.locationtech.jts.geom.Point;
-import org.locationtech.jts.geom.Polygon;
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.AttributeType;
 import com.vividsolutions.jump.feature.Feature;
@@ -70,6 +70,7 @@ import com.vividsolutions.jump.feature.FeatureDataset;
 import com.vividsolutions.jump.feature.FeatureSchema;
 import com.vividsolutions.jump.feature.FeatureUtil;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
+import com.vividsolutions.jump.workbench.Logger;
 import com.vividsolutions.jump.workbench.WorkbenchContext;
 import com.vividsolutions.jump.workbench.model.Layer;
 import com.vividsolutions.jump.workbench.model.LayerManager;
@@ -95,7 +96,7 @@ import com.vividsolutions.jump.workbench.ui.cursortool.CursorTool;
  */
 public class CirclePlugIn extends AbstractPlugIn {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     /** Plugin name */
     public final static String NAME = i18n

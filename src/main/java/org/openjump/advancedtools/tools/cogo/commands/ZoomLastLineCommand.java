@@ -39,12 +39,13 @@ package org.openjump.advancedtools.tools.cogo.commands;
 import java.awt.geom.NoninvertibleTransformException;
 import java.util.Collection;
 
-import com.vividsolutions.jump.I18N;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Envelope;
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.gui.SimpleLineDialog;
 import org.openjump.advancedtools.tools.cogo.DrawGeometryCommandsTool;
 
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Envelope;
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.Feature;
 import com.vividsolutions.jump.geom.EnvelopeUtil;
 import com.vividsolutions.jump.util.CoordinateArrays;
@@ -63,7 +64,7 @@ import com.vividsolutions.jump.workbench.model.LayerManager;
  */
 public class ZoomLastLineCommand extends LineCommand {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     /** Nombre del comando */
     private final static String COMMAND_NAME = "zoomlast";

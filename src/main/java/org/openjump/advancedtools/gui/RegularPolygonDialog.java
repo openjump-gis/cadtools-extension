@@ -55,9 +55,11 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
-import com.vividsolutions.jump.I18N;
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.icon.IconLoader;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
+
+import com.vividsolutions.jump.I18N;
 
 /**
  * 
@@ -66,7 +68,7 @@ import org.openjump.advancedtools.utils.WorkbenchUtils;
 public class RegularPolygonDialog extends JDialog implements ActionListener {
 
     private static final long serialVersionUID = 1L;
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     //JPanel p1 = new JPanel();
     //JPanel p2 = new JPanel();

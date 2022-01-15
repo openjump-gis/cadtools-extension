@@ -6,13 +6,14 @@ import java.awt.geom.NoninvertibleTransformException;
 
 import javax.swing.Icon;
 
-import com.vividsolutions.jump.I18N;
-import com.vividsolutions.jump.workbench.JUMPWorkbench;
-import org.openjump.advancedtools.icon.IconLoader;
-
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.operation.valid.IsValidOp;
+import org.openjump.advancedtools.CadExtension;
+import org.openjump.advancedtools.icon.IconLoader;
+
+import com.vividsolutions.jump.I18N;
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import com.vividsolutions.jump.workbench.WorkbenchContext;
 import com.vividsolutions.jump.workbench.plugin.EnableCheckFactory;
 import com.vividsolutions.jump.workbench.plugin.MultiEnableCheck;
@@ -37,7 +38,7 @@ import es.kosmo.desktop.tools.algorithms.BezierCurve;
 
 public class CuadraticBezierCurveTool extends ConstrainedNClickTool {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     private final FeatureDrawingUtil featureDrawingUtil;
     //protected SnapIndicatorTool snapIndicatorTool;

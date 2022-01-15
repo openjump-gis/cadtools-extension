@@ -56,6 +56,8 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
+
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.icon.IconLoader;
 import org.openjump.advancedtools.utils.EditUtils;
 
@@ -87,7 +89,7 @@ import com.vividsolutions.jump.workbench.ui.cursortool.DragTool;
  */
 public class RotateTool extends DragTool {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     /** Name of the tool */
     public final static String NAME = i18n

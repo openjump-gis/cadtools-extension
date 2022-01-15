@@ -11,8 +11,6 @@ import java.util.List;
 
 import javax.swing.Icon;
 
-import com.vividsolutions.jump.I18N;
-import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.CoordinateList;
 import org.locationtech.jts.geom.Envelope;
@@ -20,10 +18,13 @@ import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.util.GeometricShapeFactory;
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.config.CADToolsOptionsPanel;
 import org.openjump.advancedtools.icon.IconLoader;
 import org.openjump.advancedtools.utils.CoordinateListMetricsUtils;
 
+import com.vividsolutions.jump.I18N;
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import com.vividsolutions.jump.workbench.plugin.EnableCheckFactory;
 import com.vividsolutions.jump.workbench.ui.LayerNamePanelProxy;
 import com.vividsolutions.jump.workbench.ui.LayerViewPanel;
@@ -33,7 +34,7 @@ import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUti
 
 public class EllipseByDraggingTool extends DragTool {
 
-	private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+	private static final I18N i18n = CadExtension.I18N;
 
 	private FeatureDrawingUtil featureDrawingUtil;
 

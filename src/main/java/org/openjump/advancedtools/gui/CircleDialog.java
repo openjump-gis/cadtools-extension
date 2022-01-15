@@ -57,9 +57,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import com.vividsolutions.jump.I18N;
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.plugins.CirclePlugIn;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
+
+import com.vividsolutions.jump.I18N;
 
 /**
  * 
@@ -68,7 +70,7 @@ import org.openjump.advancedtools.utils.WorkbenchUtils;
 public class CircleDialog extends JDialog implements ActionListener {
     /** long serialVersionUID field */
     private static final long serialVersionUID = 1L;
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
     public static ImageIcon ICON = org.openjump.advancedtools.icon.IconLoader
             .icon("cad.png");
     //JPanel p1 = new JPanel();

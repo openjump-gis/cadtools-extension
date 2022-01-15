@@ -54,20 +54,22 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
-import com.vividsolutions.jump.workbench.Logger;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Envelope;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.util.Assert;
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.util.python.JUMP_GIS_Framework;
 import org.openjump.util.python.ModifyGeometry;
 import org.openjump.util.python.PythonInteractiveInterpreter;
+import org.python.core.PySystemState;
 
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.Feature;
 import com.vividsolutions.jump.feature.FeatureCollection;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
+import com.vividsolutions.jump.workbench.Logger;
 import com.vividsolutions.jump.workbench.WorkbenchContext;
 import com.vividsolutions.jump.workbench.model.Category;
 import com.vividsolutions.jump.workbench.model.FenceLayerFinder;
@@ -103,7 +105,6 @@ import com.vividsolutions.jump.workbench.ui.zoom.ZoomToSelectedItemsPlugIn;
 import com.vividsolutions.jump.workbench.ui.zoom.ZoomTool;
 
 import bsh.util.JConsole;
-import org.python.core.PySystemState;
 
 /**
  * <p>
@@ -117,7 +118,7 @@ import org.python.core.PySystemState;
  */
 public class WorkbenchUtils {
 
-	private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+	private static final I18N i18n = CadExtension.I18N;
 
 	/**
 	 * Adds a layer to OpenJUMP from a FeatureCollection

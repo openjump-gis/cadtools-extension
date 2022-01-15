@@ -39,6 +39,8 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 
+import org.openjump.advancedtools.CadExtension;
+
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.Logger;
 
@@ -47,7 +49,7 @@ import com.vividsolutions.jump.workbench.Logger;
  */
 public class IconLoader {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     /** Icono por defecto, si no encuentra el indicado */
     public final static ImageIcon DEFAULT_UNKNOW_ICON = new ImageIcon(

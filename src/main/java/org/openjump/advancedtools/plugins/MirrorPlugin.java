@@ -39,7 +39,7 @@ package org.openjump.advancedtools.plugins;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
-import com.vividsolutions.jump.workbench.Logger;
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.icon.IconLoader;
 import org.openjump.advancedtools.tools.MirrorToDrawSegmentTool;
 import org.openjump.advancedtools.tools.MirrorToSelectedSegmentTool;
@@ -47,8 +47,8 @@ import org.openjump.advancedtools.utils.WorkbenchUtils;
 
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
+import com.vividsolutions.jump.workbench.Logger;
 import com.vividsolutions.jump.workbench.plugin.AbstractPlugIn;
-import com.vividsolutions.jump.workbench.plugin.EnableCheckFactory;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 import com.vividsolutions.jump.workbench.ui.TaskFrame;
 import com.vividsolutions.jump.workbench.ui.cursortool.SelectFeaturesTool;
@@ -70,7 +70,7 @@ import com.vividsolutions.jump.workbench.ui.cursortool.SelectFeaturesTool;
 
 public class MirrorPlugin extends AbstractPlugIn {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     /** Name of the plugin */
     public final static String NAME = i18n

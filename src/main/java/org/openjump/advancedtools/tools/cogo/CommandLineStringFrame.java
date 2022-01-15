@@ -32,20 +32,23 @@
 
 package org.openjump.advancedtools.tools.cogo;
 
-import com.vividsolutions.jump.I18N;
-import com.vividsolutions.jump.workbench.JUMPWorkbench;
-import com.vividsolutions.jump.workbench.ui.GUIUtil;
+import javax.swing.JInternalFrame;
+import javax.swing.JPanel;
+
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.icon.IconLoader;
 import org.openjump.core.ui.swing.DetachableInternalFrame;
 
-import javax.swing.*;
+import com.vividsolutions.jump.I18N;
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
+import com.vividsolutions.jump.workbench.ui.GUIUtil;
 
 /**
  * InternalFrame containing the CommandLineStringPanel
  */
 public class CommandLineStringFrame extends DetachableInternalFrame {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     public CommandLineStringFrame(DrawGeometryCommandsTool tool) {
         super();

@@ -37,12 +37,6 @@ import java.awt.geom.Point2D;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import com.vividsolutions.jump.I18N;
-import com.vividsolutions.jump.workbench.JUMPWorkbench;
-import org.openjump.advancedtools.config.CADToolsOptionsPanel;
-import org.openjump.advancedtools.gui.RegularPolygonDialog;
-import org.openjump.advancedtools.utils.EditUtils;
-
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.CoordinateFilter;
 import org.locationtech.jts.geom.Envelope;
@@ -52,6 +46,13 @@ import org.locationtech.jts.geom.LinearRing;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.operation.valid.IsValidOp;
+import org.openjump.advancedtools.CadExtension;
+import org.openjump.advancedtools.config.CADToolsOptionsPanel;
+import org.openjump.advancedtools.gui.RegularPolygonDialog;
+import org.openjump.advancedtools.utils.EditUtils;
+
+import com.vividsolutions.jump.I18N;
+import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import com.vividsolutions.jump.workbench.ui.EditTransaction;
 import com.vividsolutions.jump.workbench.ui.LayerNamePanelProxy;
 import com.vividsolutions.jump.workbench.ui.LayerViewPanel;
@@ -62,7 +63,7 @@ import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUti
 
 public class RegularPolygonByDefinedRadiusTool extends NClickTool {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     // ---- from DragTool -----------------
     /** Modify using #setDestination */

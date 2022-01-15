@@ -47,7 +47,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
-import com.vividsolutions.jump.I18N;
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.utils.NumberSpinner;
 import org.saig.core.gui.swing.sldeditor.util.FormUtils;
 import org.saig.jump.widgets.config.ConfigTooltipPanel;
@@ -66,38 +66,36 @@ import com.vividsolutions.jump.workbench.ui.plugin.PersistentBlackboardPlugIn;
  */
 public class CADToolsOptionsPanel extends JPanel implements OptionsPanel {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
-
     /** long serialVersionUID field */
     private static final long serialVersionUID = 1L;
 
     private final JLabel bufferRatio = new JLabel(
-        i18n.get("org.openjump.core.ui.config.CADToolsOptionsPanel.ExtendLineOptions.Tolerance-radius"));
+        CadExtension.I18N.get("org.openjump.core.ui.config.CADToolsOptionsPanel.ExtendLineOptions.Tolerance-radius"));
 
     /** Permite seleccionar el radio del buffer */
     private NumberSpinner ratioSpinner;
 
-    public final static String ShortenLinesOptions = i18n
+    public final static String ShortenLinesOptions = CadExtension.I18N
         .get("org.openjump.core.ui.config.CADToolsOptionsPanel.ExtendLineOptions");
-    public final static String ClosedGeometriesOptions = i18n
+    public final static String ClosedGeometriesOptions = CadExtension.I18N
         .get("org.openjump.core.ui.config.CADToolsOptionsPanel.ClosedGeometryOptions");
-    public final static String SelectFeaturesOptions = i18n
+    public final static String SelectFeaturesOptions = CadExtension.I18N
         .get("org.openjump.core.ui.config.CADToolsOptionsPanel.SelectOptions");
-    public final static String EditingFeaturesOptions = i18n
+    public final static String EditingFeaturesOptions = CadExtension.I18N
         .get("org.openjump.core.ui.config.CADToolsOptionsPanel.EditingOptions");
 
     /** Allows to decide if the lines must be broken at the junction */
     private final JCheckBox unionCheckbox = new JCheckBox(
-        i18n.get("org.openjump.core.ui.config.CADToolsOptionsPanel.ExtendLineOptions.break-lines-create-new-vertices-in-crosses"));
+        CadExtension.I18N.get("org.openjump.core.ui.config.CADToolsOptionsPanel.ExtendLineOptions.break-lines-create-new-vertices-in-crosses"));
     private final JCheckBox centerCheckBox = new JCheckBox(
-        i18n.get("org.openjump.core.ui.config.CADToolsOptionsPanel.ClosedGeometryOptions.draw-center-as-point"));
+        CadExtension.I18N.get("org.openjump.core.ui.config.CADToolsOptionsPanel.ClosedGeometryOptions.draw-center-as-point"));
     private final JCheckBox polygonCheckBox = new JCheckBox(
-        i18n.get("org.openjump.core.ui.config.CADToolsOptionsPanel.ClosedGeometryOptions.draw-as-filled-polygon"));
+        CadExtension.I18N.get("org.openjump.core.ui.config.CADToolsOptionsPanel.ClosedGeometryOptions.draw-as-filled-polygon"));
     private final JCheckBox allSelectedFeaturesCheckBox = new JCheckBox(
-        i18n.get("org.openjump.core.ui.config.CADToolsOptionsPanel.SelectOptions.Allows-selection-features"));
+        CadExtension.I18N.get("org.openjump.core.ui.config.CADToolsOptionsPanel.SelectOptions.Allows-selection-features"));
 
     private final JCheckBox showPanleCheckBox = new JCheckBox(
-            i18n.get("org.openjump.core.ui.config.CADToolsOptionsPanel.EditingOptions.show-panel"));
+            CadExtension.I18N.get("org.openjump.core.ui.config.CADToolsOptionsPanel.EditingOptions.show-panel"));
 
     /** Key for length of buffer */
     public final static String EXTEND_LINE_BUFFER_KEY = CADToolsOptionsPanel.class
@@ -273,7 +271,7 @@ public class CADToolsOptionsPanel extends JPanel implements OptionsPanel {
      */
     @Override
     public String getName() {
-        return i18n.get("org.saig.jump.widgets.config.CADToolsOptionsPanel.CAD");
+        return CadExtension.I18N.get("org.saig.jump.widgets.config.CADToolsOptionsPanel.CAD");
     }
 
     /**

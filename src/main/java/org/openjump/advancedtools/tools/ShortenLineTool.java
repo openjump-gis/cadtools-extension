@@ -11,11 +11,6 @@ import java.util.Set;
 
 import javax.swing.Icon;
 
-import com.vividsolutions.jump.I18N;
-import com.vividsolutions.jump.workbench.Logger;
-import org.openjump.advancedtools.config.CADToolsOptionsPanel;
-import org.openjump.advancedtools.utils.EditUtils;
-
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Envelope;
 import org.locationtech.jts.geom.Geometry;
@@ -28,9 +23,15 @@ import org.locationtech.jts.geom.MultiPoint;
 import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
+import org.openjump.advancedtools.CadExtension;
+import org.openjump.advancedtools.config.CADToolsOptionsPanel;
+import org.openjump.advancedtools.utils.EditUtils;
+
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.Feature;
 import com.vividsolutions.jump.util.CoordinateArrays;
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
+import com.vividsolutions.jump.workbench.Logger;
 import com.vividsolutions.jump.workbench.WorkbenchContext;
 import com.vividsolutions.jump.workbench.model.Layer;
 import com.vividsolutions.jump.workbench.model.UndoableCommand;
@@ -45,7 +46,7 @@ import com.vividsolutions.jump.workbench.ui.images.IconLoader;
 
 public class ShortenLineTool extends NClickTool {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     public static final String NAME = i18n
         .get("org.openjump.core.ui.tools.ShortenLineTool.Shorten-line");

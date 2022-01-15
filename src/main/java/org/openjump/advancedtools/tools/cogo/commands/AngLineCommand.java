@@ -36,10 +36,11 @@
  */
 package org.openjump.advancedtools.tools.cogo.commands;
 
-import com.vividsolutions.jump.I18N;
+import org.locationtech.jts.geom.Coordinate;
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.gui.SimpleLineDialog;
 
-import org.locationtech.jts.geom.Coordinate;
+import com.vividsolutions.jump.I18N;
 
 /**
  * Command line to define the module/angle
@@ -51,7 +52,7 @@ import org.locationtech.jts.geom.Coordinate;
  */
 public class AngLineCommand extends LineCommand {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     /** Nombre del comando */
     private final static String COMMAND_NAME = "@"; 

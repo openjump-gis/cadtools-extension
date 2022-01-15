@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
+import org.openjump.advancedtools.CadExtension;
+
 import com.vividsolutions.jump.I18N;
 
 import com.vividsolutions.jump.feature.AttributeType;
@@ -25,7 +27,7 @@ import com.vividsolutions.jump.workbench.ui.renderer.style.LabelStyle;
 
 public class TextFinder extends SystemLayerFinder {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     // public static final int WIDTH = 20;
     // public static final int HEIGHT = 20;

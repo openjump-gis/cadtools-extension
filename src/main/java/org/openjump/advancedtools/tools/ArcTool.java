@@ -49,10 +49,6 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import org.openjump.advancedtools.utils.EditUtils;
-import org.openjump.core.geomutils.Arc;
-import org.openjump.core.ui.plugin.edittoolbox.cursortools.ConstrainedMultiClickArcTool;
-
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -60,6 +56,11 @@ import org.locationtech.jts.geom.LineSegment;
 import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.operation.valid.IsValidOp;
+import org.openjump.advancedtools.CadExtension;
+import org.openjump.advancedtools.utils.EditUtils;
+import org.openjump.core.geomutils.Arc;
+import org.openjump.core.ui.plugin.edittoolbox.cursortools.ConstrainedMultiClickArcTool;
+
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.Feature;
 import com.vividsolutions.jump.feature.FeatureUtil;
@@ -75,7 +76,7 @@ import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUti
 
 public class ArcTool extends ConstrainedMultiClickArcTool {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     public static final String arcLength = i18n
         .get("org.openjump.core.ui.utils.CoordinateListMetrics.arc-length")

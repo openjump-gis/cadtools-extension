@@ -36,8 +36,6 @@
  */
 package org.openjump.advancedtools.gui;
 
-import com.vividsolutions.jump.I18N;
-
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,6 +49,10 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.openjump.advancedtools.CadExtension;
+
+import com.vividsolutions.jump.I18N;
+
 
 /**
  * 
@@ -60,7 +62,7 @@ public class RotateDialog extends JDialog implements ChangeListener,
         ActionListener {
 
     private static final long serialVersionUID = 1L;
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     JRotationPanel rotationPanel = new JRotationPanel(0);
     JSpinner jspinner = new JSpinner();

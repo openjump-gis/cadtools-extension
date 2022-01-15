@@ -54,6 +54,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import com.vividsolutions.jump.I18N;
+
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.plugins.ArcPlugIn;
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
@@ -64,7 +66,7 @@ import org.openjump.advancedtools.utils.WorkbenchUtils;
 public class ArcDialog extends JDialog implements ActionListener {
     /** long serialVersionUID field */
     private static final long serialVersionUID = 1L;
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+
     public static ImageIcon ICON = org.openjump.advancedtools.icon.IconLoader
             .icon("cad.png");
     //JPanel p1 = new JPanel();
@@ -72,26 +74,26 @@ public class ArcDialog extends JDialog implements ActionListener {
     JPanel p3 = new JPanel();
 
     JButton jb1 = new JButton(
-        i18n.get("org.openjump.core.ui.plugins.Dialog.Accept"));
+        CadExtension.I18N.get("org.openjump.core.ui.plugins.Dialog.Accept"));
     JButton jb2 = new JButton(
-        i18n.get("org.openjump.core.ui.plugins.Dialog.Cancel"));
+        CadExtension.I18N.get("org.openjump.core.ui.plugins.Dialog.Cancel"));
 
     JRadioButton jrbindicarRaton = new JRadioButton(
-        i18n.get("org.openjump.core.ui.plugins.Circle.Draw-with-the-mouse"));
+        CadExtension.I18N.get("org.openjump.core.ui.plugins.Circle.Draw-with-the-mouse"));
     JRadioButton jrbindicarPosicionRadio = new JRadioButton(
-        i18n.get("org.openjump.core.ui.plugins.Circle.Point-out-radius-and-position"));
+        CadExtension.I18N.get("org.openjump.core.ui.plugins.Circle.Point-out-radius-and-position"));
 
     JLabel jlx = new JLabel(
-        i18n.get("org.openjump.core.ui.plugins.Circle.X") + ":");
+        CadExtension.I18N.get("org.openjump.core.ui.plugins.Circle.X") + ":");
     JLabel jly = new JLabel(
-        i18n.get("org.openjump.core.ui.plugins.Circle.Y") + ":");
+        CadExtension.I18N.get("org.openjump.core.ui.plugins.Circle.Y") + ":");
     JLabel jlr = new JLabel(
-        i18n.get("org.openjump.core.ui.plugins.Circle.Radius") + ":");
+        CadExtension.I18N.get("org.openjump.core.ui.plugins.Circle.Radius") + ":");
     JLabel jla1 = new JLabel(
-        i18n.get("org.openjump.core.ui.plugins.Circle.Start-angle")
+        CadExtension.I18N.get("org.openjump.core.ui.plugins.Circle.Start-angle")
                     + ":");
     JLabel jla2 = new JLabel(
-        i18n.get("org.openjump.core.ui.plugins.Circle.End-angle")
+        CadExtension.I18N.get("org.openjump.core.ui.plugins.Circle.End-angle")
                     + ":");
 
     JPanel jpRaton = new JPanel();

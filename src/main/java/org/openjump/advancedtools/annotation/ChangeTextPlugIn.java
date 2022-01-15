@@ -4,6 +4,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 import com.vividsolutions.jump.I18N;
+
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.icon.IconLoader;
 
 import com.vividsolutions.jump.feature.FeatureCollectionWrapper;
@@ -18,19 +20,17 @@ import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 
 public class ChangeTextPlugIn extends AbstractPlugIn {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
-
     public static ImageIcon ICON = IconLoader
             .icon("textblock/annotation_edit.png");
 
     /** Name of the tool */
-    public final static String NAME = i18n
+    public final static String NAME = CadExtension.I18N
             .get("org.openjump.core.ui.plugins.annotation.ChangeTextTool.name");
     /** Description of the tool */
-    public final static String DESCRIPTION = i18n
+    public final static String DESCRIPTION = CadExtension.I18N
             .get("org.openjump.core.ui.plugins.annotation.ChangeTextTool.description");
 
-    public final static String MESSAGE = i18n
+    public final static String MESSAGE = CadExtension.I18N
             .get("org.openjump.core.ui.plugins.annotation.AddTextTool.message");
 
     @Override

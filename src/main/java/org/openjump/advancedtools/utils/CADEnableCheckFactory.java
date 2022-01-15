@@ -15,6 +15,8 @@ import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.util.Assert;
+import org.openjump.advancedtools.CadExtension;
+
 import com.vividsolutions.jump.feature.Feature;
 import com.vividsolutions.jump.feature.FeatureCollectionWrapper;
 import com.vividsolutions.jump.feature.FeatureSchema;
@@ -26,7 +28,7 @@ import com.vividsolutions.jump.workbench.ui.SelectionManagerProxy;
 
 public class CADEnableCheckFactory {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     protected WorkbenchContext workbenchContext;
 

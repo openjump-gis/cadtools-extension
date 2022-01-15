@@ -50,12 +50,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import com.vividsolutions.jump.I18N;
+import org.openjump.advancedtools.CadExtension;
 import org.openjump.advancedtools.tools.cogo.commands.HelpLineCommand;
 import org.openjump.advancedtools.tools.cogo.commands.LineCommand;
 import org.openjump.advancedtools.tools.cogo.commands.LineCommandException;
 import org.openjump.advancedtools.tools.cogo.commands.LineCommandFactory;
 import org.saig.core.gui.swing.sldeditor.util.FormUtils;
+
+import com.vividsolutions.jump.I18N;
 
 /**
  * Commands panel for the tool DrawGeometryCommand
@@ -71,7 +73,7 @@ public class CommandLineStringPanel extends JPanel {
 
     /** long serialVersionUID field */
     private static final long serialVersionUID = 1L;
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
+    private static final I18N i18n = CadExtension.I18N;
 
     private final DrawGeometryCommandsTool drawLineStringCommandsTool;
 

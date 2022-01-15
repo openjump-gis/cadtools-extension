@@ -14,6 +14,8 @@ import com.vividsolutions.jump.workbench.JUMPWorkbench;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
+import org.openjump.advancedtools.CadExtension;
+
 import com.vividsolutions.jump.geom.CoordUtil;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 import com.vividsolutions.jump.workbench.ui.LayerNamePanelProxy;
@@ -24,10 +26,8 @@ import com.vividsolutions.jump.workbench.ui.cursortool.editing.FeatureDrawingUti
 
 public class DrawBlockTool extends NClickTool {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
-
     //public static final String blockFolder = "VertexImages";
-    public static final String NAME = i18n
+    public static final String NAME = CadExtension.I18N
         .get("org.openjump.core.ui.plugins.block.DrawblockTool.description");
 
     private final FeatureDrawingUtil featureDrawingUtil;
