@@ -13,6 +13,8 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- workaround, we need to use em here, so they are avail later during filtering -->
+    <version.string>${git.branch}-${git.build.time}-${git.commit.id.abbrev}</version.string>
   </properties>
 
   <repositories>
@@ -42,7 +44,44 @@
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>org/openjump/advancedtools/language/</include>
+        </includes>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
     <plugins>
+      <plugin>
+        <groupId>io.github.git-commit-id</groupId>
+        <artifactId>git-commit-id-maven-plugin</artifactId>
+        <version>4.9.9</version>
+        <?m2e execute onConfiguration,onIncremental?>
+        <executions>
+          <!-- retrieve git revision information from local repo -->
+          <execution>
+            <id>fetch git properties of current branch</id>
+            <goals>
+              <goal>revision</goal>
+            </goals>
+            <phase>validate</phase>
+          </execution>
+        </executions>
+        <configuration>
+          <verbose>true</verbose>
+          <includeOnlyProperties>
+            <includeOnlyProperty>^git.branch$</includeOnlyProperty>
+            <includeOnlyProperty>^git.build.(time|version|(number(|.unique)))$</includeOnlyProperty>
+            <includeOnlyProperty>^git.commit.(id.(abbrev|full)|message.short)$</includeOnlyProperty>
+            <includeOnlyProperty>^git.dirty$</includeOnlyProperty>
+          </includeOnlyProperties>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>com.googlecode.maven-download-plugin</groupId>
         <artifactId>download-maven-plugin</artifactId>
