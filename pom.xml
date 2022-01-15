@@ -104,8 +104,30 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>net.nicoulaj.maven.plugins</groupId>
+        <artifactId>checksum-maven-plugin</artifactId>
+        <version>1.10</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>files</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+              <fileSets>
+                <fileSet>
+                  <directory>${project.build.directory}</directory>
+                  <includes>
+                    <include>${project.build.finalName}.zip</include>
+                    <include>${project.build.finalName}.jar</include>
+                  </includes>
+                </fileSet>
+              </fileSets>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
-
-
 </project>
