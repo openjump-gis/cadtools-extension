@@ -16,6 +16,7 @@
  */
 package org.openjump.advancedtools;
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.plugin.Extension;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 
@@ -24,20 +25,23 @@ import com.vividsolutions.jump.workbench.plugin.PlugInContext;
  * @since OpenJUMP 1.10
  */
 public class CadExtension extends Extension {
-	@Override
-	public String getName() {
-		return "Cad Tools (Giuseppe Aruta, Michaël Michaud - cad tools adapted from Kosmo 3.0, SkyJUMP and new tools)";
-	}
 
-	@Override
-	public String getVersion() {
-		return "2.0 (2021-05-01)";
-	}
+  public static final I18N I18N = com.vividsolutions.jump.I18N.getInstance("org.openjump.advancedtools");
 
-	@Override
-	public void configure(PlugInContext context) {
+  @Override
+  public String getName() {
+    return I18N.get("org.openjump.core.ui.CAD.extension.name");
+  }
 
-		new EditToolboxCADPlugIn().initialize(context);
-		new ExtendedDecorationPlugIn().initialize(context);
-	}
+  @Override
+  public String getVersion() {
+    return I18N.get("org.openjump.core.ui.CAD.extension.version");
+  }
+
+  @Override
+  public void configure(PlugInContext context) {
+
+    new EditToolboxCADPlugIn().initialize(context);
+    new ExtendedDecorationPlugIn().initialize(context);
+  }
 }
