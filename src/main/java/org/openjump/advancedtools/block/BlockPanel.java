@@ -28,6 +28,8 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.TitledBorder;
 
 import org.locationtech.jts.geom.Geometry;
+import org.openjump.advancedtools.CadExtension;
+
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.workbench.WorkbenchContext;
 import com.vividsolutions.jump.workbench.plugin.EnableCheck;
@@ -37,14 +39,13 @@ import com.vividsolutions.jump.workbench.ui.WorkbenchToolBar;
 
 public class BlockPanel extends JPanel {
 
-    private static final I18N i18n = I18N.getInstance("org.openjump.advancedtools");
-
     private static final long serialVersionUID = 1L;
     public static final String blockFolder = "VertexImages";
     public static final String NAME = "Insert symbol as block";
 
     public static JComboBox<BlockCell> chooseBox = new JComboBox<>();
 
+ // TODO: language strings are located in OJ core. Why?
     public static String circle = I18N.JUMP
             .get("deejump.ui.style.RenderingStylePanel.circle");
     public static String triangle = I18N.JUMP
@@ -85,7 +86,7 @@ public class BlockPanel extends JPanel {
     };
 
     @SuppressWarnings({})
-    public JPanel panel_blocks(PlugInContext context) {
+    public JPanel panel_blocks(PlugInContext context) throws Exception {
         final JPanel mainPanel = new JPanel(new GridBagLayout());
 
         final Dimension d = new Dimension(140, /*
@@ -93,7 +94,7 @@ public class BlockPanel extends JPanel {
                                                 * height
                                                 */28);
         chooseBox
-            .setToolTipText(i18n
+            .setToolTipText(CadExtension.I18N
                 .get("org.openjump.core.ui.plugins.block.dialog.select-block"));
         chooseBox.setPreferredSize(d);
 
@@ -113,25 +114,25 @@ public class BlockPanel extends JPanel {
             }
         });
         initComboBox(context);
-        initToolBar(context.getWorkbenchContext());
+        initToolBar(context);
         // setBlockChooserPanel(context);
 
         dimensionSpinner = new JSpinner(dimensionModel);
         final JLabel labelDimension = new JLabel(
-                i18n.get("org.openjump.core.ui.plugins.block.dialog-dimension"));
+            CadExtension.I18N.get("org.openjump.core.ui.plugins.block.dialog-dimension"));
         labelDimension.setToolTipText(gedDimensionTooltip());
 
         rotationSpinner = new JSpinner(rotationModel);
         final JLabel labelRotation = new JLabel(
-            i18n.get("org.openjump.core.ui.plugins.block.dialog-rotation"));
+            CadExtension.I18N.get("org.openjump.core.ui.plugins.block.dialog-rotation"));
         labelRotation
-            .setToolTipText(i18n
+            .setToolTipText(CadExtension.I18N
                 .get("org.openjump.core.ui.plugins.annotation.dialog.font-rotation-message"));
 
         final TitledBorder titledBorder = new TitledBorder(
                 BorderFactory.createEtchedBorder(Color.white, new Color(148,
                         145, 140)),
-            i18n.get("org.openjump.core.ui.plugins.block"));
+                CadExtension.I18N.get("org.openjump.core.ui.plugins.block"));
         mainPanel.setBorder(titledBorder);
 
         final GridBagConstraints c = new GridBagConstraints();
@@ -188,25 +189,31 @@ public class BlockPanel extends JPanel {
 
         JPanel blockChooserPanel = new JPanel();
         JLabel chooseBlockLabel = new JLabel(
-            i18n.get("org.openjump.core.ui.plugins.block.dialog.select-block"));
+            CadExtension.I18N.get("org.openjump.core.ui.plugins.block.dialog.select-block"));
         blockChooserPanel.setToolTipText(
-            i18n.get("org.openjump.core.ui.plugins.block.dialog.dialog.select-block-message"));
+            CadExtension.I18N.get("org.openjump.core.ui.plugins.block.dialog.dialog.select-block-message"));
         blockChooserPanel.add(chooseBlockLabel);
         blockChooserPanel.add(chooseBox);
 
         return blockChooserPanel;
     }
 
-    private void initToolBar(WorkbenchContext context) {
+    private void initToolBar(PlugInContext context) throws Exception {
+
         DrawBlockPlugIn draw = new DrawBlockPlugIn(this);
         // SaveBlockPlugIn must contain a reference to this BlockPanel
         SaveBlockPlugIn save = new SaveBlockPlugIn(this);
         // ShowHelpPlugIn help = new ShowHelpPlugIn();
         DrawOrientedBlockPlugIn drag = new DrawOrientedBlockPlugIn(this);
 
-        toolBar.addPlugIn(draw.getIcon(), draw, null, context);
-        toolBar.addPlugIn(drag.getIcon(), drag, null, context);
-        toolBar.addPlugIn(save.getIcon(), save, null, context);
+        // initialize plugins
+        draw.initialize(context);
+        save.initialize(context);
+        drag.initialize(context);
+        // install
+        toolBar.addPlugIn(draw.getIcon(), draw, null, context.getWorkbenchContext());
+        toolBar.addPlugIn(drag.getIcon(), drag, null, context.getWorkbenchContext());
+        toolBar.addPlugIn(save.getIcon(), save, null, context.getWorkbenchContext());
     }
 
     void initComboBox(PlugInContext context) {
@@ -251,8 +258,8 @@ public class BlockPanel extends JPanel {
 
     private String gedDimensionTooltip() {
 
-        String dimension   = i18n.get("org.openjump.core.ui.plugins.block.define-dimension");
-        String description = i18n.get("org.openjump.core.ui.plugins.block.define-dimension-description");
+        String dimension   = CadExtension.I18N.get("org.openjump.core.ui.plugins.block.define-dimension");
+        String description = CadExtension.I18N.get("org.openjump.core.ui.plugins.block.define-dimension-description");
         String style       = "width: 200px; text-justification: justify;";
 
         return String.format(
