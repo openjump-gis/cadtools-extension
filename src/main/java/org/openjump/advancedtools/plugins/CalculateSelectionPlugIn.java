@@ -36,10 +36,7 @@
  */
 package org.openjump.advancedtools.plugins;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.openjump.advancedtools.utils.WorkbenchUtils;
 
@@ -113,7 +110,7 @@ public class CalculateSelectionPlugIn extends AbstractPlugIn {
             context.getLayerViewPanel().getSelectionManager().clear();
         }
         @SuppressWarnings("unchecked")
-        Map<Layer, Collection<Feature>> layerToFeaturesInFenceMap = context
+        Map<Layer, Set<Feature>> layerToFeaturesInFenceMap = context
                 .getLayerViewPanel().visibleLayerToFeaturesInFenceMap(fence);
 
         if (!layerToFeaturesInFenceMap.isEmpty()) {
@@ -135,7 +132,7 @@ public class CalculateSelectionPlugIn extends AbstractPlugIn {
      * @param context plugin context
      */
     protected void refreshSelection(
-            Map<Layer, Collection<Feature>> layerToFeaturesInFenceMap,
+            Map<Layer, Set<Feature>> layerToFeaturesInFenceMap,
             PlugInContext context) {
         Layer layer = context.getSelectedLayer(0);
         boolean originalPanelUpdatesEnabled = context.getLayerViewPanel()
