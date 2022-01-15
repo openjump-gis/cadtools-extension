@@ -5,9 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.openjump</groupId>
   <artifactId>cadtools-extension</artifactId>
-  <version>2.1.0</version>
+  <version>2.1.1</version>
   <name>cadtools-extension</name>
-  <description>CAD like tools for OpenJJMP</description>
+  <description>CAD like tools for OpenJUMP</description>
 
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
