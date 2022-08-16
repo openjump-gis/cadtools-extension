@@ -8,7 +8,6 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-//import java.awt.List;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +29,9 @@ import javax.swing.border.TitledBorder;
 import org.locationtech.jts.geom.Geometry;
 import org.openjump.advancedtools.CadExtension;
 
+import com.cadplan.vertex_symbols.jump.VertexSymbolsExtension;
 import com.vividsolutions.jump.I18N;
+import com.vividsolutions.jump.workbench.Logger;
 import com.vividsolutions.jump.workbench.WorkbenchContext;
 import com.vividsolutions.jump.workbench.plugin.EnableCheck;
 import com.vividsolutions.jump.workbench.plugin.PlugIn;
@@ -40,7 +41,6 @@ import com.vividsolutions.jump.workbench.ui.WorkbenchToolBar;
 public class BlockPanel extends JPanel {
 
   private static final long serialVersionUID = 1L;
-  public static final String blockFolder = "VertexImages";
   public static final String NAME = "Insert symbol as block";
 
   public static JComboBox<BlockCell> chooseBox = new JComboBox<>();
@@ -214,27 +214,28 @@ public class BlockPanel extends JPanel {
   }
 
   private List<BlockCell> getAllBlockCells(PlugInContext context) {
-    File pluginDir = context.getWorkbenchContext().getWorkbench().getPlugInManager().getPlugInDirectory();
-    File folder = new File(pluginDir, blockFolder);
     List<BlockCell> blocks = new ArrayList<>();
     blocks.add(BlockCell.SQUARE);
     blocks.add(BlockCell.CIRCLE);
     blocks.add(BlockCell.TRIANGLE);
     blocks.add(BlockCell.CROSS);
     blocks.add(BlockCell.STAR);
-    try {
-      File[] fList = folder.listFiles();
-      if (fList != null) {
-        Arrays.sort(fList);
-        for (File file : fList) {
-          if (file.isFile() && file.getName().toUpperCase().endsWith(".WKT")) {
+
+    File folder = VertexSymbolsExtension.getVertexImagesFolder(context.getWorkbenchContext());
+    File[] fList = null;
+    if (folder != null && (fList = folder.listFiles()) != null) {
+      Arrays.sort(fList);
+      for (File file : fList) {
+        if (file.isFile() && file.getName().toUpperCase().endsWith(".WKT")) {
+          try {
             blocks.add(new BlockCell(file));
+          } catch (Exception e) {
+            Logger.error(e);
           }
         }
       }
-    } catch (Exception ex) {
-      ex.printStackTrace();
     }
+
     return blocks;
   }
 
