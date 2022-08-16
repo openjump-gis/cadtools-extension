@@ -78,7 +78,7 @@ public class BlockUtils {
      * + ".wkt"; geom2 = readGeomFromWKT(blockName, BlockPanel.blockFolder); }
      * return geom2; }
      */
-
+/*
     // Get the geometry
     @Deprecated
     public static Geometry getGeometry() throws IOException, ParseException {
@@ -142,7 +142,7 @@ public class BlockUtils {
                 .getLayerViewPanel().getJava2DConverter().toShape(geom2);
         return shape2;
     }
-
+*/
     // Reads Geometry form a wkt file. Since the files are from VertexFolder and
     // have a difference
     // in wkt syntax, the text before the wkt geometry specification is excluded
