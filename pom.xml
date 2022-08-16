@@ -36,10 +36,10 @@
     <dependency>
       <groupId>com.cadplan</groupId>
       <artifactId>vertex-symbols</artifactId>
-      <version>2.2.0</version>
+      <version>2.2.1</version>
       <scope>system</scope>
       <!-- run `mvn initialize` to enforce download if build fails because it's missing -->
-      <systemPath>${project.build.directory}/lib.vertex-symbols/vertex-symbols-2.2.0.jar</systemPath>
+      <systemPath>${project.build.directory}/lib.vertex-symbols/vertex-symbols-2.2.1.jar</systemPath>
     </dependency>
 
   </dependencies>
@@ -73,8 +73,8 @@
               <goal>wget</goal>
             </goals>
             <configuration>
-              <url>https://github.com/openjump-gis/vertex-symbols/releases/download/v2.2.0/vertex-symbols-2.2.0.zip</url>
-              <sha1>22df1e3124113909ffaeba12f93647832554c9c1</sha1>
+              <url>https://github.com/openjump-gis/vertex-symbols/releases/download/v2.2.1/vertex-symbols-2.2.1.zip</url>
+              <sha1>a2c8bdb76c099ef9c2835148bc461a6a577e5d15</sha1>
               <unpack>true</unpack>
               <outputDirectory>${project.build.directory}/lib.vertex-symbols/</outputDirectory>
             </configuration>
