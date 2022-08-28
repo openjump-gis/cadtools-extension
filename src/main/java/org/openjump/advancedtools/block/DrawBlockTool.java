@@ -85,11 +85,10 @@ public class DrawBlockTool extends NClickTool {
         GeometryUtils.rotate_clockwise_Geometry(geom2, rotation);
         GeometryUtils.scaleGeometry(geom2, dimension);
         GeometryUtils.centerGeometry(geom2, displacement);
+        geom2.geometryChanged();
 
-        // TODO: [202208 ed] lots a symbols seem to not pass geom.isValid() anymore
-        //       disabled the check, but am not sure this is the proper solution
         UndoableCommand cmd = featureDrawingUtil.createAddCommand(geom2,
-            /*isRollingBackInvalidEdits()*/false, getPanel(), this);
+            isRollingBackInvalidEdits(), getPanel(), this);
 
         if (cmd!=null)
           execute(cmd);
