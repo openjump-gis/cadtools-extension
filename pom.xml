@@ -30,7 +30,7 @@
     <dependency>
       <groupId>org.openjump</groupId>
       <artifactId>OpenJUMP</artifactId>
-      <version>2.0-main-SNAPSHOT</version>
+      <version>[2.0-main-SNAPSHOT,)</version>
     </dependency>
 
     <dependency>
