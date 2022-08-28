@@ -16,6 +16,8 @@ import javax.swing.ImageIcon;
 
 import com.vividsolutions.jump.workbench.JUMPWorkbench;
 import com.vividsolutions.jump.workbench.Logger;
+import com.vividsolutions.jump.workbench.model.UndoableCommand;
+
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.LineSegment;
@@ -115,11 +117,14 @@ public class DrawOrientedBlockTool extends ConstrainedNClickTool {
 		Integer dimension = (Integer) BlockPanel.dimensionSpinner.getValue();
 		GeometryUtils.scaleGeometry(geom2, dimension);
 		GeometryUtils.centerGeometry(geom2, displacement);
+		geom2.geometryChanged();
 		// Get the selected layer if layer doesn't exist, add new layer
+		//getPanel().setViewportInitialized(true);
 
-		getPanel().setViewportInitialized(true);
-		execute(featureDrawingUtil.createAddCommand(geom2, isRollingBackInvalidEdits(), getPanel(), this));
+		UndoableCommand cmd = featureDrawingUtil.createAddCommand(geom2,
+				isRollingBackInvalidEdits(), getPanel(), this);
 
+		execute(cmd,true);
 	}
 
 	@Override

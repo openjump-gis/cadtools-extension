@@ -90,8 +90,7 @@ public class DrawBlockTool extends NClickTool {
         UndoableCommand cmd = featureDrawingUtil.createAddCommand(geom2,
             isRollingBackInvalidEdits(), getPanel(), this);
 
-        if (cmd!=null)
-          execute(cmd);
+        execute(cmd, true);
     }
 
     @Override

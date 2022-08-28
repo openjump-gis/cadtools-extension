@@ -72,14 +72,14 @@ public class CircleBythreePointsTool extends ConstrainedMultiClickTool {
 
         if (CADToolsOptionsPanel.isGetAsPolygon()) {
             execute(featureDrawingUtil.createAddCommand(getPolygonCircle(),
-                    isRollingBackInvalidEdits(), getPanel(), this));
+                    isRollingBackInvalidEdits(), getPanel(), this),true);
         } else {
             execute(featureDrawingUtil.createAddCommand(getCircle(),
-                    isRollingBackInvalidEdits(), getPanel(), this));
+                    isRollingBackInvalidEdits(), getPanel(), this),true);
         }
         if (CADToolsOptionsPanel.isGetCentroid()) {
             execute(featureDrawingUtil.createAddCommand(getCenter(),
-                    isRollingBackInvalidEdits(), getPanel(), this));
+                    isRollingBackInvalidEdits(), getPanel(), this),true);
         }
     }
 

@@ -133,7 +133,7 @@ public class CircleByDefinedRadiusTool extends NClickTool {
 
         if (CADToolsOptionsPanel.isGetCentroid()) {
             execute(featureDrawingUtil.createAddCommand(p,
-                    isRollingBackInvalidEdits(), getPanel(), this));
+                    isRollingBackInvalidEdits(), getPanel(), this),true);
         }
 
     }

@@ -85,15 +85,15 @@ public class CircleByRadiusTool extends ConstrainedMultiClickTool {
         if (CADToolsOptionsPanel.isGetAsPolygon()) {
             execute(featureDrawingUtil.createAddCommand(
                     getPolygonCircleRadius(), isRollingBackInvalidEdits(),
-                    getPanel(), this));
+                    getPanel(), this),true);
         } else {
             execute(featureDrawingUtil.createAddCommand(getCircleRadius(),
-                    isRollingBackInvalidEdits(), getPanel(), this));
+                    isRollingBackInvalidEdits(), getPanel(), this),true);
         }
 
         if (CADToolsOptionsPanel.isGetCentroid()) {
             execute(featureDrawingUtil.createAddCommand(getCenter(),
-                    isRollingBackInvalidEdits(), getPanel(), this));
+                    isRollingBackInvalidEdits(), getPanel(), this),true);
         }
 
     }

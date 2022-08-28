@@ -125,7 +125,7 @@ public class RegularPolygonByDefinedRadiusTool extends NClickTool {
 
         if (CADToolsOptionsPanel.isGetCentroid()) {
             execute(featureDrawingUtil.createAddCommand(p,
-                    isRollingBackInvalidEdits(), getPanel(), this));
+                    isRollingBackInvalidEdits(), getPanel(), this),true);
         }
 
     }

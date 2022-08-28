@@ -87,15 +87,15 @@ public class CircleByTangentTool extends ConstrainedMultiClickTool {
         if (CADToolsOptionsPanel.isGetAsPolygon()) {
             execute(featureDrawingUtil.createAddCommand(
                     getPolygonCircleTangent(), isRollingBackInvalidEdits(),
-                    getPanel(), this));
+                    getPanel(), this),true);
         } else {
             execute(featureDrawingUtil.createAddCommand(getCircleTangent(),
-                    isRollingBackInvalidEdits(), getPanel(), this));
+                    isRollingBackInvalidEdits(), getPanel(), this),true);
         }
 
         if (CADToolsOptionsPanel.isGetCentroid()) {
             execute(featureDrawingUtil.createAddCommand(getCenter(),
-                    isRollingBackInvalidEdits(), getPanel(), this));
+                    isRollingBackInvalidEdits(), getPanel(), this),true);
         }
 
     }

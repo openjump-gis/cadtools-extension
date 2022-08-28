@@ -151,14 +151,14 @@ public class EllipseByDraggingTool extends DragTool {
 
 		if (CADToolsOptionsPanel.isGetAsPolygon()) {
 			execute(featureDrawingUtil.createAddCommand(getEllipsePolygon(), isRollingBackInvalidEdits(), getPanel(),
-					this));
+					this),true);
 		} else {
 			execute(featureDrawingUtil.createAddCommand(getEllipseLineString(), isRollingBackInvalidEdits(), getPanel(),
-					this));
+					this),true);
 		}
 
 		if (CADToolsOptionsPanel.isGetCentroid()) {
-			execute(featureDrawingUtil.createAddCommand(getCenter(), isRollingBackInvalidEdits(), getPanel(), this));
+			execute(featureDrawingUtil.createAddCommand(getCenter(), isRollingBackInvalidEdits(), getPanel(), this),true);
 		}
 
 	}

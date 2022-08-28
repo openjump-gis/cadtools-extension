@@ -172,7 +172,7 @@ public class DrawConstrainedParallelogramTool extends ConstrainedNClickTool {
             geom = factory.createPolygon(getParallelogram(), null);
 
             execute(featureDrawingUtil.createAddCommand(geom.getCentroid(),
-                    isRollingBackInvalidEdits(), getPanel(), this));
+                    isRollingBackInvalidEdits(), getPanel(), this),true);
         }
 
     }
